@@ -5,15 +5,11 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>{% block title %}{% endblock %} - Los Pollos Hermanos</title>
 
-        <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" />
-
-        {# Google Fonts #}
+        <link rel="stylesheet" href="{{ url_for("static", filename="css/style.css") }}" />
         <link
             href="https://fonts.googleapis.com/css2?family=Playpen+Sans:wght@300;400;500;600;700&display=swap"
             rel="stylesheet"
         />
-
-        {# Bootstrap CSS #}
         <link
             href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
             rel="stylesheet"
@@ -21,100 +17,19 @@
             crossorigin="anonymous"
         />
 
-        {# Additional head content #} {% block head %}{% endblock %}
+        {% block head %}{% endblock %}
     </head>
     <body>
-        {# Header #}
-        <header class="navbar navbar-expand-md py-3">
-            <div class="container-md">
-                <a class="navbar-brand" href="/">
-                    <img
-                        src="{{ url_for('static', filename='images/logo.svg') }}"
-                        alt="logo"
-                        height="60"
-                        class="d-inline-block me-2"
-                    />
-                    <div class="d-inline-block align-middle">
-                        <span>LOS POLLOS</span>
-                        <br />
-                        <span>HERMANOS</span>
-                    </div>
-                </a>
+        {%include "components/header.html" %}
 
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
+        <main class="container-md my-5">
+            {% block content %}
+            <!-- 子模板的內容會被插入到這裡  -->
+            {% endblock %}
+        </main>
 
-                <div class="collapse navbar-collapse" id="navbar">
-                    <ul class="navbar-nav ms-auto mb-2 mb-md-0">
-                        <li class="nav-item">
-                            <a class="nav-link {% if request.path == '/' %}active{% endif %}" href="/">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link {% if request.path.startswith('/menu') %}active{% endif %}" href="/menu"
-                                >Menu</a
-                            >
-                        </li>
-                        <li class="nav-item">
-                            <a
-                                class="nav-link {% if request.path.startswith('/employees') %}active{% endif %}"
-                                href="/employees"
-                                >Employees</a
-                            >
-                        </li>
-                        <li class="nav-item">
-                            <a
-                                class="nav-link {% if request.path.startswith('/locations') %}active{% endif %}"
-                                href="/location"
-                                >Location</a
-                            >
-                        </li>
-                        <li class="nav-item">
-                            <a
-                                class="nav-link {% if request.path.startswith('/suppliers') %}active{% endif %}"
-                                href="/suppliers"
-                                >Suppliers</a
-                            >
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </header>
+        {% include "components/footer.html" %}
 
-        {# 主體內容區域，子模板會填充這個區域 #}
-        <main class="container-md my-5">{% block content %} {# 子模板的內容會被插入到這裡 #} {% endblock %}</main>
-
-        {# Footer #}
-
-        <footer class="bg-light mt-auto pt-4">
-            <div class="container-md d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top">
-                <p class="col-md-4 mb-0 text-body-secondary">
-                    &copy; 2025
-                    <a
-                        class="text-body-secondary text-decoration-none"
-                        href="https://github.com/bclabs-io"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        >Blue Crystal Labs.</a
-                    >
-                </p>
-                <ul class="nav col-md-7 justify-content-end">
-                    <li class="nav-item"><a href="/" class="nav-link px-2 text-body-secondary">Home</a></li>
-                    <li class="nav-item"><a href="/menu" class="nav-link px-2 text-body-secondary">Menu</a></li>
-                    <li class="nav-item">
-                        <a href="/employees" class="nav-link px-2 text-body-secondary">Employees</a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="/location" class="nav-link px-2 text-body-secondary">Location</a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="/suppliers" class="nav-link px-2 text-body-secondary">Suppliers</a>
-                    </li>
-                </ul>
-            </div>
-        </footer>
-
-        {# Bootstrap JS #}
         <script
             src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
             integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
