@@ -1,0 +1,63 @@
+-- ============================
+-- Location Table
+-- ============================
+CREATE TABLE
+    location (
+        sId INT AUTO_INCREMENT PRIMARY KEY,
+        -- Coordinate
+        latitude DECIMAL(10, 7) NOT NULL,
+        longitude DECIMAL(10, 7) NOT NULL,
+        -- Address
+        city VARCHAR(100) NOT NULL,
+        address VARCHAR(255) NOT NULL,
+        zipcode VARCHAR(20) NOT NULL,
+        -- Opening Hours
+        mon TINYINT (1) NOT NULL DEFAULT 0,
+        tue TINYINT (1) NOT NULL DEFAULT 0,
+        wed TINYINT (1) NOT NULL DEFAULT 0,
+        thu TINYINT (1) NOT NULL DEFAULT 0,
+        fri TINYINT (1) NOT NULL DEFAULT 0,
+        sat TINYINT (1) NOT NULL DEFAULT 0,
+        sun TINYINT (1) NOT NULL DEFAULT 0,
+        open_time TIME NOT NULL,
+        close_time TIME NOT NULL
+    );
+
+-- ============================
+-- Employee Table
+-- ============================
+CREATE TABLE
+    employee (
+        eId INT AUTO_INCREMENT PRIMARY KEY,
+        -- Basic Info
+        name VARCHAR(100) NOT NULL,
+        position VARCHAR(100) NOT NULL,
+        -- Contact
+        email VARCHAR(100) NOT NULL,
+        phone VARCHAR(50),
+        -- Work Location
+        store INT NULL,
+        FOREIGN KEY (store) REFERENCES location (sId) ON DELETE SET NULL,
+        -- Hire Information
+        hireDate DATE,
+        type VARCHAR(20)
+    );
+
+-- ============================
+-- Supplier Table
+-- ============================
+CREATE TABLE
+    supplier (
+        id INT AUTO_INCREMENT PRIMARY KEY,
+        -- Basic Info
+        name VARCHAR(100) NOT NULL,
+        contactPerson VARCHAR(100),
+        -- Contact
+        email VARCHAR(100),
+        phone VARCHAR(50),
+        -- Address
+        city VARCHAR(100),
+        address VARCHAR(255),
+        -- Others
+        notes VARCHAR(255)
+    );
