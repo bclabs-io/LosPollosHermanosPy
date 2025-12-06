@@ -1,10 +1,12 @@
 from flask import Flask, abort, render_template
 
 from .errors import error_bp
+from .location import location_bp
 from .menu import menu_bp
 
 app = Flask(__name__, static_folder="../static", template_folder="../templates")
 app.register_blueprint(error_bp)
+app.register_blueprint(location_bp)
 app.register_blueprint(menu_bp)
 
 
