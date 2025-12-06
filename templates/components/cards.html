@@ -1,0 +1,58 @@
+<!-- 單點 -->
+{% macro dish_card(id, name, image, ingredients, calories, price) %}
+
+<div class="card" id="dish-{{ id }}">
+    <div class="ratio ratio-4x3">
+        <img src="{{ url_for('static', filename='images/' + image) }}" alt="{{ name }}" />
+    </div>
+    <div class="card-body">
+        <h5 class="card-title">{{ name }}</h5>
+        <ul class="my-0">
+            {% for ingredient in ingredients %}
+            <li>
+                {{ingredient["name"] }} &times; {{ ingredient["quantity"] }} {{ ingredient["unit"] }}
+                <br />
+                <span style="font-size: xx-small">(from {{ ingredient["supplier"] }})</span>
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+    <ul class="list-group list-group-flush">
+        <li class="list-group-item">Calories: {{ calories }} kcal</li>
+        <li class="list-group-item">Price: ${{ price }}</li>
+    </ul>
+    <div class="d-flex justify-content-between gap-2 p-3">
+        <a href="/menu/dish/{{ id }}/edit" class="btn btn-primary" role="button">Edit</a>
+        <a href="/menu/dish/{{ id }}/delete" class="btn btn-danger" role="button">Delete</a>
+        <a href="javascript:happy()" class="btn btn-success" role="button">:D</a>
+    </div>
+</div>
+
+{% endmacro %}
+
+<!-- 套餐 -->
+{%macro combo_card(id, name, image, dishs, price) %}
+
+<div class="card" id="combo-{{ id }}">
+    <div class="ratio ratio-4x3">
+        <img src="{{ url_for('static', filename='images/' + image) }}" alt="{{ name }}" />
+    </div>
+    <div class="card-body">
+        <h5 class="card-title">{{ name }}</h5>
+        <ul class="my-0">
+            {% for dish in dishs %}
+            <li>{{ dish['name'] }} &times; {{ dish['quantity'] }}</li>
+            {% endfor %}
+        </ul>
+    </div>
+    <ul class="list-group list-group-flush">
+        <li class="list-group-item">Price: ${{ price }}</li>
+    </ul>
+    <div class="d-flex justify-content-between gap-2 p-3">
+        <a href="/menu/combo/{{ id }}/edit" class="btn btn-primary" role="button">Edit</a>
+        <a href="/menu/combo/{{ id }}/delete" class="btn btn-danger" role="button">Delete</a>
+        <a href="javascript:happy()" class="btn btn-success" role="button">:D</a>
+    </div>
+</div>
+
+{% endmacro %}

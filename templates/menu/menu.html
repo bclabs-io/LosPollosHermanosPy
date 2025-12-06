@@ -1,0 +1,47 @@
+{% extends "base.html" %} {% import "components/cards.html" as cards %}
+
+<!-- 網頁標題 -->
+
+{% block title %}Menu{% endblock %}
+
+<!-- Head -->
+
+{% block head %}
+
+<link rel="stylesheet" href="{{ url_for('static', filename='css/menu.css') }}" />
+
+{% endblock %}
+
+<!-- 主要內容 -->
+
+{% block content %}
+
+<section class="mb-5">
+    <h1 class="mb-3">Dishes</h1>
+
+    <div class="d-flex gap-3 flex-wrap mb-3">
+        {% for dish in dishes %} {{ cards.dish_card(dish.id, dish.name, dish.image, dish.ingredients, dish.calories,
+        dish.price) }} {% endfor %}
+    </div>
+
+    <div class="mb-3">
+        <button type="button" class="btn btn-secondary">+</button>
+        <span class="ms-2">Add One</span>
+    </div>
+</section>
+
+<section class="mb-5">
+    <h1 class="mb-3">Combos</h1>
+
+    <div class="d-flex gap-3 flex-wrap mb-3">
+        {% for combo in combos %} {{ cards.combo_card(combo.id, combo.name, combo.image, combo.dishs, combo.price) }} {%
+        endfor %}
+    </div>
+
+    <div class="mb-3">
+        <button type="button" class="btn btn-secondary">+</button>
+        <span class="ms-2">Add One</span>
+    </div>
+</section>
+
+{% endblock %}
