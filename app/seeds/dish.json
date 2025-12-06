@@ -1,0 +1,172 @@
+[
+    {
+        "id": 1,
+        "name": "Burger",
+        "image": "burger.webp",
+        "ingredients": [
+            { "name": "Beef patty", "quantity": 1, "unit": "piece", "supplier": "Cowabunga Farms" },
+            { "name": "Cheese", "quantity": 1, "unit": "slice", "supplier": "Cheddar's Best" },
+            { "name": "Lettuce", "quantity": 2, "unit": "leaves", "supplier": "Leafy Greens Ltd." },
+            { "name": "Tomato", "quantity": 2, "unit": "slices", "supplier": "Tomato Tango" },
+            { "name": "Onions", "quantity": 3, "unit": "slices", "supplier": "Tearful Onion Co." },
+            { "name": "Pickles", "quantity": 3, "unit": "slices", "supplier": "Pickle Me Happy" },
+            { "name": "Special sauce", "quantity": 1, "unit": "tablespoon", "supplier": "Saucy Affair" },
+            {
+                "name": "Toasted brioche bun",
+                "quantity": 1,
+                "unit": "piece",
+                "supplier": "Brioche Boss Bakery"
+            }
+        ],
+        "calories": 600,
+        "price": 8.99
+    },
+    {
+        "id": 2,
+        "name": "Double Burger",
+        "image": "double_burger.webp",
+        "ingredients": [
+            { "name": "Beef patty", "quantity": 2, "unit": "pieces", "supplier": "Cowabunga Farms" },
+            { "name": "Cheese", "quantity": 2, "unit": "slices", "supplier": "Cheddar's Best" },
+            { "name": "Lettuce", "quantity": 3, "unit": "leaves", "supplier": "Leafy Greens Ltd." },
+            { "name": "Tomato", "quantity": 3, "unit": "slices", "supplier": "Tomato Tango" },
+            { "name": "Onions", "quantity": 4, "unit": "slices", "supplier": "Tearful Onion Co." },
+            { "name": "Pickles", "quantity": 4, "unit": "slices", "supplier": "Pickle Me Happy" },
+            { "name": "Special sauce", "quantity": 2, "unit": "tablespoons", "supplier": "Saucy Affair" },
+            {
+                "name": "Toasted brioche bun",
+                "quantity": 1,
+                "unit": "piece",
+                "supplier": "Brioche Boss Bakery"
+            }
+        ],
+        "calories": 800,
+        "price": 11.99
+    },
+    {
+        "id": 3,
+        "name": "Bacon Burger",
+        "image": "bacon_burger.webp",
+        "ingredients": [
+            { "name": "Bacon", "quantity": 2, "unit": "slices", "supplier": "Cowabunga Farms" },
+            { "name": "Cheese", "quantity": 1, "unit": "slice", "supplier": "Cheddar's Best" },
+            { "name": "Lettuce", "quantity": 2, "unit": "leaves", "supplier": "Leafy Greens Ltd." },
+            { "name": "Garlic powder", "quantity": 1, "unit": "teaspoon", "supplier": "Saucy Affair" },
+            { "name": "Paprika", "quantity": 1, "unit": "teaspoon", "supplier": "Saucy Affair" },
+            { "name": "Celery sticks", "quantity": 2, "unit": "sticks", "supplier": "Leafy Greens Ltd." },
+            { "name": "Ranch dressing", "quantity": 1, "unit": "tablespoon", "supplier": "Saucy Affair" }
+        ],
+        "calories": 450,
+        "price": 7.49
+    },
+    {
+        "id": 4,
+        "name": "Double Bacon Burger",
+        "image": "double_bacon_burger.webp",
+        "ingredients": [
+            { "name": "Bacon", "quantity": 4, "unit": "slices", "supplier": "Cowabunga Farms" },
+            { "name": "Cheese", "quantity": 2, "unit": "slices", "supplier": "Cheddar's Best" },
+            { "name": "Lettuce", "quantity": 3, "unit": "leaves", "supplier": "Leafy Greens Ltd." },
+            { "name": "Tomato", "quantity": 3, "unit": "slices", "supplier": "Tomato Tango" },
+            { "name": "Onions", "quantity": 4, "unit": "slices", "supplier": "Tearful Onion Co." },
+            { "name": "Pickles", "quantity": 4, "unit": "slices", "supplier": "Pickle Me Happy" },
+            { "name": "Special sauce", "quantity": 2, "unit": "tablespoons", "supplier": "Saucy Affair" },
+            {
+                "name": "Toasted brioche bun",
+                "quantity": 1,
+                "unit": "piece",
+                "supplier": "Brioche Boss Bakery"
+            }
+        ],
+        "calories": 950,
+        "price": 12.99
+    },
+    {
+        "id": 5,
+        "name": "Quadruple Bacon Burger",
+        "image": "quadruple_bacon_burger.webp",
+        "ingredients": [
+            { "name": "Bacon", "quantity": 4, "unit": "slices", "supplier": "Cowabunga Farms" },
+            { "name": "Cheese", "quantity": 4, "unit": "slices", "supplier": "Cheddar's Best" },
+            { "name": "Lettuce", "quantity": 3, "unit": "leaves", "supplier": "Leafy Greens Ltd." },
+            { "name": "Tomato", "quantity": 3, "unit": "slices", "supplier": "Tomato Tango" },
+            { "name": "Onions", "quantity": 5, "unit": "slices", "supplier": "Tearful Onion Co." },
+            { "name": "Pickles", "quantity": 5, "unit": "slices", "supplier": "Pickle Me Happy" },
+            { "name": "Special sauce", "quantity": 3, "unit": "tablespoons", "supplier": "Saucy Affair" },
+            {
+                "name": "Toasted brioche bun",
+                "quantity": 1,
+                "unit": "piece",
+                "supplier": "Brioche Boss Bakery"
+            }
+        ],
+        "calories": 1100,
+        "price": 14.99
+    },
+    {
+        "id": 6,
+        "name": "Fries",
+        "image": "fries.webp",
+        "ingredients": [
+            { "name": "Potatoes", "quantity": 200, "unit": "grams", "supplier": "Spud Masters" },
+            { "name": "Salt", "quantity": 5, "unit": "grams", "supplier": "Spice World" },
+            { "name": "Vegetable oil", "quantity": 100, "unit": "ml", "supplier": "Oil & Co." }
+        ],
+        "calories": 300,
+        "price": 3.49
+    },
+    {
+        "id": 7,
+        "name": "Chocolate Shake",
+        "image": "chocolate_shake.webp",
+        "ingredients": [
+            {
+                "name": "Chocolate ice cream",
+                "quantity": 200,
+                "unit": "grams",
+                "supplier": "Milky Way Dairy"
+            },
+            { "name": "Milk", "quantity": 300, "unit": "ml", "supplier": "Milky Way Dairy" },
+            { "name": "Sugar", "quantity": 25, "unit": "grams", "supplier": "Sweet Life Sugars" }
+        ],
+        "calories": 550,
+        "price": 5.49
+    },
+    {
+        "id": 8,
+        "name": "Vanilla Shake",
+        "image": "vanilla_shake.webp",
+        "ingredients": [
+            {
+                "name": "Vanilla ice cream",
+                "quantity": 200,
+                "unit": "grams",
+                "supplier": "Milky Way Dairy"
+            },
+            { "name": "Milk", "quantity": 300, "unit": "ml", "supplier": "Milky Way Dairy" },
+            { "name": "Sugar", "quantity": 25, "unit": "grams", "supplier": "Sweet Life Sugars" }
+        ],
+        "calories": 500,
+        "price": 4.99
+    },
+    {
+        "id": 9,
+        "name": "Soft Drinks",
+        "image": "soft_drinks.webp",
+        "ingredients": [
+            { "name": "Carbonated water", "quantity": 250, "unit": "ml", "supplier": "Fizz Factory" },
+            { "name": "Sugar", "quantity": 20, "unit": "grams", "supplier": "Fizz Factory" },
+            { "name": "Flavoring", "quantity": 1, "unit": "teaspoon", "supplier": "Fizz Factory" }
+        ],
+        "calories": 200,
+        "price": 1.99
+    },
+    {
+        "id": 10,
+        "name": "Bottled Water",
+        "image": "bottled_water.webp",
+        "ingredients": [{ "name": "Water", "quantity": 500, "unit": "ml", "supplier": "H2O Hero" }],
+        "calories": 0,
+        "price": 0.99
+    }
+]
