@@ -1,6 +1,6 @@
 from flask import Flask, abort, render_template
 
-from .db import create_tables, drop_all_tables, get_db_connection  # noqa: F401
+from .db import create_tables, drop_all_tables, get_db  # noqa: F401
 from .errors import error_bp
 from .location import location_bp
 from .menu import menu_bp

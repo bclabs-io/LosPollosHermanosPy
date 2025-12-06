@@ -5,7 +5,7 @@ import pymysql
 connection = None
 
 
-def get_db_connection():
+def get_db():
     global connection
     if connection:  # 重複使用已存在的連線
         return connection
@@ -23,7 +23,7 @@ def get_db_connection():
 
 
 def create_tables():
-    conn = get_db_connection()
+    conn = get_db()
     drop_all_tables()
     with conn.cursor() as cursor:
         with open("app/schema.sql", "r", encoding="utf-8") as f:
@@ -36,14 +36,14 @@ def create_tables():
 
 
 def drop_table(table_name: str):
-    conn = get_db_connection()
+    conn = get_db()
     with conn.cursor() as cursor:
         cursor.execute(f"DROP TABLE IF EXISTS {table_name};")
     conn.commit()
 
 
 def drop_all_tables():
-    conn = get_db_connection()
+    conn = get_db()
     with conn.cursor() as cursor:
         cursor.execute("SHOW TABLES;")
         tables = cursor.fetchall()

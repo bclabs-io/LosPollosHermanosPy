@@ -1,3 +1,8 @@
+html,
+body {
+    overscroll-behavior: none;
+}
+
 body {
     min-height: 100vh;
     display: flex;
@@ -9,4 +14,5 @@ header {
     font-family: "Playpen Sans", cursive;
     font-weight: bold;
     line-height: 1.2;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* 給 header 加上陰影效果 */
 }
