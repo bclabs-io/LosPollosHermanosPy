@@ -37,5 +37,17 @@
     </div>
 </div>
 
+{% if not locations %}
+<p>No locations found.</p>
+{% else %}
+<ul>
+    {% for location in locations %}
+    <li>{{ location.city }} - {{ location.address }}</li>
+    {% endfor %}
+</ul>
+{% endif %} {% endblock %}
+
+<!-- 其他腳本 -->
+{% block scripts %}
 <script src="{{ url_for('static', filename='js/location.js') }}"></script>
 {% endblock %}

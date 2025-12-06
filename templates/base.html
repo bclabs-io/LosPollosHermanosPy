@@ -5,6 +5,8 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>{% block title %}{% endblock %} - Los Pollos Hermanos</title>
 
+        <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}" type="image/x-icon" />
+
         <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" />
         <link
             href="https://fonts.googleapis.com/css2?family=Playpen+Sans:wght@300;400;500;600;700&display=swap"
@@ -35,5 +37,7 @@
             integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
             crossorigin="anonymous"
         ></script>
+
+        {% block scripts %}{% endblock %}
     </body>
 </html>
