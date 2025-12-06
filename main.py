@@ -1,23 +1,10 @@
 from dotenv import load_dotenv
-from flask import Flask, abort, render_template
-
-from app.errors import error_bp
 
 load_dotenv()
 
-app = Flask(__name__)
-app.register_blueprint(error_bp)
+from app import create_app
 
-
-@app.route("/")
-def index():
-    return render_template("index.html")
-
-
-@app.route("/about")
-def about():
-    abort(418)
-
+app = create_app()
 
 if __name__ == "__main__":
     app.run(debug=True)
