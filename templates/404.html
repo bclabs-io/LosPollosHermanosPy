@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+<!-- 網頁標題 -->
+
+{% block title %}404 Not Found - Los Pollos Hermanos{% endblock %}
+
+<!-- 主要內容 -->
+
+{% block content %}
+<h1>404 Not Found</h1>
+<p>Sorry, the page you are looking for does not exist.</p>
+<p>
+    Please return to the <a href="{{ url_for('index') }}">homepage</a> and enjoy some delicious chicken at Los Pollos
+    Hermanos!
+</p>
+{% endblock %}

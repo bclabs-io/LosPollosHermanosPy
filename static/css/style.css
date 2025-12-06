@@ -1,0 +1,12 @@
+body {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+header {
+    background: #f5d328;
+    font-family: "Playpen Sans", cursive;
+    font-weight: bold;
+    line-height: 1.2;
+}
