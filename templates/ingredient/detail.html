@@ -7,11 +7,12 @@
 
 {% block content %}
 
-<h1 class="mb-3">{{ ingredient.name }}</h1>
+<section class="mb-3">
+    <h1 class="mb-3">{{ ingredient.name }}</h1>
+    <p>It is a key ingredient in many of our dishes.</p>
+</section>
 
-<p>It is a key ingredient in many of our dishes.</p>
-
-<div class="mb-3">
+<section class="mb-3">
     <h3>Suppliers</h3>
     {% if suppliers %}
     <ul>
@@ -20,18 +21,18 @@
         {% endfor %}
     </ul>
     {% else %} No suppliers provided. {% endif %}
-</div>
+</section>
 
-<div class="mb-3">
+<section class="mb-3">
     <h3>Dishes Using This Ingredient</h3>
     {% if dishes %}
     <ul>
         {% for dish in dishes %}
-        <li><a href="/dishes/{{ dish.id }}">{{ dish.name }}</a></li>
+        <li><a href="/menu/dishes/{{ dish.id }}">{{ dish.name }}</a></li>
         {% endfor %}
     </ul>
     {% else %} No dishes using this ingredient. {% endif %}
-</div>
+</section>
 
 <a href="#" class="btn btn-danger {% if not deletable %} disabled{% endif %}" role="button">Delete</a>
 

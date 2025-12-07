@@ -11,19 +11,19 @@
 
 <form method="post" action="/suppliers/{{ supplier.id }}/edit" enctype="multipart/form-data">
     <div class="row">
-        <!-- 名稱 -->
+        <!-- Name -->
         <div class="col col-12 col-md-6 mb-3">
             <label for="name" class="form-label">Name</label>
             <input type="text" class="form-control" id="name" name="name" value="{{ supplier.name }}" required />
         </div>
 
-        <!-- 圖片 -->
+        <!-- Image -->
         <div class="col col-12 col-md-6 mb-3">
             <label for="image" class="form-label">Supplier Image</label>
             <input type="file" id="image" name="image" class="form-control" accept="image/*" />
         </div>
 
-        <!-- 聯絡人 -->
+        <!-- Contact Person -->
         <div class="col col-12 col-md-4 mb-3">
             <label for="contact_person" class="form-label">Contact Person</label>
             <input
@@ -85,7 +85,7 @@
 
     <h3>Ingredients Supplied</h3>
 
-    <!-- 食材 -->
+    <!-- Ingredients -->
     <div class="mb-3" id="ingredients">
         {% for ingredient in supplier.ingredients %}
         <div class="row mb-3 pb-2 border-bottom ingredient-item">
