@@ -30,7 +30,7 @@ def view_supplier(supplier_id: int):
 
 
 @supplier_bp.route("/add", methods=["GET", "POST"])
-def add_supplier():
+def add_supplier_view():
     """
     新增供應商頁面
     """
@@ -58,7 +58,7 @@ def add_supplier():
         supplier = add_supplier(data)
 
         return render_template(
-            "saved.html", item_name=supplier.name, url=url_for("supplier.supplier_detail", supplier_id=supplier.id)
+            "saved.html", item_name=supplier.name, url=url_for("supplier.view_supplier", supplier_id=supplier.id)
         )
 
     ########################################

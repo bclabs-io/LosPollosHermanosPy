@@ -27,7 +27,7 @@ def location():
 
         with db.cursor() as cursor:
             cursor.execute(
-                f"""
+                """
                 INSERT INTO location (
                     latitude, longitude,
                     city, address, zipcode,

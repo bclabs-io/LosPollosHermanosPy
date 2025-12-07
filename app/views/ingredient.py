@@ -1,4 +1,4 @@
-from flask import Blueprint, abort, render_template, request, url_for
+from flask import Blueprint, abort, render_template, request
 
 from app.services import get_dishes_by_ingredient, get_ingredient_by_id, get_ingredients, get_suppliers_by_ingredient
 
