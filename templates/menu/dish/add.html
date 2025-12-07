@@ -32,7 +32,7 @@
         <!-- Price -->
         <div class="col col-12 col-md-6 mb-3">
             <label for="price" class="form-label">Price</label>
-            <input type="number" class="form-control" id="price" name="price" required />
+            <input type="number" class="form-control" id="price" name="price" step="0.01" required />
         </div>
     </div>
 
@@ -54,7 +54,7 @@
             </div>
             <div class="col col-12 col-md-4 col-xxl-2 mb-2">
                 <label>Quantity</label>
-                <input class="form-control" type="number" name="ingredients[]quantity" step="1" required />
+                <input class="form-control" type="number" name="ingredients[]quantity" step="0.01" required />
             </div>
             <div class="col col-12 col-md-5 col-xxl-3 mb-2">
                 <label>Unit</label>
@@ -79,31 +79,15 @@
             <div class="row mb-3 pb-2 border-bottom ingredient-item">
                 <div class="col col-12 col-xxl-6 mb-2">
                     <label>Ingredient Name</label>
-                    <input
-                        class="form-control"
-                        type="text"
-                        name="ingredients[]name"
-                        required
-                    />
+                    <input class="form-control" type="text" name="ingredients[]name" required />
                 </div>
                 <div class="col col-12 col-md-4 col-xxl-2 mb-2">
                     <label>Quantity</label>
-                    <input
-                        class="form-control"
-                        type="number"
-                        name="ingredients[]quantity"
-                        step="1"
-                        required
-                    />
+                    <input class="form-control" type="number" name="ingredients[]quantity" step="0.01" required />
                 </div>
                 <div class="col col-12 col-md-5 col-xxl-3 mb-2">
                     <label>Unit</label>
-                    <input
-                        class="form-control"
-                        type="text"
-                        name="ingredients[]unit"
-                        required
-                    />
+                    <input class="form-control" type="text" name="ingredients[]unit" required />
                 </div>
                 <div class="col col-12 col-md-3 col-xxl-1 mb-2">
                     <label>&nbsp;</label>
