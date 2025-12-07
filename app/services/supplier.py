@@ -66,6 +66,8 @@ def add_supplier(data: dict):
         db.rollback()
         return None
 
+    supplier = get_supplier_by_id(supplier_id)
+
     for ing_name in to_adds:
         ing = get_ingredient_by_name(ing_name)
         if not ing:

@@ -58,17 +58,6 @@ def seed_suppliers():
         supplier = add_supplier(supplier_data)
         mappings["sup"][supplier.name] = supplier
 
-        # 加入食材 & 供應商關聯
-        for ingredient_name in supplier_data.get("produce", []):
-            ingredient_id = mappings["ing"].get(ingredient_name)
-
-            if not ingredient_id:  # 如果食材不存在，則新增
-                ingredient = add_ingredient({"name": ingredient_name})
-                ingredient_id = ingredient.id
-                mappings["ing"][ingredient.name] = ingredient
-
-            add_ingredient_to_supplier(supplier, ingredient)
-
     print("Done.")
 
 
@@ -85,22 +74,9 @@ def seed_dishes():
 
     for dish_data in dishes_data:
         dish_data["image_url"] = "/images/" + mappings["img"].get(dish_data["image"])
+        del dish_data["image"]
         dish = add_dish(dish_data)
         mappings["dish"][dish.name] = dish
-
-        # 加入食材到菜品關聯
-        for ingredient in dish_data.get("ingredients", []):
-            name = ingredient["name"]
-            quantity = ingredient["quantity"]
-            unit = ingredient["unit"]
-
-            ingredient = mappings["ing"].get(name)
-
-            if not ingredient:
-                ingredient = add_ingredient({"name": name})
-                mappings["ing"][ingredient.name] = ingredient
-
-            add_ingredient_to_dish(dish, ingredient, quantity, unit)
 
     print("Done.")
 
@@ -121,10 +97,6 @@ def seed_combos():
         del combo_data["image"]
         combo = add_combo(combo_data)
         mappings["combo"][combo.name] = combo
-
-        # 加入菜品到套餐關聯
-        for dish in combo_data.get("dishes", []):
-            add_dish_to_combo(combo, dish)
 
     print("Done.")
 

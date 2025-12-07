@@ -27,8 +27,6 @@ def add_dish(data: dict):
     """
     db = get_db()
 
-    ingredients_map = {ing["name"]: ing for ing in data.pop("ingredients", [])}
-
     # 處理需要關聯的食材列表
 
     # 食材名稱 -> 份量 與 單位 的映射
