@@ -10,18 +10,13 @@
                 >Blue Crystal Labs.</a
             >
         </p>
-        <ul class="nav col-md-7 justify-content-end">
+        <ul class="nav col-md-8 justify-content-end">
             <li class="nav-item"><a href="/" class="nav-link px-2 text-body-secondary">Home</a></li>
-            <li class="nav-item"><a href="/menu" class="nav-link px-2 text-body-secondary">Menu</a></li>
+            {% for path in ['menu', 'stores', 'employees', 'ingredients', 'suppliers'] %}
             <li class="nav-item">
-                <a href="/employee" class="nav-link px-2 text-body-secondary">Employee</a>
+                <a class="nav-link px-2 text-body-secondary" href="/{{ path }}">{{ path.capitalize() }}</a>
             </li>
-            <li class="nav-item">
-                <a href="/location" class="nav-link px-2 text-body-secondary">Location</a>
-            </li>
-            <li class="nav-item">
-                <a href="/suppliers" class="nav-link px-2 text-body-secondary">Suppliers</a>
-            </li>
+            {% endfor %}
         </ul>
     </div>
 </footer>

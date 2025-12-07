@@ -23,28 +23,13 @@
                 <li class="nav-item">
                     <a class="nav-link {% if request.path == '/' %}active{% endif %}" href="/">Home</a>
                 </li>
+                {% for path in ['menu', 'stores', 'employees', 'ingredients', 'suppliers'] %}
                 <li class="nav-item">
-                    <a class="nav-link {% if request.path.startswith('/menu') %}active{% endif %}" href="/menu">Menu</a>
-                </li>
-                <li class="nav-item">
-                    <a
-                        class="nav-link {% if request.path.startswith('/employees') %}active{% endif %}"
-                        href="/employees"
-                        >Employees</a
+                    <a class="nav-link {% if request.path.startswith('/' + path) %}active{% endif %}" href="/{{ path }}"
+                        >{{ path.capitalize() }}</a
                     >
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link {% if request.path.startswith('/location') %}active{% endif %}" href="/location"
-                        >Location</a
-                    >
-                </li>
-                <li class="nav-item">
-                    <a
-                        class="nav-link {% if request.path.startswith('/suppliers') %}active{% endif %}"
-                        href="/suppliers"
-                        >Suppliers</a
-                    >
-                </li>
+                {% endfor %}
             </ul>
         </div>
     </div>
