@@ -118,7 +118,7 @@ def seed_combos():
 
     for combo_data in combos_data:
         combo_data["image_url"] = "/images/" + mappings["img"].get(combo_data["image"])
-        combo_data["dishes"] = [mappings["dish"][dish_name] for dish_name in combo_data.get("dishes", [])]
+        del combo_data["image"]
         combo = add_combo(combo_data)
         mappings["combo"][combo.name] = combo
 

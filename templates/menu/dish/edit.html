@@ -1,0 +1,152 @@
+{% extends "base.html" %}
+
+<!-- 網頁標題 -->
+
+{% block title %}Edit Dish{% endblock %}
+
+<!-- 主要內容 -->
+
+{% block content %}
+<h1 class="mb-3">Edit Dish</h1>
+
+<form method="post" action="/menu/dishes/{{ dish.id }}/edit" enctype="multipart/form-data">
+    <div class="row">
+        <!-- Name -->
+        <div class="col col-12 col-md-6 mb-3">
+            <label for="name" class="form-label">Name</label>
+            <input type="text" class="form-control" id="name" name="name" value="{{ dish.name }}" required />
+        </div>
+
+        <!-- Image -->
+        <div class="col col-12 col-md-6 mb-3">
+            <label for="image" class="form-label">Dish Image</label>
+            <input type="file" id="image" name="image" class="form-control" accept="image/*" />
+        </div>
+
+        <!-- Calories -->
+        <div class="col col-12 col-md-6 mb-3">
+            <label for="calories" class="form-label">Calories</label>
+            <input
+                type="number"
+                class="form-control"
+                id="calories"
+                name="calories"
+                value="{{ dish.calories }}"
+                required
+            />
+        </div>
+
+        <!-- Price -->
+        <div class="col col-12 col-md-6 mb-3">
+            <label for="price" class="form-label">Price</label>
+            <input type="number" class="form-control" id="price" name="price" value="{{ dish.price }}" required />
+        </div>
+    </div>
+
+    <div class="mb-3">
+        <label for="description" class="form-label">Description</label>
+        <textarea class="form-control" id="description" name="description" rows="5" required>
+{{ dish.description }}</textarea
+        >
+    </div>
+
+    <hr />
+
+    <h3>Ingredients</h3>
+
+    <!-- Ingredients -->
+    <div class="mb-3" id="ingredients">
+        {% for ingredient in dish.ingredients %}
+        <div class="row mb-3 pb-2 border-bottom ingredient-item">
+            <div class="col col-12 col-xxl-6 mb-2">
+                <label>Ingredient Name</label>
+                <input
+                    class="form-control"
+                    type="text"
+                    name="ingredients[]name"
+                    value="{{ ingredient['name'] }}"
+                    required
+                />
+            </div>
+            <div class="col col-12 col-md-4 col-xxl-2 mb-2">
+                <label>Quantity</label>
+                <input
+                    class="form-control"
+                    type="number"
+                    name="ingredients[]quantity"
+                    value="{{ ingredient['quantity'] }}"
+                    step="1"
+                    required
+                />
+            </div>
+            <div class="col col-12 col-md-5 col-xxl-3 mb-2">
+                <label>Unit</label>
+                <input
+                    class="form-control"
+                    type="text"
+                    name="ingredients[]unit"
+                    value="{{ ingredient['unit'] }}"
+                    required
+                />
+            </div>
+            <div class="col col-12 col-md-3 col-xxl-1 mb-2">
+                <label>&nbsp;</label>
+                <button class="btn btn-danger remove-ingredient-btn w-100" type="button">Remove</button>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    <button type="button" class="btn btn-secondary" id="add-ingredient-btn">Add Ingredient</button>
+    <hr />
+
+    <button type="submit" class="btn btn-primary">Save Changes</button>
+</form>
+{% endblock %} {% block scripts %}
+<script>
+    document.getElementById("add-ingredient-btn").addEventListener("click", function () {
+        const ingredientsDiv = document.getElementById("ingredients");
+        const newIngredientHTML = `
+            <div class="row mb-3 pb-2 border-bottom ingredient-item">
+                <div class="col col-12 col-xxl-6 mb-2">
+                    <label>Ingredient Name</label>
+                    <input
+                        class="form-control"
+                        type="text"
+                        name="ingredients[]name"
+                        required
+                    />
+                </div>
+                <div class="col col-12 col-md-4 col-xxl-2 mb-2">
+                    <label>Quantity</label>
+                    <input
+                        class="form-control"
+                        type="number"
+                        name="ingredients[]quantity"
+                        step="1"
+                        required
+                    />
+                </div>
+                <div class="col col-12 col-md-5 col-xxl-3 mb-2">
+                    <label>Unit</label>
+                    <input
+                        class="form-control"
+                        type="text"
+                        name="ingredients[]unit"
+                        required
+                    />
+                </div>
+                <div class="col col-12 col-md-3 col-xxl-1 mb-2">
+                    <label>&nbsp;</label>
+                    <button class="btn btn-danger remove-ingredient-btn w-100" type="button">Remove</button>
+                </div>
+            </div>`;
+        ingredientsDiv.insertAdjacentHTML("beforeend", newIngredientHTML);
+    });
+
+    document.getElementById("ingredients").addEventListener("click", function (event) {
+        if (event.target.classList.contains("remove-ingredient-btn")) {
+            event.target.closest(".ingredient-item").remove();
+        }
+    });
+</script>
+{% endblock %}

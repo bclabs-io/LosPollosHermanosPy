@@ -1,6 +1,9 @@
 from app.db import get_db
 from app.models import Dish, Ingredient, IngredientInDish
 
+from .image import add_image
+from .ingredient import add_ingredient, get_ingredient_by_name
+
 __all__ = [
     "add_dish",
     "get_dishes",
@@ -23,16 +26,32 @@ def add_dish(data: dict):
     :return: 新增的菜品資料或 None
     """
     db = get_db()
+
+    ingredients_map = {ing["name"]: ing for ing in data.pop("ingredients", [])}
+
+    # 處理需要關聯的食材列表
+
+    # 食材名稱 -> 份量 與 單位 的映射
+    ingredients_map = {ing["name"]: ing for ing in data.pop("ingredients", [])}
+
+    to_adds = ingredients_map.keys()
+
+    # 處理圖片
+    if "image" in data:
+        img = add_image(data["image"])
+        data["image_url"] = "/images/" + img.name
+        del data["image"]
+
     dish = Dish.model_validate(data)
 
     try:
         with db.cursor() as cursor:
             cursor.execute(
                 """
-                INSERT INTO dish (name, calories, price, image_url)
-                VALUES (%s, %s, %s, %s);
+                INSERT INTO dish (name, description, calories, price, image_url)
+                VALUES (%s, %s, %s, %s, %s);
                 """,
-                (dish.name, dish.calories, dish.price, dish.image_url),
+                (dish.name, dish.description, dish.calories, dish.price, dish.image_url),
             )
 
         db.commit()
@@ -41,6 +60,17 @@ def add_dish(data: dict):
         print(f"Error adding dish: {e}")
         db.rollback()
         return None
+
+    added_dish = get_dish_by_id(dish_id)
+
+    for ing_name in to_adds:
+        ingredient = get_ingredient_by_name(ing_name)
+        if not ingredient:
+            # 自動新增食材
+            ingredient = add_ingredient({"name": ing_name})
+        quantity = ingredients_map[ing_name].get("quantity", 0)
+        unit = ingredients_map[ing_name].get("unit", "mg")
+        add_ingredient_to_dish(added_dish, ingredient, quantity, unit)
 
     return get_dish_by_id(dish_id)
 
@@ -150,6 +180,27 @@ def update_dish_by_id(dish_id: int, data: dict):
     :param data: 更新後的菜品資料字典
     """
     db = get_db()
+    original_dish = get_dish_by_id(dish_id)
+
+    # 處理需要關聯的食材列表
+
+    # 食材名稱 -> 份量 與 單位 的映射
+    ingredients_map = {ing["name"]: ing for ing in data.pop("ingredients", [])}
+    ing_names = set(ingredients_map.keys())
+
+    original = set(ing.name for ing in original_dish.ingredients)
+
+    to_adds = ing_names - original  # 新增的食材名稱列表
+    to_removes = original - ing_names  # 移除的食材名稱列表
+    to_updates = ing_names & original  # 更新的食材名稱列表
+
+    # 處理圖片
+    if "image" in data:
+        img = add_image(data["image"])
+        data["image_url"] = "/images/" + img.name
+        del data["image"]
+    else:
+        data["image_url"] = original_dish.image_url  # 保持原有圖片不變
 
     dish = Dish.model_validate(data)
 
@@ -158,14 +209,15 @@ def update_dish_by_id(dish_id: int, data: dict):
             cursor.execute(
                 """
                 UPDATE dish
-                SET name = %s, image_url = %s, calories = %s, price = %s
+                SET name = %s, description = %s, calories = %s, price = %s, image_url = %s
                 WHERE id = %s;
                 """,
                 (
                     dish.name,
-                    dish.image_url,
+                    dish.description,
                     dish.calories,
                     dish.price,
+                    dish.image_url,
                     dish_id,
                 ),
             )
@@ -175,6 +227,29 @@ def update_dish_by_id(dish_id: int, data: dict):
         print(f"Error updating dish by id: {e}")
         db.rollback()
         return None
+
+    update_dish = get_dish_by_id(dish_id)
+
+    for ing_name in to_adds:
+        ingredient = get_ingredient_by_name(ing_name)
+        if not ingredient:
+            # 自動新增食材
+            ingredient = add_ingredient({"name": ing_name})
+        quantity = ingredients_map[ing_name].get("quantity", 0)
+        unit = ingredients_map[ing_name].get("unit", "mg")
+        add_ingredient_to_dish(update_dish, ingredient, quantity, unit)
+
+    for ing_name in to_removes:
+        ingredient = get_ingredient_by_name(ing_name)
+        if ingredient:
+            remove_ingredient_from_dish(update_dish, ingredient)
+
+    for ing_name in to_updates:
+        ingredient = get_ingredient_by_name(ing_name)
+        if ingredient:
+            quantity = ingredients_map[ing_name].get("quantity", 0)
+            unit = ingredients_map[ing_name].get("unit", "mg")
+            update_ingredient_in_dish(update_dish, ingredient, quantity, unit)
 
     return get_dish_by_id(dish_id)
 
@@ -237,6 +312,39 @@ def add_ingredient_to_dish(dish: Dish, ingredient: Ingredient, quantity: float, 
         db.commit()
     except Exception as e:
         print(f"Error adding ingredient to dish: {e}")
+        db.rollback()
+        return False
+
+    return True
+
+
+def update_ingredient_in_dish(dish: Dish, ingredient: Ingredient, quantity: float, unit: str):
+    """
+    更新菜品中的食材資訊
+
+    :param dish: 菜品資料
+    :param ingredient: 食材資料
+    :param quantity: 食材數量
+    :param unit: 食材單位
+
+    :return: 是否更新成功
+    """
+    db = get_db()
+
+    try:
+        with db.cursor() as cursor:
+            cursor.execute(
+                """
+                UPDATE dish_ingredient
+                SET quantity = %s, unit = %s
+                WHERE dish_id = %s AND ingredient_id = %s;
+                """,
+                (quantity, unit, dish.id, ingredient.id),
+            )
+
+        db.commit()
+    except Exception as e:
+        print(f"Error updating ingredient in dish: {e}")
         db.rollback()
         return False
 

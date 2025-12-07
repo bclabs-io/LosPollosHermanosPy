@@ -56,10 +56,12 @@ def add_combo(data: dict):
         db.rollback()
         return None
 
+    combo = get_combo_by_id(combo_id)
+
     for dish_name in to_adds:
         dish = get_dish_by_name(dish_name)
         if dish:
-            add_dish_to_combo(Combo(id=combo_id), dish)
+            add_dish_to_combo(combo, dish)
         else:
             print(f"Dish '{dish_name}' not found. Skipping addition to combo.")
 
@@ -140,12 +142,15 @@ def update_combo_by_id(combo_id: int, data: dict):
     :return: 更新後的套餐資料或 None
     """
     db = get_db()
+    original_combo = get_combo_by_id(combo_id)
+    if not original_combo:
+        return None
 
     # 處理需要關聯的餐點列表
     dishes = set(data.get("dishes", []))
     data.pop("dishes", None)
 
-    original = set(dish.name for dish in get_combo_by_id(combo_id).dishes)
+    original = set(dish.name for dish in original_combo.dishes)
 
     to_adds = dishes - original
     to_removes = original - dishes
@@ -156,7 +161,7 @@ def update_combo_by_id(combo_id: int, data: dict):
         data["image_url"] = "/images/" + img.name
         del data["image"]
     else:
-        data["image_url"] = get_combo_by_id(combo_id).image_url  # 保持原有圖片不變
+        data["image_url"] = original_combo.image_url  # 保持原有圖片不變
 
     combo = Combo.model_validate(data)
 
