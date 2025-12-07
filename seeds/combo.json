@@ -1,0 +1,42 @@
+[
+    {
+        "id": 1,
+        "name": "Burger Combo",
+        "description": "The perfect trio. A juicy, classic Burger paired with golden, crispy Fries and a refreshing Soft Drink. All the flavors you love, bundled into one unbeatable combo. Whether you're here for lunch or dinner, this combo is everything you need to satisfy your hunger. At Los Pollos Hermanos, it’s simple, it’s classic, it’s delicious.",
+        "price": 12.99,
+        "image": "burger_combo.webp",
+        "dishes": ["Burger", "Fries", "Soft Drinks"]
+    },
+    {
+        "id": 2,
+        "name": "Double Burger Combo",
+        "description": "Double the beef, double the satisfaction! This combo features the hearty Double Burger, with two layers of juicy beef patties, gooey cheese, and all your favorite fresh toppings. Paired with crispy Fries and a rich, creamy Chocolate Shake — it’s the ultimate feast. For those who want a little more from their meal, this combo is the choice.",
+        "price": 15.99,
+        "image": "double_burger_combo.webp",
+        "dishes": ["Double Burger", "Fries", "Chocolate Shake"]
+    },
+    {
+        "id": 3,
+        "name": "Bacon Burger Combo",
+        "description": "The ultimate bacon lover’s dream. Savor our mouthwatering Bacon Burger, packed with crispy bacon, melty cheese, and all the fresh toppings you crave. Paired with crispy, golden Fries and a smooth Vanilla Shake, this combo takes your tastebuds to a whole new level. It’s a taste of Los Pollos Hermanos that you’ll never forget.",
+        "price": 13.99,
+        "image": "bacon_burger_combo.webp",
+        "dishes": ["Bacon Burger", "Fries", "Vanilla Shake"]
+    },
+    {
+        "id": 4,
+        "name": "Double Bacon Burger Combo",
+        "description": "Double the bacon, double the flavor! Our Double Bacon Burger combo gives you the best of both worlds: four slices of crispy bacon, two beef patties, and all the fixings you can handle. Served with hot, crispy Fries and a rich Chocolate Shake to round out the indulgence. This is for those who take their bacon seriously.",
+        "price": 16.99,
+        "image": "double_bacon_burger_combo.webp",
+        "dishes": ["Double Bacon Burger", "Fries", "Chocolate Shake"]
+    },
+    {
+        "id": 5,
+        "name": "Quadruple Bacon Burger Combo",
+        "description": "For the brave, the bold, and the hungry. The Quadruple Bacon Burger Combo is a flavor explosion, featuring four slices of crispy bacon, four beef patties, and all the delicious toppings you could ask for. Served with crispy Fries and a refreshing Soft Drink to keep you cool while you conquer this mountain of flavor. Only the bold need apply.",
+        "price": 18.99,
+        "image": "quadruple_bacon_burger_combo.webp",
+        "dishes": ["Quadruple Bacon Burger", "Fries", "Soft Drinks"]
+    }
+]

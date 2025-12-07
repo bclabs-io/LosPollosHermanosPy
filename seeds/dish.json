@@ -1,0 +1,152 @@
+[
+    {
+        "id": 1,
+        "name": "Burger",
+        "description": "Welcome to the flavor sensation you’ve been waiting for. A tender, juicy beef patty, smothered in creamy cheese, with a crisp bite of lettuce, fresh tomato, zesty onions, and tangy pickles. All wrapped up in a buttery toasted brioche bun with our signature Los Pollos special sauce. You’ll want to keep coming back for more — that’s our promise.",
+        "calories": 600,
+        "price": 8.99,
+        "image": "burger.webp",
+        "ingredients": [
+            { "name": "Beef patty", "quantity": 1, "unit": "piece" },
+            { "name": "Cheese", "quantity": 1, "unit": "slice" },
+            { "name": "Lettuce", "quantity": 2, "unit": "leaves" },
+            { "name": "Tomato", "quantity": 2, "unit": "slices" },
+            { "name": "Onions", "quantity": 3, "unit": "slices" },
+            { "name": "Pickles", "quantity": 3, "unit": "slices" },
+            { "name": "Special sauce", "quantity": 1, "unit": "tablespoon" },
+            { "name": "Toasted brioche bun", "quantity": 1, "unit": "piece" }
+        ]
+    },
+    {
+        "id": 2,
+        "name": "Double Burger",
+        "description": "Double the beef, double the trouble! Two succulent beef patties stacked high with two layers of melty cheese, crisp lettuce, fresh tomato, and a hit of tangy pickles. Add our special sauce, and you’ve got yourself a double-down delight. If you’re hungry for something serious, this one’s for you.",
+        "calories": 800,
+        "price": 11.99,
+        "image": "double_burger.webp",
+        "ingredients": [
+            { "name": "Beef patty", "quantity": 2, "unit": "pieces" },
+            { "name": "Cheese", "quantity": 2, "unit": "slices" },
+            { "name": "Lettuce", "quantity": 3, "unit": "leaves" },
+            { "name": "Tomato", "quantity": 3, "unit": "slices" },
+            { "name": "Onions", "quantity": 4, "unit": "slices" },
+            { "name": "Pickles", "quantity": 4, "unit": "slices" },
+            { "name": "Special sauce", "quantity": 2, "unit": "tablespoons" },
+            { "name": "Toasted brioche bun", "quantity": 1, "unit": "piece" }
+        ]
+    },
+    {
+        "id": 3,
+        "name": "Bacon Burger",
+        "description": "A bacon lover’s dream come true. Two crispy bacon strips pair up with a gooey slice of cheese, fresh lettuce, and a dash of garlic powder and paprika to take it over the top. A little bit of celery for crunch, ranch dressing to tie it all together — it’s a burger like no other. Straight from the kitchen of Los Pollos Hermanos, where we know what real flavor is all about.",
+        "calories": 450,
+        "price": 7.49,
+        "image": "bacon_burger.webp",
+        "ingredients": [
+            { "name": "Bacon", "quantity": 2, "unit": "slices" },
+            { "name": "Cheese", "quantity": 1, "unit": "slice" },
+            { "name": "Lettuce", "quantity": 2, "unit": "leaves" },
+            { "name": "Garlic powder", "quantity": 1, "unit": "teaspoon" },
+            { "name": "Paprika", "quantity": 1, "unit": "teaspoon" },
+            { "name": "Celery sticks", "quantity": 2, "unit": "sticks" },
+            { "name": "Ranch dressing", "quantity": 1, "unit": "tablespoon" }
+        ]
+    },
+    {
+        "id": 4,
+        "name": "Double Bacon Burger",
+        "description": "Now we're talking. Four crispy strips of bacon, two slices of melty cheese, fresh lettuce, tomato, onion, and pickles — all drenched in our special sauce. This double bacon powerhouse is stacked high for the ultimate flavor experience. It’s bold. It’s daring. It’s the Los Pollos way.",
+        "calories": 950,
+        "price": 12.99,
+        "image": "double_bacon_burger.webp",
+        "ingredients": [
+            { "name": "Bacon", "quantity": 4, "unit": "slices" },
+            { "name": "Cheese", "quantity": 2, "unit": "slices" },
+            { "name": "Lettuce", "quantity": 3, "unit": "leaves" },
+            { "name": "Tomato", "quantity": 3, "unit": "slices" },
+            { "name": "Onions", "quantity": 4, "unit": "slices" },
+            { "name": "Pickles", "quantity": 4, "unit": "slices" },
+            { "name": "Special sauce", "quantity": 2, "unit": "tablespoons" },
+            { "name": "Toasted brioche bun", "quantity": 1, "unit": "piece" }
+        ]
+    },
+    {
+        "id": 5,
+        "name": "Quadruple Bacon Burger",
+        "description": "Are you ready for the ultimate challenge? Four slices of crispy bacon, four layers of gooey cheese, fresh veggies, and a triple dose of our special sauce — all packed into a toasted brioche bun. At Los Pollos Hermanos, we don’t do small portions. This burger is a massive flavor explosion, built for the brave and the hungry.",
+        "calories": 1100,
+        "price": 14.99,
+        "image": "quadruple_bacon_burger.webp",
+        "ingredients": [
+            { "name": "Bacon", "quantity": 4, "unit": "slices" },
+            { "name": "Cheese", "quantity": 4, "unit": "slices" },
+            { "name": "Lettuce", "quantity": 3, "unit": "leaves" },
+            { "name": "Tomato", "quantity": 3, "unit": "slices" },
+            { "name": "Onions", "quantity": 5, "unit": "slices" },
+            { "name": "Pickles", "quantity": 5, "unit": "slices" },
+            { "name": "Special sauce", "quantity": 3, "unit": "tablespoons" },
+            { "name": "Toasted brioche bun", "quantity": 1, "unit": "piece" }
+        ]
+    },
+    {
+        "id": 6,
+        "name": "Fries",
+        "description": "Straight from the fryer, golden and crispy with just the right amount of salt. These fries are the perfect sidekick to any of our burgers or a tasty snack all on their own. Trust us, once you dip them in our special sauce, you won’t want to stop.",
+        "calories": 300,
+        "price": 3.49,
+        "image": "fries.webp",
+        "ingredients": [
+            { "name": "Potatoes", "quantity": 200, "unit": "grams" },
+            { "name": "Salt", "quantity": 5, "unit": "grams" },
+            { "name": "Vegetable oil", "quantity": 100, "unit": "ml" }
+        ]
+    },
+    {
+        "id": 7,
+        "name": "Chocolate Shake",
+        "description": "Smooth, sweet, and oh-so-decadent. Made with rich chocolate ice cream and fresh milk, this shake is a creamy delight that’ll transport you to another world. A sip of this, and you'll know why it’s Los Pollos Hermanos’ favorite way to finish a meal.",
+        "calories": 550,
+        "price": 5.49,
+        "image": "chocolate_shake.webp",
+        "ingredients": [
+            { "name": "Chocolate ice cream", "quantity": 200, "unit": "grams" },
+            { "name": "Milk", "quantity": 300, "unit": "ml" },
+            { "name": "Sugar", "quantity": 25, "unit": "grams" }
+        ]
+    },
+    {
+        "id": 8,
+        "name": "Vanilla Shake",
+        "description": "Keep it classic with a velvety vanilla shake made with premium vanilla ice cream and fresh milk. It’s the perfect blend of creamy and sweet, guaranteed to hit the spot after a hearty meal at Los Pollos Hermanos. You’ll never look at vanilla the same way again.",
+        "calories": 500,
+        "price": 4.99,
+        "image": "vanilla_shake.webp",
+        "ingredients": [
+            { "name": "Vanilla ice cream", "quantity": 200, "unit": "grams" },
+            { "name": "Milk", "quantity": 300, "unit": "ml" },
+            { "name": "Sugar", "quantity": 25, "unit": "grams" }
+        ]
+    },
+    {
+        "id": 9,
+        "name": "Soft Drinks",
+        "description": "Cool, crisp, and perfectly fizzy. Our soft drinks come with just the right amount of sweetness and bubbles to keep you refreshed. Pair it with one of our signature meals, and you’ve got the perfect Los Pollos Hermanos experience. Drink up, you’re gonna need it.",
+        "calories": 200,
+        "price": 1.99,
+        "image": "soft_drinks.webp",
+        "ingredients": [
+            { "name": "Carbonated water", "quantity": 250, "unit": "ml" },
+            { "name": "Sugar", "quantity": 20, "unit": "grams" },
+            { "name": "Flavoring", "quantity": 1, "unit": "teaspoon" }
+        ]
+    },
+    {
+        "id": 10,
+        "name": "Bottled Water",
+        "description": "Pure, refreshing, and straight to the point. Our bottled water is as clean and crisp as they come, giving you the hydration you need — no frills, no fuss. Drink it alone, or pair it with one of our delicious burgers; it’s the perfect way to keep things cool and simple.",
+        "calories": 0,
+        "price": 0.99,
+        "image": "bottled_water.webp",
+        "ingredients": [{ "name": "Water", "quantity": 500, "unit": "ml" }]
+    }
+]
