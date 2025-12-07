@@ -1,0 +1,94 @@
+{% extends "base.html" %}
+
+<!-- 網頁標題 -->
+
+{% block title %}Add Combo{% endblock %}
+
+<!-- 主要內容 -->
+
+{% block content %}
+<h1 class="mb-3">Add Combo</h1>
+
+<form method="post" action="/menu/combos/add" enctype="multipart/form-data">
+    <div class="row">
+        <!-- Name -->
+        <div class="col col-12 col-md-6 col-xl-4 mb-3">
+            <label for="name" class="form-label">Name</label>
+            <input type="text" class="form-control" id="name" name="name" required />
+        </div>
+
+        <!-- Price -->
+        <div class="col col-12 col-md-6 col-xl-4 mb-3">
+            <label for="price" class="form-label">Price</label>
+            <input type="number" class="form-control" id="price" name="price" step="0.01" required />
+        </div>
+
+        <!-- Image -->
+        <div class="col col-12 col-xl-4 mb-3">
+            <label for="image" class="form-label">Combo Image</label>
+            <input type="file" id="image" name="image" class="form-control" accept="image/*" required />
+        </div>
+    </div>
+
+    <div class="mb-3">
+        <label for="description" class="form-label">Description</label>
+        <textarea class="form-control" id="description" name="description" rows="5" required></textarea>
+    </div>
+
+    <hr />
+
+    <h3>Dishes Included</h3>
+
+    <!-- Dishes -->
+    <div class="mb-3" id="dishes">
+        <div class="row mb-3 pb-2 border-bottom dish-item">
+            <div class="col col-12 col-md-9 col-xxl-11 mb-2">
+                <label>Dish Name</label>
+                <select class="form-select" name="dishes[]">
+                    <option value="" selected disabled>Select a dish</option>
+                    {% for available_dish in all_dishes %}
+                    <option value="{{ available_dish.id }}">{{ available_dish.name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="col col-12 col-md-3 col-xxl-1 mb-2">
+                <label>&nbsp;</label>
+                <button class="btn btn-danger remove-dish-btn w-100" type="button">Remove</button>
+            </div>
+        </div>
+    </div>
+    <button type="button" class="btn btn-secondary" id="add-dish-btn">Add Dish</button>
+    <hr />
+
+    <button type="submit" class="btn btn-primary">Save Changes</button>
+</form>
+{% endblock %} {% block scripts %}
+<script>
+    document.getElementById("add-dish-btn").addEventListener("click", function () {
+        const dishesDiv = document.getElementById("dishes");
+        const newDishHTML = `
+            <div class="row mb-3 pb-2 border-bottom dish-item">
+                <div class="col col-12 col-md-9 col-xxl-11 mb-2">
+                    <label>Dish Name</label>
+                    <select class="form-select" name="dishes[]">
+                        <option value="" selected disabled>Select a dish</option>
+                        {% for available_dish in all_dishes %}
+                        <option value="{{ available_dish.id }}">{{ available_dish.name }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="col col-12 col-md-3 col-xxl-1 mb-2">
+                    <label>&nbsp;</label>
+                    <button class="btn btn-danger remove-dish-btn w-100" type="button">Remove</button>
+                </div>
+            </div>`;
+        dishesDiv.insertAdjacentHTML("beforeend", newDishHTML);
+    });
+
+    document.getElementById("dishes").addEventListener("click", function (event) {
+        if (event.target.classList.contains("remove-dish-btn")) {
+            event.target.closest(".dish-item").remove();
+        }
+    });
+</script>
+{% endblock %}

@@ -5,6 +5,7 @@ __all__ = [
     "add_dish",
     "get_dishes",
     "get_dish_by_id",
+    "get_dish_by_name",
     "update_dish_by_id",
     "delete_dish_by_id",
     "add_ingredient_to_dish",
@@ -98,6 +99,40 @@ def get_dish_by_id(dish_id: int):
             return None
     except Exception as e:
         print(f"Error getting dish by id: {e}")
+        return None
+
+    dish = Dish.model_validate(row)
+    ingredients = get_ingredients_in_dish(dish)
+    dish.ingredients = ingredients
+
+    return dish
+
+
+def get_dish_by_name(dish_name: str):
+    """
+    取得指定名稱的單點菜品
+
+    :param dish_name: 菜品名稱
+
+    :return: 菜品資料或 None
+    """
+    db = get_db()
+
+    try:
+        with db.cursor() as cursor:
+            cursor.execute(
+                """
+                SELECT * FROM dish WHERE name = %s;
+                """,
+                (dish_name,),
+            )
+
+        row = cursor.fetchone()
+
+        if not row:
+            return None
+    except Exception as e:
+        print(f"Error getting dish by name: {e}")
         return None
 
     dish = Dish.model_validate(row)

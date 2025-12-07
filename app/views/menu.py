@@ -52,14 +52,3 @@ def delete_dish(dish_id):
 
     return render_template("delete-item.html", item_name=dish.name, url=url_for("menu.menu"))
 
-
-@menu_bp.route("/combo/<int:combo_id>/delete")
-def delete_combo(combo_id):
-    combo = get_combo_by_id(combo_id)
-
-    if combo is None:
-        abort(404)
-
-    delete_combo_by_id(combo_id)
-
-    return render_template("delete-item.html", item_name=combo.name, url=url_for("menu.menu"))

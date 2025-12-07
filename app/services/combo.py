@@ -1,6 +1,9 @@
 from app.db import get_db
 from app.models import Combo, Dish
 
+from .dish import get_dish_by_name
+from .image import add_image
+
 __all__ = [
     "add_combo",
     "get_combos",
@@ -23,6 +26,16 @@ def add_combo(data: dict):
     """
     db = get_db()
 
+    # 處理需要關聯的餐點列表
+    to_adds = data.get("dishes", [])
+    data.pop("dishes", None)
+
+    # 處理圖片
+    if "image" in data:
+        img = add_image(data["image"])
+        data["image_url"] = "/images/" + img.name
+        del data["image"]
+
     combo = Combo.model_validate(data)
 
     try:
@@ -42,6 +55,13 @@ def add_combo(data: dict):
         print(f"Error adding combo: {e}")
         db.rollback()
         return None
+
+    for dish_name in to_adds:
+        dish = get_dish_by_name(dish_name)
+        if dish:
+            add_dish_to_combo(Combo(id=combo_id), dish)
+        else:
+            print(f"Dish '{dish_name}' not found. Skipping addition to combo.")
 
     return get_combo_by_id(combo_id)
 
@@ -121,6 +141,23 @@ def update_combo_by_id(combo_id: int, data: dict):
     """
     db = get_db()
 
+    # 處理需要關聯的餐點列表
+    dishes = set(data.get("dishes", []))
+    data.pop("dishes", None)
+
+    original = set(dish.name for dish in get_combo_by_id(combo_id).dishes)
+
+    to_adds = dishes - original
+    to_removes = original - dishes
+
+    # 處理圖片
+    if "image" in data:
+        img = add_image(data["image"])
+        data["image_url"] = "/images/" + img.name
+        del data["image"]
+    else:
+        data["image_url"] = get_combo_by_id(combo_id).image_url  # 保持原有圖片不變
+
     combo = Combo.model_validate(data)
 
     try:
@@ -145,6 +182,20 @@ def update_combo_by_id(combo_id: int, data: dict):
         print(f"Error updating combo by id: {e}")
         db.rollback()
         return None
+
+    for dish_name in to_adds:
+        dish = get_dish_by_name(dish_name)
+        if dish:
+            add_dish_to_combo(Combo(id=combo_id), dish)
+        else:
+            print(f"Dish '{dish_name}' not found. Skipping addition to combo.")
+
+    for dish_name in to_removes:
+        dish = get_dish_by_name(dish_name)
+        if dish:
+            remove_dish_from_combo(Combo(id=combo_id), dish)
+        else:
+            print(f"Dish '{dish_name}' not found. Skipping removal from combo.")
 
     return get_combo_by_id(combo_id)
 

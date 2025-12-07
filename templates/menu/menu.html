@@ -19,15 +19,15 @@
             </div>
             <div class="card-body">
                 <h5 class="card-title">
-                    <a href="/menu/combo/{{ combo.id }}">{{ combo.name }}</a>
+                    <a href="/menu/combos/{{ combo.id }}">{{ combo.name }}</a>
                 </h5>
             </div>
             <ul class="list-group list-group-flush">
                 <li class="list-group-item">Price: ${{ combo.price }}</li>
             </ul>
             <div class="d-flex justify-content-between gap-2 p-3">
-                <a href="/menu/combo/{{ combo.id }}/edit" class="btn btn-primary" role="button">Edit</a>
-                <a href="/menu/combo/{{ combo.id }}/delete" class="btn btn-danger" role="button">Delete</a>
+                <a href="/menu/combos/{{ combo.id }}/edit" class="btn btn-primary" role="button">Edit</a>
+                <a href="/menu/combos/{{ combo.id }}/delete" class="btn btn-danger" role="button">Delete</a>
                 <a href="javascript:happy()" class="btn btn-success" role="button">:D</a>
             </div>
         </div>
@@ -35,7 +35,7 @@
     </div>
 
     <div class="mb-3">
-        <a class="btn btn-secondary" role="button" href="/menu/combo/add">+</a>
+        <a class="btn btn-secondary" role="button" href="/menu/combos/add">+</a>
         <span class="ms-2">Add One</span>
     </div>
 </section>
@@ -51,15 +51,15 @@
             </div>
             <div class="card-body">
                 <h5 class="card-title">
-                    <a href="/menu/dish/{{ dish.id }}">{{ dish.name }}</a>
+                    <a href="/menu/dishes/{{ dish.id }}">{{ dish.name }}</a>
                 </h5>
             </div>
             <ul class="list-group list-group-flush">
                 <li class="list-group-item">Price: ${{ dish.price }}</li>
             </ul>
             <div class="d-flex justify-content-between gap-2 p-3">
-                <a href="/menu/dish/{{ dish.id }}/edit" class="btn btn-primary" role="button">Edit</a>
-                <a href="/menu/dish/{{ dish.id }}/delete" class="btn btn-danger" role="button">Delete</a>
+                <a href="/menu/dishes/{{ dish.id }}/edit" class="btn btn-primary" role="button">Edit</a>
+                <a href="/menu/dishes/{{ dish.id }}/delete" class="btn btn-danger" role="button">Delete</a>
                 <a href="javascript:happy()" class="btn btn-success" role="button">:D</a>
             </div>
         </div>
@@ -67,7 +67,7 @@
     </div>
 
     <div class="mb-3">
-        <a class="btn btn-secondary" role="button" href="/menu/dish/add">+</a>
+        <a class="btn btn-secondary" role="button" href="/menu/dishes/add">+</a>
         <span class="ms-2">Add One</span>
     </div>
 </section>

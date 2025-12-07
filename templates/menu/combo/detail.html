@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+<!-- 網頁標題 -->
+
+{% block title %}{{ combo.name }}{% endblock %}
+
+<!-- 主要內容 -->
+
+{% block content %}
+
+<div class="row">
+    <div class="col col-12 col-lg-6">
+        <h1 class="mb-3">{{ combo.name }}</h1>
+
+        <p>{{ combo.description }}</p>
+        <ul class="mb-4">
+            <li><strong>Price:</strong> ${{ combo.price }}</li>
+        </ul>
+
+        <div class="mb-3">
+            <h3>Dishes in This Combo</h3>
+            {% if combo.dishes %}
+            <ul>
+                {% for dish in combo.dishes %}
+                <li><a href="/menu/dishes/{{ dish.id }}">{{ dish.name }}</a></li>
+                {% endfor %}
+            </ul>
+            {% else %} No dishes in this combo. {% endif %}
+        </div>
+
+        <div class="d-flex gap-2 mb-3">
+            <a href="/menu/combos/{{ combo.id }}/edit" class="btn btn-primary" role="button">Edit</a>
+            <a href="/menu/combos/{{ combo.id }}/delete" class="btn btn-danger" role="button">Delete</a>
+            <button class="btn btn-success" onclick="happy();">:D</button>
+        </div>
+    </div>
+
+    <div class="col col-12 col-lg-6">
+        <img class="w-100 rounded" src="{{ combo.image_url }}" alt="{{ combo.name }}" />
+    </div>
+</div>
+
+{% endblock %}
