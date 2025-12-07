@@ -29,10 +29,10 @@ def add_combo(data: dict):
         with db.cursor() as cursor:
             cursor.execute(
                 """
-                INSERT INTO combo (name, image_url, price)
-                VALUES (%s, %s, %s);
+                INSERT INTO combo (name, description, price, image_url)
+                VALUES (%s, %s, %s, %s);
                 """,
-                (combo.name, combo.image_url, combo.price),
+                (combo.name, combo.description, combo.price, combo.image_url),
             )
 
         db.commit()
@@ -128,13 +128,14 @@ def update_combo_by_id(combo_id: int, data: dict):
             cursor.execute(
                 """
                 UPDATE combo
-                SET name = %s, image_url = %s, price = %s
+                SET name = %s, description = %s, price = %s, image_url = %s
                 WHERE id = %s;
                 """,
                 (
                     combo.name,
-                    combo.image_url,
+                    combo.description,
                     combo.price,
+                    combo.image_url,
                     combo_id,
                 ),
             )

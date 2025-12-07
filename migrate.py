@@ -54,6 +54,7 @@ def seed_suppliers():
 
     for supplier_data in suppliers_data:
         supplier_data["image_url"] = "/images/" + mappings["img"].get(supplier_data["image"])
+        del supplier_data["image"]
         supplier = add_supplier(supplier_data)
         mappings["sup"][supplier.name] = supplier
 
@@ -118,7 +119,6 @@ def seed_combos():
     for combo_data in combos_data:
         combo_data["image_url"] = "/images/" + mappings["img"].get(combo_data["image"])
         combo_data["dishes"] = [mappings["dish"][dish_name] for dish_name in combo_data.get("dishes", [])]
-
         combo = add_combo(combo_data)
         mappings["combo"][combo.name] = combo
 

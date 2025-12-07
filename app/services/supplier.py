@@ -25,7 +25,8 @@ def add_supplier(data: dict):
     db = get_db()
 
     to_adds = data.get("ingredients", [])
-    del data["ingredients"]  # 從資料中移除食材列表，避免影響新增
+    if "ingredients" in data:
+        del data["ingredients"]  # 從資料中移除食材列表，避免影響新增
 
     if "image" in data:
         img = add_image(data["image"])
