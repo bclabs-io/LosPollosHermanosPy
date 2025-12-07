@@ -17,7 +17,7 @@ def suppliers():
 
 
 @supplier_bp.route("/<int:supplier_id>")
-def supplier_detail(supplier_id: int):
+def view_supplier(supplier_id: int):
     """
     供應商詳細頁面
     """
@@ -30,7 +30,7 @@ def supplier_detail(supplier_id: int):
 
 
 @supplier_bp.route("/add", methods=["GET", "POST"])
-def add_supplier_view():
+def add_supplier():
     """
     新增供應商頁面
     """

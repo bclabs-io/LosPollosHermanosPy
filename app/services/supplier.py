@@ -1,6 +1,8 @@
 from app.db import get_db
 from app.models import Ingredient, Supplier, SupplierSummary
-from app.services import add_image, add_ingredient, get_ingredient_by_name
+
+from .image import add_image
+from .ingredient import add_ingredient, get_ingredient_by_name
 
 __all__ = [
     "add_supplier",
@@ -24,10 +26,11 @@ def add_supplier(data: dict):
     """
     db = get_db()
 
+    # 處理需要關聯的食材列表
     to_adds = data.get("ingredients", [])
-    if "ingredients" in data:
-        del data["ingredients"]  # 從資料中移除食材列表，避免影響新增
+    data.pop("ingredients", None)
 
+    # 處理圖片
     if "image" in data:
         img = add_image(data["image"])
         data["image_url"] = "/images/" + img.name
@@ -149,15 +152,14 @@ def update_supplier_by_id(supplier_id: int, data: dict):
     if original_supplier is None:
         return None
 
-    # 處理食材列表
+    # 處理需要關聯的食材列表
     before = set(ing.name for ing in original_supplier.ingredients)
     after = set(data.get("ingredients", []))
 
     to_add = after - before
     to_remove = before - after
 
-    del data["ingredients"]  # 從資料中移除食材列表，避免影響更新
-
+    data.pop("ingredients", None)
     # 處理圖片
     if "image" in data:
         img = add_image(data["image"])

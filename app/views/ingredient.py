@@ -17,7 +17,7 @@ def ingredients():
 
 
 @ingredient_bp.route("/<int:ingredient_id>")
-def ingredient_detail(ingredient_id: int):
+def view_ingredient(ingredient_id: int):
     """
     食材詳細頁面
     """
