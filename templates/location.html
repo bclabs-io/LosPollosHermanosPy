@@ -8,46 +8,66 @@
 
 {% block content %}
 
-<div class="loco" id="locationContainer">
-    <h1 class="bigWord">Location Management</h1>
-    <input class="searchBar" id="locationInput" type="text" placeholder="Enter a location" />
-    <button class="btn" id="addLocationBtn">Add Location</button>
-    <div id="locoList">
-        <form id="addLocoPlaceholder" class="locoBlock invisible">
-            <label class="line">Latitude: <input type="number" name="latitude" step="0.0000001" required /></label>
-            <label class="line">Longitude: <input type="number" name="longitude" step="0.0000001" required /></label>
-            <label class="line">City: <input type="text" name="city" required /></label>
-            <label class="line">Address: <input type="text" name="address" required /></label>
-            <label class="line">Postal Code: <input type="text" name="zip" required /></label>
-            <label class="line">Opening Weekdays:<button id="dropBtn" class="dropBtn" type="button"></button></label>
-            <div id="dropdown-content" class="dropdown-content">
-                <label><input type="checkbox" value="Mon" /> Monday</label>
-                <label><input type="checkbox" value="Tue" /> Tuesday</label>
-                <label><input type="checkbox" value="Wed" /> Wednesday</label>
-                <label><input type="checkbox" value="Thu" /> Thursday</label>
-                <label><input type="checkbox" value="Fri" /> Friday</label>
-                <label><input type="checkbox" value="Sat" /> Saturday</label>
-                <label><input type="checkbox" value="Sun" /> Sunday</label>
-            </div>
-            <label class="line">Open Time: <input type="time" name="open" required /></label>
-            <label class="line">Close Time: <input type="time" name="close" required /></label>
-            <button class="btn small" id="submitLocoBtn">Submit</button>
-        </form>
-        <div id="loco"></div>
+<h1 class="bigWord">Location Management</h1>
+<input class="searchBar" id="locationInput" type="text" placeholder="Enter a location" />
+<button class="btn" id="addLocationBtn">Add Location</button>
+<!-- <div id="locoList"> -->
+<form id="addLocoPlaceholder" class="locoBlock" action="/location" method="POST">
+    <label class="line">Latitude: <input type="number" name="latitude" step="0.0000001" required /></label>
+    <label class="line">Longitude: <input type="number" name="longitude" step="0.0000001" required /></label>
+    <label class="line">City: <input type="text" name="city" required /></label>
+    <label class="line">Address: <input type="text" name="address" required /></label>
+    <label class="line">Postal Code: <input type="text" name="zip" required /></label>
+    <label class="line">Opening Weekdays:<button id="dropBtn" class="dropBtn" type="button"></button></label>
+    <div id="dropdown-content" class="dropdown-content">
+        <label><input type="checkbox" value="Mon" /> Monday</label>
+        <label><input type="checkbox" value="Tue" /> Tuesday</label>
+        <label><input type="checkbox" value="Wed" /> Wednesday</label>
+        <label><input type="checkbox" value="Thu" /> Thursday</label>
+        <label><input type="checkbox" value="Fri" /> Friday</label>
+        <label><input type="checkbox" value="Sat" /> Saturday</label>
+        <label><input type="checkbox" value="Sun" /> Sunday</label>
     </div>
-</div>
+    <label class="line">Open Time: <input type="time" name="open" required /></label>
+    <label class="line">Close Time: <input type="time" name="close" required /></label>
+    <button class="btn small" id="submitLocoBtn" type="submit">Submit</button>
+</form>
+<div id="loco"></div>
+<!-- </div> -->
 
 {% if not locations %}
+
 <p>No locations found.</p>
-{% else %}
-<ul>
-    {% for location in locations %}
-    <li>{{ location.city }} - {{ location.address }}</li>
-    {% endfor %}
-</ul>
-{% endif %} {% endblock %}
+{% else %} {% for location in locations %}
+
+<!-- <li>{{ location.city }} - {{ location.address }}</li> -->
+
+<div class="locoBlock" data-location-id="{{ location.id }}">
+    <p class="line"><strong>City:</strong> {{ location.city }}</p>
+    <p class="line"><strong>Address:</strong> {{ location.address }}, {{ location.zipcode }}</p>
+    <p class="line"><strong>Coordinates:</strong> {{ location.latitude }}, {{ location.longitude }}</p>
+    <p class="line">
+        <strong>Open Days:</strong>
+        {% set days = [] %} {% if location.open_monday %} {% set _ = days.append('Mon') %} {% endif %} {% if
+        location.open_tuesday %} {% set _ = days.append('Tue') %} {% endif %} {% if location.open_wednesday %} {% set _
+        = days.append('Wed') %} {% endif %} {% if location.open_thursday %} {% set _ = days.append('Thu') %} {% endif %}
+        {% if location.open_friday %} {% set _ = days.append('Fri') %} {% endif %} {% if location.open_saturday %} {%
+        set _ = days.append('Sat') %} {% endif %} {% if location.open_sunday %} {% set _ = days.append('Sun') %} {%
+        endif %} {{ days | join(', ') }}
+    </p>
+    <p class="line"><strong>Hours:</strong> {{ location.open_time }} - {{ location.close_time }}</p>
+</div>
+
+<!-- <div class="locoBlock" data-location-id="${location.sId}">
+        <p class="line"><strong>City:</strong> ${location.city}</p>
+        <p class="line"><strong>Address:</strong> ${location.address}, ${location.zipcode}</p>
+        <p class="line"><strong>Coordinates:</strong> ${location.latitude}, ${location.longitude}</p>
+        <p class="line"><strong>Open Days:</strong> ${daysOpenString}</p>
+        <p class="line"><strong>Hours:</strong> ${location.open_time} - ${location.close_time}</p>
+    </div> -->
+{% endfor %} {% endif %} {% endblock %}
 
 <!-- 其他腳本 -->
 {% block scripts %}
-<script src="{{ url_for('static', filename='js/location.js') }}"></script>
+<!-- <script src="{{ url_for('static', filename='js/location.js') }}"></script> -->
 {% endblock %}

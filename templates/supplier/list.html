@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+
+<!-- 網頁標題 -->
+
+{% block title %}Suppliers{% endblock %}
+
+<!-- 主要內容 -->
+
+{% block content %}
+
+<section class="mb-5">
+    <form class="d-flex mb-4" method="get" action="/suppliers">
+        <input
+            class="form-control me-2"
+            type="search"
+            placeholder="Search Suppliers"
+            aria-label="Search Suppliers"
+            name="query"
+            value="{{ keyword }}"
+        />
+        <button class="btn btn-outline-success" type="submit">Search</button>
+    </form>
+
+    <h1 class="mb-3">Suppliers</h1>
+
+    <div class="d-flex gap-3 flex-wrap mb-3">
+        {% for supplier in suppliers %}
+        <div class="card" id="supplier-{{ supplier.id }}">
+            <div class="ratio ratio-4x3">
+                <img src="{{ supplier.image_url }}" alt="{{ supplier.name }}" />
+            </div>
+            <div class="card-body">
+                <h5 class="card-title">
+                    <a href="/suppliers/{{ supplier.id }}">{{ supplier.name }}</a>
+                </h5>
+                <p class="card-text mb-1">{{ supplier.description }}</p>
+            </div>
+            <div class="d-flex justify-content-between gap-2 p-3 border-top">
+                <a href="/suppliers/{{ supplier.id }}/edit" class="btn btn-primary" role="button">Edit</a>
+                <a href="/suppliers/{{ supplier.id }}/delete" class="btn btn-danger" role="button">Delete</a>
+                <a href="javascript:happy()" class="btn btn-success" role="button">:D</a>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
+    <div class="mb-3">
+        <a class="btn btn-secondary" role="button" href="/suppliers/add">+</a>
+        <span class="ms-2">Add One</span>
+    </div>
+</section>
+{% endblock %}

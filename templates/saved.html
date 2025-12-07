@@ -2,16 +2,14 @@
 
 <!-- 網頁標題 -->
 
-{% block title %}Delete Something{% endblock %}
+{% block title %}Saved Successfully{% endblock %}
 
 <!-- 主要內容 -->
 
 {% block content %}
-<h1 class="mb-3">ARE YOU SURE YOU WANT TO DELETE {{ item_name.upper() }}?</h1>
-<p>Are you absolutely sure you want to delete {{ item_name }}?</p>
-<p>Once deleted, this action <span class="fw-bold">CANNOT</span> be undone.</p>
-<p>But hey, it's already gone. It was deleted <span id="time">0</span> seconds ago.</p>
-<p>So... no turning back now! 😏</p>
+<h1 class="mb-3">SAVED {{ item_name.upper() }} SUCCESSFULLY!</h1>
+<p>{{ item_name }} has been saved successfully.</p>
+<p>You will be redirected shortly.</p>
 {% endblock %} {% block scripts %}
 <script>
     // 計算並顯示已經過的秒數
@@ -19,7 +17,6 @@
     const timeElement = document.getElementById("time");
     setInterval(() => {
         secondsPassed++;
-        timeElement.textContent = secondsPassed;
         if (secondsPassed >= 3) {
             // 3 秒後跳轉到指定的URL
             window.location.href = "{{ url }}";

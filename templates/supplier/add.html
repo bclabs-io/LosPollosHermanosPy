@@ -1,0 +1,120 @@
+{% extends "base.html" %}
+
+<!-- 網頁標題 -->
+
+{% block title %}Add Supplier{% endblock %}
+
+<!-- 主要內容 -->
+
+{% block content %}
+<h1 class="mb-3">Add Supplier</h1>
+
+<form method="post" action="/suppliers/add" enctype="multipart/form-data">
+    <div class="row">
+        <!-- 名稱 -->
+        <div class="col col-12 col-md-6 mb-3">
+            <label for="name" class="form-label">Name</label>
+            <input type="text" class="form-control" id="name" name="name" required />
+        </div>
+
+        <!-- 圖片 -->
+        <div class="col col-12 col-md-6 mb-3">
+            <label for="image" class="form-label">Supplier Image</label>
+            <input type="file" id="image" name="image" class="form-control" accept="image/*" required />
+        </div>
+
+        <!-- 聯絡人 -->
+        <div class="col col-12 col-md-4 mb-3">
+            <label for="contact_person" class="form-label">Contact Person</label>
+            <input type="text" class="form-control" id="contact_person" name="contact_person" required />
+        </div>
+
+        <!-- Email -->
+        <div class="col col-12 col-md-4 mb-3">
+            <label for="email" class="form-label">Email</label>
+            <input type="email" class="form-control" id="email" name="email" required />
+        </div>
+
+        <!-- Phone -->
+        <div class="col col-12 col-md-4 mb-3">
+            <label for="phone" class="form-label">Phone</label>
+            <input type="text" class="form-control" id="phone" name="phone" required />
+        </div>
+
+        <!-- State -->
+        <div class="col col-12 col-md-6 col-xxl-3 mb-3">
+            <label for="state" class="form-label">State</label>
+            <input type="text" class="form-control" id="state" name="state" required />
+        </div>
+
+        <!-- City -->
+        <div class="col col-12 col-md-6 col-xxl-3 mb-3">
+            <label for="city" class="form-label">City</label>
+            <input type="text" class="form-control" id="city" name="city" required />
+        </div>
+
+        <!-- Address -->
+        <div class="col col-12 col-xxl-6 mb-3">
+            <label for="address" class="form-label">Address</label>
+            <input type="text" class="form-control" id="address" name="address" required />
+        </div>
+    </div>
+
+    <div class="mb-3">
+        <label for="description" class="form-label">Description</label>
+        <textarea class="form-control" id="description" name="description" rows="5" required></textarea>
+    </div>
+
+    <hr />
+
+    <h3>Ingredients Supplied</h3>
+
+    <!-- 食材 -->
+    <div class="mb-3" id="ingredients">
+        <div class="row mb-3 pb-2 border-bottom ingredient-item">
+            <div class="col col-12 col-md-9 col-xxl-11 mb-2">
+                <label>Ingredient Name</label>
+                <input class="form-control" type="text" name="ingredients[]" required />
+            </div>
+            <div class="col col-12 col-md-3 col-xxl-1 mb-2">
+                <label>&nbsp;</label>
+                <button class="btn btn-danger remove-ingredient-btn w-100" type="button">Remove</button>
+            </div>
+        </div>
+    </div>
+    <button type="button" class="btn btn-secondary" id="add-ingredient-btn">Add Ingredient</button>
+
+    <hr />
+
+    <button type="submit" class="btn btn-primary">Save Changes</button>
+</form>
+{% endblock %} {% block scripts %}
+<script>
+    document.getElementById("add-ingredient-btn").addEventListener("click", function () {
+        const ingredientsDiv = document.getElementById("ingredients");
+        const newIngredientHTML = `
+            <div class="row mb-3 pb-2 border-bottom ingredient-item">
+                <div class="col col-12 col-md-9 col-xxl-11 mb-2">
+                    <label>Ingredient Name</label>
+                    <input
+                        class="form-control"
+                        type="text"
+                        name="ingredients[]"
+                        required
+                    />
+                </div>
+                <div class="col col-12 col-md-3 col-xxl-1 mb-2">
+                    <label>&nbsp;</label>
+                    <button class="btn btn-danger remove-ingredient-btn w-100" type="button">Remove</button>
+                </div>
+            </div>`;
+        ingredientsDiv.insertAdjacentHTML("beforeend", newIngredientHTML);
+    });
+
+    document.getElementById("ingredients").addEventListener("click", function (event) {
+        if (event.target.classList.contains("remove-ingredient-btn")) {
+            event.target.closest(".ingredient-item").remove();
+        }
+    });
+</script>
+{% endblock %}
