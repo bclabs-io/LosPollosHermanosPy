@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+<!-- 網頁標題 -->
+
+{% block title %}405 Method Not Allowed{% endblock %}
+
+<!-- 主要內容 -->
+
+{% block content %}
+<h1>405 Method Not Allowed</h1>
+<p>Sorry, the method you used is not allowed for this page.</p>
+<p>
+    But you can always go to Los Pollos Hermanos to find what chicken you need:
+    <a href="{{ url_for('main.index') }}">Home</a>
+</p>
+{% endblock %}
