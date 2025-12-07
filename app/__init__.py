@@ -1,14 +1,9 @@
 from flask import Flask, abort, render_template
 
-from .db import create_tables, drop_all_tables, get_db  # noqa: F401
-from .errors import error_bp
-from .location import location_bp
-from .menu.view import menu_bp
+from .views import register
 
 app = Flask(__name__, static_folder="../static", template_folder="../templates")
-app.register_blueprint(error_bp)
-app.register_blueprint(location_bp)
-app.register_blueprint(menu_bp)
+register(app)
 
 
 @app.route("/")
