@@ -1,7 +1,7 @@
 from app.db import get_db
 from app.models import Dish, Ingredient, IngredientInDish
 
-from .image import add_image
+from .image import add_image, process_image_upload
 from .ingredient import add_ingredient, get_ingredient_by_name
 
 __all__ = [
@@ -34,11 +34,7 @@ def add_dish(data: dict):
 
     to_adds = ingredients_map.keys()
 
-    # 處理圖片
-    if "image" in data:
-        img = add_image(data["image"])
-        data["image_url"] = "/images/" + img.name
-        del data["image"]
+    data = process_image_upload(data)
 
     dish = Dish.model_validate(data)
 
@@ -192,13 +188,7 @@ def update_dish_by_id(dish_id: int, data: dict):
     to_removes = original - ing_names  # 移除的食材名稱列表
     to_updates = ing_names & original  # 更新的食材名稱列表
 
-    # 處理圖片
-    if "image" in data:
-        img = add_image(data["image"])
-        data["image_url"] = "/images/" + img.name
-        del data["image"]
-    else:
-        data["image_url"] = original_dish.image_url  # 保持原有圖片不變
+    data = process_image_upload(data, original_dish.image_url)
 
     dish = Dish.model_validate(data)
 

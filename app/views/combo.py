@@ -24,14 +24,9 @@ def add_combo_view():
             "name": form.get("name", ""),
             "price": float(form.get("price", 0)),
             "description": form.get("description", ""),
+            "image": request.files.get("image"),
             "dishes": form.getlist("dishes[]"),
         }
-
-        image = request.files.get("image")
-
-        if image:  # 如果有上傳圖片
-            buf = image.stream.read()  # 讀取圖片內容到緩衝區
-            data["image"] = buf
 
         combo = add_combo(data)
 
@@ -58,19 +53,16 @@ def edit_combo(combo_id):
             "price": float(form.get("price", 0)),
             "description": form.get("description", ""),
             "dishes": form.getlist("dishes[]"),
+            "image": request.files.get("image"),
         }
-
-        image = request.files.get("image")
-
-        if image:  # 如果有上傳圖片
-            buf = image.stream.read()  # 讀取圖片內容到緩衝區
-            data["image"] = buf
 
         updated_combo = update_combo_by_id(combo_id, data)
 
         return render_template(
             "saved.html", item_name=updated_combo.name, url=url_for("combo.view_combo", combo_id=updated_combo.id)
         )
+
+    ########################################
 
     all_dishes = get_dishes()
 

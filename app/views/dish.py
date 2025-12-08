@@ -1,6 +1,6 @@
 from flask import Blueprint, abort, render_template, request, url_for
 
-from app.services import delete_dish_by_id, get_dish_by_id, update_dish_by_id
+from app.services import add_dish, delete_dish_by_id, get_dish_by_id, update_dish_by_id
 
 dish_bp = Blueprint("dish", __name__, url_prefix="/menu/dishes")
 
@@ -25,6 +25,7 @@ def add_dish_view():
             "description": form.get("description"),
             "calories": form.get("calories"),
             "price": form.get("price"),
+            "image": request.files.get("image"),
         }
 
         # 處理配料資訊
@@ -38,13 +39,6 @@ def add_dish_view():
 
         data["ingredients"] = ingredients
 
-        # 處理圖片上傳
-        image = request.files.get("image")
-        if image:
-            data["image"] = image.stream.read()
-
-        from app.services import add_dish
-
         new_dish = add_dish(data)
 
         return render_template(
@@ -52,6 +46,8 @@ def add_dish_view():
             item_name=new_dish.name,
             url=url_for("dish.view_dish", dish_id=new_dish.id),
         )
+
+    ########################################
 
     return render_template("menu/dish/add.html")
 
@@ -71,6 +67,7 @@ def edit_dish(dish_id):
             "description": form.get("description"),
             "calories": form.get("calories"),
             "price": form.get("price"),
+            "image": request.files.get("image"),
         }
 
         # 處理配料資訊
@@ -84,11 +81,6 @@ def edit_dish(dish_id):
 
         data["ingredients"] = ingredients
 
-        # 處理圖片上傳
-        image = request.files.get("image")
-        if image:
-            data["image"] = image.stream.read()
-
         updated_dish = update_dish_by_id(dish_id, data)
 
         return render_template(
@@ -96,6 +88,8 @@ def edit_dish(dish_id):
             item_name=updated_dish.name,
             url=url_for("dish.view_dish", dish_id=updated_dish.id),
         )
+
+    ########################################
 
     return render_template("menu/dish/edit.html", dish=dish)
 

@@ -1,3 +1,5 @@
+from werkzeug.datastructures import FileStorage
+
 from app.db import get_db
 from app.models import Image
 
@@ -117,3 +119,30 @@ def delete_image_by_id(image_id: int) -> bool:
         print("Error deleting image:", e)
         db.rollback()
         return False
+
+
+# ====================
+# Helpers
+# ====================
+
+
+def process_image_upload(data: dict, default_path=""):
+    """
+    處理可能有的圖片上傳，並修改成圖片網址
+    """
+
+    if "image" not in data:
+        data["image_url"] = default_path
+        return data
+
+    if isinstance(data["image"], bytes):
+        buf = data["image"]
+    elif isinstance(data["image"], FileStorage):
+        # 上傳的是檔案物件
+        buf = data["image"].stream.read()
+
+    img = add_image(buf)
+    data["image_url"] = "/images/" + img.name
+    del data["image"]
+
+    return data

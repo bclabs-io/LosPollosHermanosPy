@@ -2,7 +2,7 @@ from app.db import get_db
 from app.models import Combo, Dish
 
 from .dish import get_dish_by_name
-from .image import add_image
+from .image import process_image_upload
 
 __all__ = [
     "add_combo",
@@ -30,11 +30,7 @@ def add_combo(data: dict):
     to_adds = data.get("dishes", [])
     data.pop("dishes", None)
 
-    # 處理圖片
-    if "image" in data:
-        img = add_image(data["image"])
-        data["image_url"] = "/images/" + img.name
-        del data["image"]
+    data = process_image_upload(data)
 
     combo = Combo.model_validate(data)
 
@@ -87,8 +83,7 @@ def get_combos(keyword: str = ""):
                 """,
                 (f"%{keyword}%",),
             )
-
-        rows = cursor.fetchall()
+            rows = cursor.fetchall()
     except Exception as e:
         print(f"Error getting combos: {e}")
         return []
@@ -126,8 +121,7 @@ def get_combo_by_id(combo_id: int):
         return None
 
     combo = Combo.model_validate(row)
-    dishes = get_dishes_in_combo(combo)
-    combo.dishes = dishes
+    get_dishes_in_combo(combo)
 
     return combo
 
@@ -155,13 +149,7 @@ def update_combo_by_id(combo_id: int, data: dict):
     to_adds = dishes - original
     to_removes = original - dishes
 
-    # 處理圖片
-    if "image" in data:
-        img = add_image(data["image"])
-        data["image_url"] = "/images/" + img.name
-        del data["image"]
-    else:
-        data["image_url"] = original_combo.image_url  # 保持原有圖片不變
+    data = process_image_upload(data, original_combo.image_url)
 
     combo = Combo.model_validate(data)
 
@@ -181,8 +169,7 @@ def update_combo_by_id(combo_id: int, data: dict):
                     combo_id,
                 ),
             )
-
-        db.commit()
+            db.commit()
     except Exception as e:
         print(f"Error updating combo by id: {e}")
         db.rollback()
@@ -191,14 +178,14 @@ def update_combo_by_id(combo_id: int, data: dict):
     for dish_name in to_adds:
         dish = get_dish_by_name(dish_name)
         if dish:
-            add_dish_to_combo(Combo(id=combo_id), dish)
+            add_dish_to_combo(combo, dish)
         else:
             print(f"Dish '{dish_name}' not found. Skipping addition to combo.")
 
     for dish_name in to_removes:
         dish = get_dish_by_name(dish_name)
         if dish:
-            remove_dish_from_combo(Combo(id=combo_id), dish)
+            remove_dish_from_combo(combo, dish)
         else:
             print(f"Dish '{dish_name}' not found. Skipping removal from combo.")
 
@@ -223,9 +210,8 @@ def delete_combo_by_id(combo_id: int):
                 """,
                 (combo_id,),
             )
-
-        db.commit()
-        return cursor.rowcount > 0
+            db.commit()
+            return cursor.rowcount > 0
     except Exception as e:
         print(f"Error deleting combo by id: {e}")
         db.rollback()
@@ -257,8 +243,7 @@ def add_dish_to_combo(combo: Combo, dish: Dish):
                 """,
                 (combo.id, dish.id),
             )
-
-        db.commit()
+            db.commit()
     except Exception as e:
         print(f"Error adding dish to combo: {e}")
         db.rollback()
@@ -310,7 +295,8 @@ def get_dishes_in_combo(combo: Combo):
     取得套餐中的所有菜品
 
     :param combo: 套餐資料
-    :return: 菜品列表
+
+    :return: 套餐資料，包含菜品列表及總熱量
     """
     db = get_db()
 
@@ -318,19 +304,29 @@ def get_dishes_in_combo(combo: Combo):
         with db.cursor() as cursor:
             cursor.execute(
                 """
-                SELECT d.*
-                FROM dish d
+                SELECT d.* FROM dish d
                 JOIN combo_dish cd ON d.id = cd.dish_id
                 WHERE cd.combo_id = %s;
                 """,
                 (combo.id,),
             )
+            rows = cursor.fetchall()
 
-        rows = cursor.fetchall()
+            cursor.execute(
+                """
+                SELECT SUM(calories) AS total_calories FROM dish d
+                JOIN combo_dish cd ON d.id = cd.dish_id
+                WHERE cd.combo_id = %s;
+                """,
+                (combo.id,),
+            )
+            total_calries = cursor.fetchone()
     except Exception as e:
         print(f"Error getting dishes in combo: {e}")
         return []
 
     dishes = [Dish.model_validate(row) for row in rows]
+    combo.dishes = dishes
+    combo.total_calories = total_calries["total_calories"] if total_calries else 0
 
     return dishes

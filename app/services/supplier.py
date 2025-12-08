@@ -1,7 +1,7 @@
 from app.db import get_db
 from app.models import Ingredient, Supplier, SupplierSummary
 
-from .image import add_image
+from .image import add_image, process_image_upload
 from .ingredient import add_ingredient, get_ingredient_by_name
 
 __all__ = [
@@ -30,11 +30,7 @@ def add_supplier(data: dict):
     to_adds = data.get("ingredients", [])
     data.pop("ingredients", None)
 
-    # 處理圖片
-    if "image" in data:
-        img = add_image(data["image"])
-        data["image_url"] = "/images/" + img.name
-        del data["image"]
+    data = process_image_upload(data)
 
     supplier = Supplier.model_validate(data)
 
@@ -162,13 +158,8 @@ def update_supplier_by_id(supplier_id: int, data: dict):
     to_remove = before - after
 
     data.pop("ingredients", None)
-    # 處理圖片
-    if "image" in data:
-        img = add_image(data["image"])
-        data["image_url"] = "/images/" + img.name
-        del data["image"]
-    else:
-        data["image_url"] = original_supplier.image_url  # 保持原有圖片不變
+
+    data = process_image_upload(data, original_supplier.image_url)
 
     supplier = Supplier.model_validate(data)
 

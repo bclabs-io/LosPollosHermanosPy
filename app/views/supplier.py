@@ -46,14 +46,9 @@ def add_supplier_view():
             "state": form.get("state", ""),
             "city": form.get("city", ""),
             "address": form.get("address", ""),
+            "image": request.files.get("image"),
             "ingredients": form.getlist("ingredients[]"),
         }
-
-        image = request.files.get("image")
-
-        if image:  # 如果有上傳圖片
-            buf = image.stream.read()  # 讀取圖片內容到緩衝區
-            data["image"] = buf
 
         supplier = add_supplier(data)
 
@@ -88,19 +83,14 @@ def edit_supplier(supplier_id: int):
             "state": form.get("state", ""),
             "city": form.get("city", ""),
             "address": form.get("address", ""),
+            "image": request.files.get("image"),
             "ingredients": form.getlist("ingredients[]"),
         }
-
-        image = request.files.get("image")
-
-        if image:  # 如果有上傳圖片
-            buf = image.stream.read()  # 讀取圖片內容到緩衝區
-            data["image"] = buf
 
         supplier = update_supplier_by_id(supplier_id, data)
 
         return render_template(
-            "saved.html", item_name=supplier.name, url=url_for("supplier.supplier_detail", supplier_id=supplier_id)
+            "saved.html", item_name=supplier.name, url=url_for("supplier.view_supplier", supplier_id=supplier_id)
         )
 
     ########################################
