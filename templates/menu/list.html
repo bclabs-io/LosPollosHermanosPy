@@ -13,62 +13,62 @@
 
     <div class="d-flex flex-wrap mb-3">
         {% for combo in combos %}
-        <div class="card m-2" id="combo-{{ combo.id }}">
+        <div class="card m-2">
             <div class="ratio ratio-4x3">
                 <img src="{{ combo.image_url }}" alt="{{ combo.name }}" />
             </div>
             <div class="card-body">
                 <h5 class="card-title">
-                    <a href="/menu/combos/{{ combo.id }}">{{ combo.name }}</a>
+                    <a href="/menu/combos/{{ combo.id }}">{{ combo.name.capitalize() }}</a>
                 </h5>
             </div>
             <ul class="list-group list-group-flush">
                 <li class="list-group-item">Price: ${{ combo.price }}</li>
             </ul>
             <div class="d-flex justify-content-between gap-2 p-3">
-                <a href="/menu/combos/{{ combo.id }}/edit" class="btn btn-primary" role="button">Edit</a>
-                <a href="/menu/combos/{{ combo.id }}/delete" class="btn btn-danger" role="button">Delete</a>
-                <a href="javascript:happy()" class="btn btn-success" role="button">:D</a>
+                <a class="btn btn-primary" href="/menu/combos/{{ combo.id }}/edit" role="button">Edit</a>
+                <a class="btn btn-danger" href="/menu/combos/{{ combo.id }}/delete" role="button">Delete</a>
+                <a class="btn btn-success" href="javascript:happy()" role="button">:D</a>
             </div>
         </div>
         {% endfor %}
     </div>
 
     <div class="mb-3">
-        <a class="btn btn-secondary" role="button" href="/menu/combos/add">+</a>
-        <span class="ms-2">Add One</span>
+        <a class="btn btn-secondary mx-2" href="/menu/combos/add" role="button">+</a>
+        <span>Add One</span>
     </div>
 </section>
 
 <section class="mb-5">
     <h1 class="mb-3">Dishes</h1>
 
-    <div class="d-flex gap-3 flex-wrap mb-3">
+    <div class="d-flex flex-wrap mb-3">
         {% for dish in dishes %}
-        <div class="card" id="dish-{{ dish.id }}">
+        <div class="card m-2">
             <div class="ratio ratio-4x3">
                 <img src="{{ dish.image_url }}" alt="{{ dish.name }}" />
             </div>
             <div class="card-body">
                 <h5 class="card-title">
-                    <a href="/menu/dishes/{{ dish.id }}">{{ dish.name }}</a>
+                    <a href="/menu/dishes/{{ dish.id }}">{{ dish.name.capitalize() }}</a>
                 </h5>
             </div>
             <ul class="list-group list-group-flush">
                 <li class="list-group-item">Price: ${{ dish.price }}</li>
             </ul>
             <div class="d-flex justify-content-between gap-2 p-3">
-                <a href="/menu/dishes/{{ dish.id }}/edit" class="btn btn-primary" role="button">Edit</a>
-                <a href="/menu/dishes/{{ dish.id }}/delete" class="btn btn-danger" role="button">Delete</a>
-                <a href="javascript:happy()" class="btn btn-success" role="button">:D</a>
+                <a class="btn btn-primary" href="/menu/dishes/{{ dish.id }}/edit" role="button">Edit</a>
+                <a class="btn btn-danger" href="/menu/dishes/{{ dish.id }}/delete" role="button">Delete</a>
+                <a class="btn btn-success" href="javascript:happy()" role="button">:D</a>
             </div>
         </div>
         {% endfor %}
     </div>
 
     <div class="mb-3">
-        <a class="btn btn-secondary" role="button" href="/menu/dishes/add">+</a>
-        <span class="ms-2">Add One</span>
+        <a class="btn btn-secondary mx-2" href="/menu/dishes/add" role="button">+</a>
+        <span>Add One</span>
     </div>
 </section>
 

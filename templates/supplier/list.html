@@ -13,9 +13,8 @@
         <input
             class="form-control me-2"
             type="search"
-            placeholder="Search Suppliers"
-            aria-label="Search Suppliers"
             name="query"
+            placeholder="Search Suppliers"
             value="{{ keyword }}"
         />
         <button class="btn btn-outline-success" type="submit">Search</button>
@@ -23,30 +22,30 @@
 
     <h1 class="mb-3">Our Trusted Suppliers</h1>
 
-    <div class="d-flex gap-3 flex-wrap mb-3">
+    <div class="d-flex flex-wrap mb-3">
         {% for supplier in suppliers %}
-        <div class="card" id="supplier-{{ supplier.id }}">
+        <div class="card m-2">
             <div class="ratio ratio-4x3">
                 <img src="{{ supplier.image_url }}" alt="{{ supplier.name }}" />
             </div>
             <div class="card-body">
                 <h5 class="card-title">
-                    <a href="/suppliers/{{ supplier.id }}">{{ supplier.name }}</a>
+                    <a href="/suppliers/{{ supplier.id }}">{{ supplier.name.capitalize() }}</a>
                 </h5>
                 <p class="card-text mb-1">{{ supplier.description }}</p>
             </div>
             <div class="d-flex justify-content-between gap-2 p-3 border-top">
-                <a href="/suppliers/{{ supplier.id }}/edit" class="btn btn-primary" role="button">Edit</a>
-                <a href="/suppliers/{{ supplier.id }}/delete" class="btn btn-danger" role="button">Delete</a>
-                <a href="javascript:happy()" class="btn btn-success" role="button">:D</a>
+                <a class="btn btn-primary" href="/suppliers/{{ supplier.id }}/edit" role="button">Edit</a>
+                <a class="btn btn-danger" href="/suppliers/{{ supplier.id }}/delete" role="button">Delete</a>
+                <a class="btn btn-success" href="javascript:happy()" role="button">:D</a>
             </div>
         </div>
         {% endfor %}
     </div>
 
     <div class="mb-3">
-        <a class="btn btn-secondary" role="button" href="/suppliers/add">+</a>
-        <span class="ms-2">Add One</span>
+        <a class="btn btn-secondary mx-2" role="button" href="/suppliers/add">+</a>
+        <span>Add One</span>
     </div>
 </section>
 {% endblock %}

@@ -10,4 +10,4 @@ def menu():
     dishes = get_dishes()
     combos = get_combos()
 
-    return render_template("menu/menu.html", dishes=dishes, combos=combos)
+    return render_template("menu/list.html", dishes=dishes, combos=combos)

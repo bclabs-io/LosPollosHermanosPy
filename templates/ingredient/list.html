@@ -13,9 +13,8 @@
         <input
             class="form-control me-2"
             type="search"
-            placeholder="Search Ingredients"
-            aria-label="Search Ingredients"
             name="query"
+            placeholder="Search Ingredients"
             value="{{ keyword }}"
         />
         <button class="btn btn-outline-success" type="submit">Search</button>
@@ -23,12 +22,12 @@
 
     <h1 class="mb-3">Ingredients We Use</h1>
 
-    <div class="d-flex gap-3 flex-wrap mb-3">
+    <div class="d-flex flex-wrap mb-3">
         {% for ingredient in ingredients %}
-        <div class="card" id="ingredient-{{ ingredient.id }}">
+        <div class="card m-2" id="ingredient-{{ ingredient.id }}">
             <div class="card-body">
                 <h5 class="card-title">
-                    <a href="/ingredients/{{ ingredient.id }}">{{ ingredient.name }}</a>
+                    <a href="/ingredients/{{ ingredient.id }}">{{ ingredient.name.capitalize() }}</a>
                 </h5>
                 <p class="card-text mb-1">A pretty cool description about {{ ingredient.name }}.</p>
             </div>
