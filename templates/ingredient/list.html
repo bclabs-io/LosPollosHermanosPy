@@ -8,19 +8,20 @@
 
 {% block content %}
 
-<section class="mb-5">
-    <form class="d-flex mb-4" method="get" action="/ingredients">
-        <input
-            class="form-control me-2"
-            type="search"
-            name="query"
-            placeholder="Search Ingredients"
-            value="{{ keyword }}"
-        />
-        <button class="btn btn-outline-success" type="submit">Search</button>
-    </form>
+<form class="d-flex mb-3" method="get" action="/ingredients">
+    <input
+        class="form-control me-2"
+        type="search"
+        name="query"
+        placeholder="Search Ingredients"
+        value="{{ keyword }}"
+    />
+    <button class="btn btn-outline-success" type="submit">Search</button>
+</form>
 
-    <h1 class="mb-3">Ingredients We Use</h1>
+<section class="mb-3">
+    <h1 class="mb-3">There are {{ total }} ingredients</h1>
+    page {{ page }}
 
     <div class="d-flex flex-wrap mb-3">
         {% for ingredient in ingredients %}
@@ -36,7 +37,30 @@
     </div>
 
     {% if not ingredients %}
-    <p>No ingredients found. ;/</p>
+    <div class="alert alert-warning mx-2 mb-3" role="alert">No ingredients found. :/</div>
     {% endif %}
+
+    <nav aria-label="Page navigation example">
+        <ul class="pagination">
+            <li class="page-item">
+                <a class="page-link {% if page <= 1 %}disabled{% endif %}" href="?page={{ page - 1 }}">
+                    <span aria-hidden="true">&laquo;</span>
+                </a>
+            </li>
+            <li class="page-item active">
+                <a class="page-link" aria-current="page">{{ page }}</a>
+            </li>
+            <li class="page-item">
+                <a
+                    class="page-link {% if page >= (total // 20) + 1 %}disabled{% endif %}"
+                    href="?page={{ page + 1 }}"
+                    aria-label="Next"
+                >
+                    <span aria-hidden="true">&raquo;</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
 </section>
+
 {% endblock %}

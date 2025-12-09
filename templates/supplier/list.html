@@ -43,6 +43,10 @@
         {% endfor %}
     </div>
 
+    {% if not suppliers %}
+    <div class="alert alert-warning mx-2 mb-3" role="alert">No suppliers found. :/</div>
+    {% endif %}
+
     <div class="mb-3">
         <a class="btn btn-secondary mx-2" role="button" href="/suppliers/add">+</a>
         <span>Add One</span>

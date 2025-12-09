@@ -128,7 +128,6 @@ def process_image_upload(data: dict, default_path=""):
     """
     處理可能有的圖片上傳，並修改成圖片網址
     """
-    print(data)
 
     if "image" not in data or not data["image"]:
         if default_path:

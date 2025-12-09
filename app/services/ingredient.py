@@ -4,10 +4,11 @@ from app.models import Dish, Ingredient, Supplier
 __all__ = [
     "add_ingredient",
     "get_ingredients",
+    "count_ingredients",
     "get_ingredient_by_id",
     "get_ingredient_by_name",
-    "update_ingredient",
-    "delete_ingredient",
+    "update_ingredient_by_id",
+    "delete_ingredient_by_id",
     "get_suppliers_by_ingredient",
     "get_dishes_by_ingredient",
 ]
@@ -44,7 +45,36 @@ def add_ingredient(data: dict):
     return get_ingredient_by_id(ingredient_id)
 
 
-def get_ingredients(keyword: str = ""):
+def count_ingredients(keyword: str = ""):
+    """
+    計算食材總數
+
+    :param keyword: 搜尋關鍵字
+
+    :return: 食材總數
+    """
+    db = get_db()
+
+    try:
+        with db.cursor() as cursor:
+            cursor.execute(
+                """
+                SELECT COUNT(*) AS total FROM ingredient
+                WHERE name LIKE %s;
+                """,
+                (f"%{keyword}%",),
+            )
+            row = cursor.fetchone()
+    except Exception as e:
+        print("Error counting ingredients:", e)
+        return 0
+
+    total = row["total"] if row else 0
+
+    return total
+
+
+def get_ingredients(keyword: str = "", offset: int = 0, limit: int = 100):
     """
     取得食材列表
 
@@ -58,9 +88,11 @@ def get_ingredients(keyword: str = ""):
         with db.cursor() as cursor:
             cursor.execute(
                 """
-                SELECT * FROM ingredient WHERE name LIKE %s;
+                SELECT * FROM ingredient
+                WHERE name LIKE %s
+                LIMIT %s OFFSET %s;
                 """,
-                (f"%{keyword}%",),
+                (f"%{keyword}%", limit, offset),
             )
             rows = cursor.fetchall()
     except Exception as e:
@@ -131,7 +163,7 @@ def get_ingredient_by_name(ingredient_name: str):
     return ingredient
 
 
-def update_ingredient(ingredient_id: int, data: dict):
+def update_ingredient_by_id(ingredient_id: int, data: dict):
     """
     更新食材資料
 
@@ -162,7 +194,7 @@ def update_ingredient(ingredient_id: int, data: dict):
     return get_ingredient_by_id(ingredient_id)
 
 
-def delete_ingredient(ingredient_id: int):
+def delete_ingredient_by_id(ingredient_id: int):
     """
     刪除食材
 

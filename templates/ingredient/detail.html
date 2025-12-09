@@ -34,6 +34,11 @@
     {% else %} No dishes using this ingredient. {% endif %}
 </section>
 
-<a href="#" class="btn btn-danger {% if not deletable %} disabled{% endif %}" role="button">Delete</a>
+<a
+    class="btn btn-danger {% if not deletable %} disabled{% endif %}"
+    href="/ingredients/{{ ingredient.id }}/delete"
+    role="button"
+    >Delete</a
+>
 
 {% endblock %}
