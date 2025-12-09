@@ -19,6 +19,14 @@ def page_not_found(e):
     return render_template("errors/404.html"), 404
 
 
+@error_bp.app_errorhandler(405)
+def method_not_allowed(e):
+    """
+    這裡渲染的是 405.html 頁面
+    """
+    return render_template("errors/405.html"), 405
+
+
 @error_bp.app_errorhandler(418)
 def im_a_teapot(e):
     """

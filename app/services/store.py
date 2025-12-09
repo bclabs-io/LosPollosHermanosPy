@@ -253,17 +253,28 @@ def update_store_by_id(store_id: int, data: dict):
     store = Store.model_validate(data)
 
     # 生成更新語句
-    fields = [f"{key}" for key in store.model_fields_set if key != "weekdays"]
+    fields = ["name", "phone", "state", "city", "address", "zipcode", "latitude", "longitude"]
     values = [getattr(store, key) for key in fields]
-    fields.append("weekdays")
-    values.append(",".join(map(str, store.weekdays)))
-    values.append(store_id)
+    fields.extend(["weekdays", "open_time", "close_time"])
+    values.extend(
+        [
+            ",".join(map(str, store.weekdays)),
+            store.open_time.isoformat(),
+            store.close_time.isoformat(),
+            store_id,
+        ]
+    )
+
+    fields = ", ".join(f"{field} = %s" for field in fields)
+
+    print("Updating store with fields:", fields)
+    print("With values:", values)
 
     try:
         with db.cursor() as cursor:
             cursor.execute(
                 f"""
-                UPDATE store SET {', '.join(fields)} WHERE id = %s;
+                UPDATE store SET {fields} WHERE id = %s;
                 """,
                 tuple(values),
             )

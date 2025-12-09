@@ -1,0 +1,119 @@
+{% extends "base.html" %}
+
+<!-- 網頁標題 -->
+
+{% block title %}Edit Store{% endblock %}
+
+<!-- 主要內容 -->
+
+{% block content %}
+<h1 class="mb-3">Edit Store</h1>
+
+<form method="post" action="/stores/{{ store.id }}/edit" enctype="multipart/form-data">
+    <div class="row">
+        <!-- Name -->
+        <div class="col col-12 col-md-6 mb-3">
+            <label class="form-label">Name</label>
+            <input class="form-control" name="name" type="text" value="{{ store.name }}" required />
+        </div>
+
+        <!-- Phone -->
+        <div class="col col-12 col-md-6 mb-3">
+            <label class="form-label">Phone</label>
+            <input class="form-control" name="phone" type="text" value="{{ store.phone }}" required />
+        </div>
+
+        <!-- State -->
+        <div class="col col-12 col-md-6 col-xxl-3 mb-3">
+            <label class="form-label">State</label>
+            <input class="form-control" name="state" type="text" value="{{ store.state }}" required />
+        </div>
+
+        <!-- City -->
+        <div class="col col-12 col-md-6 col-xxl-3 mb-3">
+            <label class="form-label">City</label>
+            <input class="form-control" name="city" type="text" value="{{ store.city }}" required />
+        </div>
+
+        <!-- Address -->
+        <div class="col col-12 col-xxl-6 mb-3">
+            <label class="form-label">Address</label>
+            <input class="form-control" name="address" type="text" value="{{ store.address }}" required />
+        </div>
+
+        <!-- Zipcode -->
+        <div class="col col-12 col-md-4 mb-3">
+            <label class="form-label">Zipcode</label>
+            <input class="form-control" name="zipcode" type="number" value="{{ store.zipcode }}" required />
+        </div>
+
+        <!-- Latitude -->
+        <div class="col col-12 col-md-4 mb-3">
+            <label class="form-label">Latitude</label>
+            <input
+                class="form-control"
+                name="latitude"
+                type="number"
+                value="{{ store.latitude }}"
+                step="0.001"
+                min="-90"
+                max="90"
+                required
+            />
+        </div>
+
+        <!-- Longitude -->
+        <div class="col col-12 col-md-4 mb-3">
+            <label class="form-label">Longitude</label>
+            <input
+                class="form-control"
+                name="longitude"
+                type="number"
+                value="{{ store.longitude }}"
+                step="0.001"
+                min="-180"
+                max="180"
+                required
+            />
+        </div>
+
+        <!-- Weekdays -->
+        <div class="col col-12 mb-3">
+            <label class="form-label">Weekdays</label>
+            <select class="form-select" name="weekdays" size="7" multiple required>
+                {% for day in range(1, 8) %}
+                <option value="{{ day }}" {% if day in store.weekdays %}selected{% endif %}>
+                    {{ weekdays_map[day] }}
+                </option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <!-- Open Time -->
+        <div class="col col-12 col-md-6 mb-3">
+            <label class="form-label">Open Time</label>
+            <input
+                class="form-control"
+                name="open_time"
+                type="time"
+                value="{{ store.open_time.strftime('%H:%M') }}"
+                required
+            />
+        </div>
+
+        <!-- Close Time -->
+        <div class="col col-12 col-md-6 mb-3">
+            <label class="form-label">Close Time</label>
+            <input
+                class="form-control"
+                name="close_time"
+                type="time"
+                value="{{ store.close_time.strftime('%H:%M') }}"
+                required
+            />
+        </div>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Save Changes</button>
+</form>
+{% endblock %}

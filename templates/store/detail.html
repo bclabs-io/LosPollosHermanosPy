@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+<!-- 網頁標題 -->
+
+{% block title %}{{ store.name }}{% endblock %}
+
+<!-- 主要內容 -->
+
+{% block content %}
+
+<div class="row">
+    <div class="col col-12 col-lg-6">
+        <section class="mb-3">
+            <h1 class="mb-3">{{ store.name.capitalize() }}</h1>
+
+            <ul class="mb-4">
+                <li><strong>Phone:</strong> {{ store.phone }}</li>
+                <li>
+                    <strong>Address:</strong> ({{ store.zipcode }}) {{ store.address }}, {{ store.city }}, {{
+                    store.state }}
+                </li>
+                <li><strong>Weekdays:</strong> {{ weekdays }}</li>
+                <li>
+                    <strong>Opening Time:</strong> {{ store.open_time.strftime("%H:%M") }} ~ {{
+                    store.close_time.strftime("%H:%M") }}
+                </li>
+                <li><strong>Employees:</strong> {{ store.employees_count }}</li>
+            </ul>
+        </section>
+
+        <section class="d-flex gap-2 mb-3">
+            <a class="btn btn-primary" href="/stores/{{ store.id }}/edit" role="button">Edit</a>
+            <a class="btn btn-danger" href="/stores/{{ store.id }}/delete" role="button">Delete</a>
+            <button class="btn btn-success" onclick="happy();">:D</button>
+        </section>
+    </div>
+
+    <div class="col col-12 col-lg-6">
+        <div class="ratio ratio-4x3">
+            <iframe
+                class="w-100"
+                src="https://maps.google.com/maps?q={{ store.latitude }}, {{ store.longitude }}&z=15&output=embed"
+                style="border: 0"
+                allowfullscreen=""
+                loading="lazy"
+                referrerpolicy="no-referrer-when-downgrade"
+            >
+            </iframe>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

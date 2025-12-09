@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+
+<!-- 網頁標題 -->
+
+{% block title %}Stores{% endblock %}
+
+<!-- 主要內容 -->
+
+{% block content %}
+
+<form class="d-flex mb-3" method="get" action="/stores">
+    <input class="form-control me-2" type="search" name="query" placeholder="Search Stores" value="{{ keyword }}" />
+    <button class="btn btn-outline-success" type="submit">Search</button>
+</form>
+
+<section class="mb-3">
+    <h1 class="mb-3">Stores</h1>
+
+    <div class="d-flex flex-wrap mb-3">
+        {% for store in stores %}
+        <div class="card m-2">
+            <div class="card-body">
+                <h5 class="card-title">
+                    <a href="/stores/{{ store.id }}">{{ store.name.capitalize() }}</a>
+                </h5>
+                <p class="card-text mb-1">A pretty cool description about {{ store.name }}.</p>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
+    {% if not stores %}
+    <div class="alert alert-warning mx-2 mb-3" role="alert">No stores found. :/</div>
+    {% endif %}
+
+    <div class="mb-3">
+        <a class="btn btn-secondary mx-2" role="button" href="/stores/add">+</a>
+        <span>Add One</span>
+        <a class="btn btn-primary mx-2" role="button" href="/stores/nearby">📍</a>
+        <span>Find by Distance!</span>
+    </div>
+</section>
+
+{% endblock %}
