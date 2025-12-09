@@ -199,10 +199,10 @@ def delete_combo_by_id(combo_id: int):
 
 def add_dish_to_combo(combo: Combo, dish: Dish):
     """
-    將菜品加入套餐
+    將餐點加入套餐
 
     :param combo: 套餐資料
-    :param dish: 菜品資料
+    :param dish: 餐點資料
 
     :return: 是否加入成功
     """
@@ -230,10 +230,10 @@ def add_dish_to_combo(combo: Combo, dish: Dish):
 
 def remove_dish_from_combo(combo: Combo, dish: Dish):
     """
-    從套餐中移除菜品
+    從套餐中移除餐點
 
     :param combo: 套餐資料
-    :param dish: 菜品資料
+    :param dish: 餐點資料
 
     :return: 是否移除成功
     """
@@ -249,7 +249,7 @@ def remove_dish_from_combo(combo: Combo, dish: Dish):
                 (combo.id, dish.id),
             )
             db.commit()
-            # 沒有刪除任何資料，表示菜品不在套餐中
+            # 沒有刪除任何資料，表示餐點不在套餐中
             return cursor.rowcount > 0
     except Exception as e:
         print(f"Error removing dish from combo: {e}")
@@ -263,11 +263,11 @@ def remove_dish_from_combo(combo: Combo, dish: Dish):
 
 def update_combo_dishes(combo: Combo, before: list[str], after: list[str]):
     """
-    更新套餐中的菜品列表
+    更新套餐中的餐點列表
 
     :param combo: 套餐資料
-    :param before: 更新前的菜品名稱列表
-    :param after: 更新後的菜品名稱列表
+    :param before: 更新前的餐點名稱列表
+    :param after: 更新後的餐點名稱列表
 
     :return: 是否更新成功
     """
@@ -295,11 +295,11 @@ def update_combo_dishes(combo: Combo, before: list[str], after: list[str]):
 
 def get_dishes_in_combo(combo: Combo):
     """
-    取得套餐中的所有菜品
+    取得套餐中的所有餐點
 
     :param combo: 套餐資料
 
-    :return: 套餐資料，包含菜品列表及總熱量
+    :return: 套餐資料，包含餐點列表及總熱量
     """
     db = get_db()
 

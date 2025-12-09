@@ -2,43 +2,43 @@
 
 <!-- 網頁標題 -->
 
-{% block title %}Add Dish{% endblock %}
+{% block title %}Edit Dish{% endblock %}
 
 <!-- 主要內容 -->
 
 {% block content %}
-<h1 class="mb-3">Add Dish</h1>
+<h1 class="mb-3">Edit Dish</h1>
 
-<form method="post" action="/menu/dishes/add" enctype="multipart/form-data">
+<form method="post" action="/menu/dishes/{{ dish.id }}/edit" enctype="multipart/form-data">
     <div class="row">
         <!-- Name -->
         <div class="col col-12 col-md-6 mb-3">
-            <label for="name" class="form-label">Name</label>
-            <input type="text" class="form-control" id="name" name="name" required />
+            <label class="form-label">Name</label>
+            <input class="form-control" name="name" type="text" value="{{ dish.name }}" required />
         </div>
 
         <!-- Image -->
         <div class="col col-12 col-md-6 mb-3">
-            <label for="image" class="form-label">Dish Image</label>
-            <input type="file" id="image" name="image" class="form-control" accept="image/*" required />
+            <label class="form-label">Dish Image</label>
+            <input class="form-control" name="image" type="file" accept="image/*" />
         </div>
 
         <!-- Calories -->
         <div class="col col-12 col-md-6 mb-3">
-            <label for="calories" class="form-label">Calories</label>
-            <input type="number" class="form-control" id="calories" name="calories" required />
+            <label class="form-label">Calories</label>
+            <input class="form-control" name="calories" type="number" value="{{ dish.calories }}" required />
         </div>
 
         <!-- Price -->
         <div class="col col-12 col-md-6 mb-3">
-            <label for="price" class="form-label">Price</label>
-            <input type="number" class="form-control" id="price" name="price" step="0.01" required />
+            <label class="form-label">Price</label>
+            <input class="form-control" name="price" type="number" value="{{ dish.price }}" step="0.01" required />
         </div>
     </div>
 
     <div class="mb-3">
-        <label for="description" class="form-label">Description</label>
-        <textarea class="form-control" id="description" name="description" rows="5" required></textarea>
+        <label class="form-label">Description</label>
+        <textarea class="form-control" name="description" rows="5" required>{{ dish.description }}</textarea>
     </div>
 
     <hr />
@@ -47,24 +47,45 @@
 
     <!-- Ingredients -->
     <div class="mb-3" id="ingredients">
+        {% for ingredient in dish.ingredients %}
         <div class="row mb-3 pb-2 border-bottom ingredient-item">
             <div class="col col-12 col-xxl-6 mb-2">
                 <label>Ingredient Name</label>
-                <input class="form-control" type="text" name="ingredients[]name" required />
+                <input
+                    class="form-control"
+                    name="ingredients[]name"
+                    type="text"
+                    value="{{ ingredient['name'] }}"
+                    required
+                />
             </div>
             <div class="col col-12 col-md-4 col-xxl-2 mb-2">
                 <label>Quantity</label>
-                <input class="form-control" type="number" name="ingredients[]quantity" step="0.01" required />
+                <input
+                    class="form-control"
+                    name="ingredients[]quantity"
+                    type="number"
+                    value="{{ ingredient['quantity'] }}"
+                    step="0.01"
+                    required
+                />
             </div>
             <div class="col col-12 col-md-5 col-xxl-3 mb-2">
                 <label>Unit</label>
-                <input class="form-control" type="text" name="ingredients[]unit" required />
+                <input
+                    class="form-control"
+                    name="ingredients[]unit"
+                    type="text"
+                    value="{{ ingredient['unit'] }}"
+                    required
+                />
             </div>
             <div class="col col-12 col-md-3 col-xxl-1 mb-2">
                 <label>&nbsp;</label>
                 <button class="btn btn-danger remove-ingredient-btn w-100" type="button">Remove</button>
             </div>
         </div>
+        {% endfor %}
     </div>
     <button type="button" class="btn btn-secondary" id="add-ingredient-btn">Add Ingredient</button>
     <hr />
@@ -79,15 +100,15 @@
             <div class="row mb-3 pb-2 border-bottom ingredient-item">
                 <div class="col col-12 col-xxl-6 mb-2">
                     <label>Ingredient Name</label>
-                    <input class="form-control" type="text" name="ingredients[]name" required />
+                    <input class="form-control" name="ingredients[]name" type="text" required />
                 </div>
                 <div class="col col-12 col-md-4 col-xxl-2 mb-2">
                     <label>Quantity</label>
-                    <input class="form-control" type="number" name="ingredients[]quantity" step="0.01" required />
+                    <input class="form-control" name="ingredients[]quantity" type="number" step="0.01" required />
                 </div>
                 <div class="col col-12 col-md-5 col-xxl-3 mb-2">
                     <label>Unit</label>
-                    <input class="form-control" type="text" name="ingredients[]unit" required />
+                    <input class="form-control" name="ingredients[]unit" type="text" required />
                 </div>
                 <div class="col col-12 col-md-3 col-xxl-1 mb-2">
                     <label>&nbsp;</label>

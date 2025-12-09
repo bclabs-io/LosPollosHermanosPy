@@ -27,7 +27,7 @@ def add_supplier(data: dict):
     db = get_db()
 
     # 處理需要關聯的食材列表
-    after = data.get("ingredients", [])
+    after = data.pop("ingredients", [])
     data = process_image_upload(data)
 
     # 驗證資料

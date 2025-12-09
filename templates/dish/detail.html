@@ -9,16 +9,18 @@
 
 <div class="row">
     <div class="col col-12 col-lg-6">
-        <h1 class="mb-3">{{ dish.name }}</h1>
+        <section class="mb-3">
+            <h1 class="mb-3">{{ dish.name }}</h1>
 
-        <p>{{ dish.description }}</p>
+            <p>{{ dish.description }}</p>
 
-        <ul class="mb-4">
-            <li><strong>Calories:</strong> {{ dish.calories }}</li>
-            <li><strong>Price:</strong> ${{ dish.price }}</li>
-        </ul>
+            <ul class="mb-4">
+                <li><strong>Calories:</strong> {{ dish.calories }}</li>
+                <li><strong>Price:</strong> ${{ dish.price }}</li>
+            </ul>
+        </section>
 
-        <div class="mb-3">
+        <section class="mb-3">
             <h3>Ingredients</h3>
             {% if dish.ingredients %}
             <ul>
@@ -30,13 +32,13 @@
                 {% endfor %}
             </ul>
             {% else %} No ingredients for this dish. {% endif %}
-        </div>
+        </section>
 
-        <div class="d-flex gap-2 mb-3">
+        <section class="d-flex gap-2 mb-3">
             <a href="/menu/dishes/{{ dish.id }}/edit" class="btn btn-primary" role="button">Edit</a>
             <a href="/menu/dishes/{{ dish.id }}/delete" class="btn btn-danger" role="button">Delete</a>
             <button class="btn btn-success" onclick="happy();">:D</button>
-        </div>
+        </section>
     </div>
 
     <div class="col col-12 col-lg-6">
