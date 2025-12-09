@@ -1,5 +1,5 @@
 #!/bin/bash
-
+set -euo pipefail # 強制處理任何錯誤
 cd ~/app/LosPollosHermanosPy
 
 echo "Rebuild & restart containers..."

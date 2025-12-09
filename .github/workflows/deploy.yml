@@ -14,7 +14,7 @@ jobs:
 
             - name: Sync files to server
               run: |
-                  rsync -avz --delete ./ ~/app/LosPollosHermanosPy
+                  rsync -avz --delete --exclude=".env" ./ ~/app/LosPollosHermanosPy
 
             # 部署應用程式
             - name: Deploy Application
