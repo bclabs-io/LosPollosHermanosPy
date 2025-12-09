@@ -1,4 +1,5 @@
 import io
+from datetime import time, timedelta
 from hashlib import sha1
 from uuid import NAMESPACE_DNS, uuid5
 
@@ -37,3 +38,18 @@ def get_uuid_from_data(data: bytes) -> str:
     """
     hashed = sha1(data).hexdigest()
     return str(uuid5(NAMESPACE_DNS, hashed))
+
+
+def timedelta_to_time(td: timedelta):
+    """
+    將 timedelta 轉換為時間格式
+
+    :param td: 時間差物件
+
+    :return: 時間字串，格式為 HH:MM:SS
+    """
+    total_seconds = int(td.total_seconds())
+    hours = total_seconds // 3600
+    minutes = (total_seconds % 3600) // 60
+    seconds = total_seconds % 60
+    return time(hour=hours, minute=minutes, second=seconds)

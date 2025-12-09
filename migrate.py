@@ -7,16 +7,7 @@ from dotenv import load_dotenv
 load_dotenv()
 
 from app.db import create_tables, drop_all_tables
-from app.services import (
-    add_combo,
-    add_dish,
-    add_dish_to_combo,
-    add_image,
-    add_ingredient,
-    add_ingredient_to_dish,
-    add_ingredient_to_supplier,
-    add_supplier,
-)
+from app.services import add_combo, add_dish, add_image, add_store, add_supplier
 
 mappings = defaultdict(dict)
 
@@ -37,6 +28,24 @@ def seed_images():
             img_data = f.read()
             img = add_image(img_data)
             mappings["img"][file] = img.name
+
+    print("Done.")
+
+
+def seed_stores():
+    """
+    初始化商店種子資料
+    """
+    print("Seeding stores...")
+
+    with open("seeds/store.json", "r", encoding="utf-8") as f:
+        stores_data = json.load(f)
+
+    print(f"Loaded {len(stores_data)} stores from JSON.")
+
+    for store_data in stores_data:
+        store = add_store(store_data)
+        mappings["store"][store.name] = store
 
     print("Done.")
 
@@ -106,7 +115,7 @@ if __name__ == "__main__":
     create_tables()  # 再重新建立所有表格
 
     # 初始化種子資料
-    seed_funcs = [seed_images, seed_suppliers, seed_dishes, seed_combos]
+    seed_funcs = [seed_images, seed_stores, seed_suppliers, seed_dishes, seed_combos]
 
     for func in seed_funcs:
         func()
