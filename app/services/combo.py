@@ -26,12 +26,10 @@ def add_combo(data: dict):
     """
     db = get_db()
 
-    # 處理需要關聯的餐點列表
-    to_adds = data.get("dishes", [])
-    data.pop("dishes", None)
-
+    after = data.pop("dishes", [])
     data = process_image_upload(data)
 
+    # 驗證資料
     combo = Combo.model_validate(data)
 
     try:
@@ -43,25 +41,18 @@ def add_combo(data: dict):
                 """,
                 (combo.name, combo.description, combo.price, combo.image_url),
             )
-
         db.commit()
-
         combo_id = cursor.lastrowid
     except Exception as e:
         print(f"Error adding combo: {e}")
         db.rollback()
         return None
 
+    # 處理餐點關聯
     combo = get_combo_by_id(combo_id)
+    update_combo_dishes(combo, before=[], after=after)
 
-    for dish_name in to_adds:
-        dish = get_dish_by_name(dish_name)
-        if dish:
-            add_dish_to_combo(combo, dish)
-        else:
-            print(f"Dish '{dish_name}' not found. Skipping addition to combo.")
-
-    return get_combo_by_id(combo_id)
+    return combo
 
 
 def get_combos(keyword: str = ""):
@@ -111,9 +102,7 @@ def get_combo_by_id(combo_id: int):
                 """,
                 (combo_id,),
             )
-
         row = cursor.fetchone()
-
         if not row:
             return None
     except Exception as e:
@@ -136,18 +125,14 @@ def update_combo_by_id(combo_id: int, data: dict):
     :return: 更新後的套餐資料或 None
     """
     db = get_db()
+
     original_combo = get_combo_by_id(combo_id)
     if not original_combo:
         return None
 
-    # 處理需要關聯的餐點列表
-    dishes = set(data.get("dishes", []))
-    data.pop("dishes", None)
-
-    original = set(dish.name for dish in original_combo.dishes)
-
-    to_adds = dishes - original
-    to_removes = original - dishes
+    # 標註需要關聯的餐點列表
+    before = [dish.name for dish in original_combo.dishes]
+    after = set(data.pop("dishes", []))
 
     data = process_image_upload(data, original_combo.image_url)
 
@@ -175,21 +160,11 @@ def update_combo_by_id(combo_id: int, data: dict):
         db.rollback()
         return None
 
-    for dish_name in to_adds:
-        dish = get_dish_by_name(dish_name)
-        if dish:
-            add_dish_to_combo(combo, dish)
-        else:
-            print(f"Dish '{dish_name}' not found. Skipping addition to combo.")
+    # 處理餐點關聯
+    combo = get_combo_by_id(combo_id)
+    update_combo_dishes(combo, before=before, after=after)
 
-    for dish_name in to_removes:
-        dish = get_dish_by_name(dish_name)
-        if dish:
-            remove_dish_from_combo(combo, dish)
-        else:
-            print(f"Dish '{dish_name}' not found. Skipping removal from combo.")
-
-    return get_combo_by_id(combo_id)
+    return combo
 
 
 def delete_combo_by_id(combo_id: int):
@@ -288,6 +263,42 @@ def remove_dish_from_combo(combo: Combo, dish: Dish):
     combo.dishes.remove(dish)
 
     return True
+
+
+def update_combo_dishes(combo: Combo, before: list[str], after: list[str]):
+    """
+    更新套餐中的菜品列表
+
+    :param combo: 套餐資料
+    :param before: 更新前的菜品名稱列表
+    :param after: 更新後的菜品名稱列表
+
+    :return: 是否更新成功
+    """
+    before = set(before)
+    after = set(after)
+    to_adds = after - before
+    to_removes = before - after
+
+    # 添加新的餐點
+    for dish_name in to_adds:
+        dish = get_dish_by_name(dish_name)
+
+        if not dish:
+            print(f"Dish '{dish_name}' not found. Skipping addition to combo.")
+            continue
+
+        add_dish_to_combo(combo, dish)
+
+    # 移除不需要的餐點
+    for dish_name in to_removes:
+        dish = get_dish_by_name(dish_name)
+
+        if not dish:
+            print(f"Dish '{dish_name}' not found. Skipping removal from combo.")
+            continue
+
+        remove_dish_from_combo(combo, dish)
 
 
 def get_dishes_in_combo(combo: Combo):

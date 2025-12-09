@@ -30,7 +30,8 @@ def add_combo_view():
 
         combo = add_combo(data)
 
-        return render_template("saved.html", item_name=combo.name, url=url_for("combo.view_combo", combo_id=combo.id))
+        redirect_url = url_for("combo.view_combo", combo_id=combo.id)
+        return render_template("saved.html", item_name=combo.name, url=redirect_url)
 
     ########################################
 
@@ -45,6 +46,8 @@ def edit_combo(combo_id):
     if combo is None:
         abort(404)
 
+    ########################################
+
     if request.method == "POST":
         form = request.form
 
@@ -56,11 +59,10 @@ def edit_combo(combo_id):
             "image": request.files.get("image"),
         }
 
-        updated_combo = update_combo_by_id(combo_id, data)
+        combo = update_combo_by_id(combo_id, data)
 
-        return render_template(
-            "saved.html", item_name=updated_combo.name, url=url_for("combo.view_combo", combo_id=updated_combo.id)
-        )
+        redirect_url = url_for("combo.view_combo", combo_id=combo.id)
+        return render_template("saved.html", item_name=combo.name, url=redirect_url)
 
     ########################################
 
@@ -78,4 +80,5 @@ def delete_combo(combo_id):
 
     delete_combo_by_id(combo_id)
 
-    return render_template("delete-item.html", item_name=combo.name, url=url_for("menu.menu"))
+    redirect_url = url_for("menu.menu")
+    return render_template("delete-item.html", item_name=combo.name, url=redirect_url)

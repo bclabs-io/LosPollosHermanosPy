@@ -132,7 +132,8 @@ def process_image_upload(data: dict, default_path=""):
     """
 
     if "image" not in data:
-        data["image_url"] = default_path
+        if default_path:
+            data["image_url"] = default_path
         return data
 
     if isinstance(data["image"], bytes):
