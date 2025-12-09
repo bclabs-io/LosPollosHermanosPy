@@ -47,7 +47,7 @@
                 <select class="form-select" name="dishes[]">
                     <option value="" selected disabled>Select a dish</option>
                     {% for available_dish in all_dishes %}
-                    <option value="{{ available_dish.id }}">{{ available_dish.name }}</option>
+                    <option value="{{ available_dish.name }}">{{ available_dish.name }}</option>
                     {% endfor %}
                 </select>
             </div>
@@ -73,7 +73,7 @@
                     <select class="form-select" name="dishes[]" required>
                         <option value="" selected disabled>Select a dish</option>
                         {% for available_dish in all_dishes %}
-                        <option value="{{ available_dish.id }}">{{ available_dish.name }}</option>
+                        <option value="{{ available_dish.name }}">{{ available_dish.name }}</option>
                         {% endfor %}
                     </select>
                 </div>
