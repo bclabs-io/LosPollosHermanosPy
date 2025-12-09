@@ -1,0 +1,22 @@
+name: Deploy on Server
+
+on:
+    push:
+        branches: [main, dev]
+
+jobs:
+    deploy:
+        runs-on: self-hosted
+        steps:
+            # 先把 code 抓下來
+            - name: Checkout code
+              uses: actions/checkout@v6
+
+            - name: Sync files to server
+              run: |
+                  rsync -avz --delete ./ ~/app/LosPollosHermanosPy
+
+            # 部署應用程式
+            - name: Deploy Application
+              run: |
+                  bash ~/app/LosPollosHermanosPy/deploy.sh
