@@ -11,9 +11,9 @@
 <section class="mb-5">
     <h1 class="mb-3">Combos</h1>
 
-    <div class="d-flex gap-3 flex-wrap mb-3">
+    <div class="d-flex flex-wrap mb-3">
         {% for combo in combos %}
-        <div class="card" id="combo-{{ combo.id }}">
+        <div class="card m-2" id="combo-{{ combo.id }}">
             <div class="ratio ratio-4x3">
                 <img src="{{ combo.image_url }}" alt="{{ combo.name }}" />
             </div>

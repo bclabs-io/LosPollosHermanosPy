@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+
 <!-- 網頁標題 -->
 
 {% block title %}{{ combo.name }}{% endblock %}
@@ -9,16 +10,20 @@
 
 <div class="row">
     <div class="col col-12 col-lg-6">
-        <h1 class="mb-3">{{ combo.name }}</h1>
+        <section class="mb-3">
+            <h1 class="mb-3">{{ combo.name.capitalize() }}</h1>
 
-        <p>{{ combo.description }}</p>
-        <ul class="mb-4">
-            <li><strong>Total Calories:</strong> {{ combo.total_calories }} kcal</li>
-            <li><strong>Price:</strong> ${{ combo.price }}</li>
-        </ul>
+            <p>{{ combo.description }}</p>
 
-        <div class="mb-3">
+            <ul class="mb-4">
+                <li><strong>Total Calories:</strong> {{ combo.total_calories }} kcal</li>
+                <li><strong>Price:</strong> ${{ combo.price }}</li>
+            </ul>
+        </section>
+
+        <section class="mb-3">
             <h3>Dishes in This Combo</h3>
+
             {% if combo.dishes %}
             <ul>
                 {% for dish in combo.dishes %}
@@ -26,7 +31,7 @@
                 {% endfor %}
             </ul>
             {% else %} No dishes in this combo. {% endif %}
-        </div>
+        </section>
 
         <div class="d-flex gap-2 mb-3">
             <a href="/menu/combos/{{ combo.id }}/edit" class="btn btn-primary" role="button">Edit</a>

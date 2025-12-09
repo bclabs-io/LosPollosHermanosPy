@@ -12,7 +12,7 @@ def view_combo(combo_id):
     if combo is None:
         abort(404)
 
-    return render_template("menu/combo/detail.html", combo=combo)
+    return render_template("combo/detail.html", combo=combo)
 
 
 @combo_bp.route("/add", methods=["GET", "POST"])
@@ -36,7 +36,7 @@ def add_combo_view():
     ########################################
 
     all_dishes = get_dishes()
-    return render_template("menu/combo/add.html", all_dishes=all_dishes)
+    return render_template("combo/add.html", all_dishes=all_dishes)
 
 
 @combo_bp.route("/<int:combo_id>/edit", methods=["GET", "POST"])
@@ -68,7 +68,7 @@ def edit_combo(combo_id):
 
     all_dishes = get_dishes()
 
-    return render_template("menu/combo/edit.html", combo=combo, all_dishes=all_dishes)
+    return render_template("combo/edit.html", combo=combo, all_dishes=all_dishes)
 
 
 @combo_bp.route("/<int:combo_id>/delete")

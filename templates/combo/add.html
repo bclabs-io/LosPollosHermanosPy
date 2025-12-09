@@ -14,25 +14,25 @@
         <!-- Name -->
         <div class="col col-12 col-md-6 col-xl-4 mb-3">
             <label for="name" class="form-label">Name</label>
-            <input type="text" class="form-control" id="name" name="name" required />
+            <input class="form-control" name="name" type="text" required />
         </div>
 
         <!-- Price -->
         <div class="col col-12 col-md-6 col-xl-4 mb-3">
             <label for="price" class="form-label">Price</label>
-            <input type="number" class="form-control" id="price" name="price" step="0.01" required />
+            <input class="form-control" name="price" type="number" step="0.01" required />
         </div>
 
         <!-- Image -->
         <div class="col col-12 col-xl-4 mb-3">
             <label for="image" class="form-label">Combo Image</label>
-            <input type="file" id="image" name="image" class="form-control" accept="image/*" required />
+            <input class="form-control" name="image" type="file" accept="image/*" required />
         </div>
     </div>
 
     <div class="mb-3">
         <label for="description" class="form-label">Description</label>
-        <textarea class="form-control" id="description" name="description" rows="5" required></textarea>
+        <textarea class="form-control" name="description" rows="5" required></textarea>
     </div>
 
     <hr />
@@ -70,7 +70,7 @@
             <div class="row mb-3 pb-2 border-bottom dish-item">
                 <div class="col col-12 col-md-9 col-xxl-11 mb-2">
                     <label>Dish Name</label>
-                    <select class="form-select" name="dishes[]">
+                    <select class="form-select" name="dishes[]" required>
                         <option value="" selected disabled>Select a dish</option>
                         {% for available_dish in all_dishes %}
                         <option value="{{ available_dish.id }}">{{ available_dish.name }}</option>

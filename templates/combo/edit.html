@@ -47,7 +47,7 @@
         <div class="row mb-3 pb-2 border-bottom dish-item">
             <div class="col col-12 col-md-9 col-xxl-11 mb-2">
                 <label>Dish Name</label>
-                <select class="form-select" name="dishes[]">
+                <select class="form-select" name="dishes[]" required>
                     {% for available_dish in all_dishes %}
                     <option value="{{ available_dish.id }}" {% if available_dish.id == dish.id %}selected{% endif %}>
                         {{ available_dish.name }}
@@ -75,7 +75,7 @@
             <div class="row mb-3 pb-2 border-bottom dish-item">
                 <div class="col col-12 col-md-9 col-xxl-11 mb-2">
                     <label>Dish Name</label>
-                    <select class="form-select" name="dishes[]">
+                    <select class="form-select" name="dishes[]" required>
                         <option value="" selected disabled>Select a dish</option>
                         {% for available_dish in all_dishes %}
                         <option value="{{ available_dish.id }}">{{ available_dish.name }}</option>
