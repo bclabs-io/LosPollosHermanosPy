@@ -10,49 +10,52 @@ CREATE TABLE
     ) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4;
 
 -- ============================
--- Location Table
+-- Store Table
 -- ============================
 CREATE TABLE
-    location (
-        sId INT AUTO_INCREMENT PRIMARY KEY,
+    `store` (
+        `id` INT AUTO_INCREMENT PRIMARY KEY,
+        `name` VARCHAR(100) NOT NULL UNIQUE,
+        `phone` VARCHAR(30) NOT NULL,
         -- Coordinate
-        latitude DECIMAL(10, 7) NOT NULL,
-        longitude DECIMAL(10, 7) NOT NULL,
+        `latitude` DECIMAL(10, 7) NOT NULL,
+        `longitude` DECIMAL(10, 7) NOT NULL,
         -- Address
-        city VARCHAR(100) NOT NULL,
-        address VARCHAR(255) NOT NULL,
-        zipcode VARCHAR(20) NOT NULL,
+        `state` VARCHAR(100) NOT NULL,
+        `city` VARCHAR(100) NOT NULL,
+        `address` VARCHAR(255) NOT NULL,
+        `zipcode` VARCHAR(20) NOT NULL,
         -- Opening Hours
-        mon TINYINT (1) NOT NULL DEFAULT 0,
-        tue TINYINT (1) NOT NULL DEFAULT 0,
-        wed TINYINT (1) NOT NULL DEFAULT 0,
-        thu TINYINT (1) NOT NULL DEFAULT 0,
-        fri TINYINT (1) NOT NULL DEFAULT 0,
-        sat TINYINT (1) NOT NULL DEFAULT 0,
-        sun TINYINT (1) NOT NULL DEFAULT 0,
-        open_time TIME NOT NULL,
-        close_time TIME NOT NULL
-    );
+        `weekdays` VARCHAR(100) NOT NULL, -- e.g. "1,2,3,4,5,6,7"
+        `open_time` TIME NOT NULL,
+        `close_time` TIME NOT NULL,
+        -- Others
+        `created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+        `updated_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+    ) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4;
 
 -- ============================
 -- Employee Table
 -- ============================
 CREATE TABLE
-    employee (
-        eId INT AUTO_INCREMENT PRIMARY KEY,
+    `employee` (
+        `id` INT AUTO_INCREMENT PRIMARY KEY,
         -- Basic Info
-        name VARCHAR(100) NOT NULL,
-        position VARCHAR(100) NOT NULL,
+        `name` VARCHAR(100) NOT NULL,
+        `position` VARCHAR(100) NOT NULL,
         -- Contact
-        email VARCHAR(100) NOT NULL,
-        phone VARCHAR(50),
+        `email` VARCHAR(100) NOT NULL UNIQUE,
+        `phone` VARCHAR(50),
         -- Work Location
-        store INT NULL,
-        FOREIGN KEY (store) REFERENCES location (sId) ON DELETE SET NULL,
+        `store` INT,
+        FOREIGN KEY (`store`) REFERENCES `store` (`id`) ON DELETE SET NULL,
         -- Hire Information
-        hireDate DATE,
-        type VARCHAR(20)
-    );
+        `hireDate` DATE,
+        `type` VARCHAR(20),
+        -- Others
+        `created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+        `updated_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+    ) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4;
 
 -- ============================
 -- Supplier Table
@@ -62,15 +65,15 @@ CREATE TABLE
         `id` INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
         -- Basic Info
         `name` VARCHAR(100) NOT NULL UNIQUE,
-        `description` TEXT,
+        `description` TEXT NOT NULL,
         -- Contact
-        `contact_person` VARCHAR(100),
-        `email` VARCHAR(100) UNIQUE,
-        `phone` VARCHAR(30) UNIQUE,
+        `contact_person` VARCHAR(100) NOT NULL,
+        `email` VARCHAR(100) NOT NULL UNIQUE,
+        `phone` VARCHAR(30) NOT NULL UNIQUE,
         -- Address
-        `state` VARCHAR(100),
-        `city` VARCHAR(100),
-        `address` VARCHAR(255),
+        `state` VARCHAR(100) NOT NULL,
+        `city` VARCHAR(100) NOT NULL,
+        `address` VARCHAR(255) NOT NULL,
         -- Others
         `image_url` VARCHAR(255),
         `created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
@@ -95,9 +98,9 @@ CREATE TABLE
     `dish` (
         `id` INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
         `name` VARCHAR(100) NOT NULL UNIQUE,
-        `description` TEXT,
+        `description` TEXT NOT NULL,
         `price` DECIMAL(10, 2) NOT NULL,
-        `calories` INT,
+        `calories` DECIMAL(10, 2) NOT NULL,
         `image_url` VARCHAR(255),
         `created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
         `updated_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
@@ -110,7 +113,7 @@ CREATE TABLE
     `combo` (
         `id` INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
         `name` VARCHAR(100) NOT NULL UNIQUE,
-        `description` TEXT,
+        `description` TEXT NOT NULL,
         `price` DECIMAL(10, 2) NOT NULL,
         `image_url` VARCHAR(255),
         `created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,

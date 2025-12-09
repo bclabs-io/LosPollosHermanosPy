@@ -1,0 +1,67 @@
+[
+    {
+        "name": "Albuquerque",
+        "phone": "505-555-0101",
+        "latitude": 35.0844,
+        "longitude": -106.6504,
+        "state": "New Mexico",
+        "city": "Albuquerque",
+        "address": "425 Central Ave SW",
+        "zipcode": "87102",
+        "weekdays": [1, 2, 3, 4, 5, 6, 7],
+        "open_time": "10:00",
+        "close_time": "22:00"
+    },
+    {
+        "name": "Santa Fe",
+        "phone": "505-555-0102",
+        "latitude": 35.686975,
+        "longitude": -105.937799,
+        "state": "New Mexico",
+        "city": "Santa Fe",
+        "address": "123 Canyon Rd",
+        "zipcode": "87501",
+        "weekdays": [1, 2, 3, 4, 5, 6],
+        "open_time": "09:00",
+        "close_time": "21:00"
+    },
+    {
+        "name": "Las Cruces",
+        "phone": "575-555-0103",
+        "latitude": 32.3199,
+        "longitude": -106.7637,
+        "state": "New Mexico",
+        "city": "Las Cruces",
+        "address": "789 Main St",
+        "zipcode": "88001",
+        "weekdays": [1, 2, 3, 4, 5],
+        "open_time": "10:30",
+        "close_time": "20:30"
+    },
+    {
+        "name": "Roswell",
+        "phone": "575-555-0104",
+        "latitude": 33.3943,
+        "longitude": -104.523,
+        "state": "New Mexico",
+        "city": "Roswell",
+        "address": "456 Elm St",
+        "zipcode": "88201",
+        "weekdays": [2, 3, 4, 5, 6],
+        "open_time": "11:00",
+        "close_time": "23:00"
+    },
+    {
+        "name": "Farmington",
+        "phone": "505-555-0105",
+        "latitude": 36.7281,
+        "longitude": -108.2187,
+        "state": "New Mexico",
+        "city": "Farmington",
+        "address": "321 Oak St",
+        "zipcode": "87401",
+        "weekdays": [1, 2, 3, 4, 5, 6, 7],
+        "open_time": "09:30",
+        "close_time": "21:30"
+    }
+]

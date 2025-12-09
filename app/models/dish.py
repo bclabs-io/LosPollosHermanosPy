@@ -11,4 +11,5 @@ class Dish(Model, WithTimestamps):
     price: float
     image_url: str
 
+    # 關聯屬性
     ingredients: list[IngredientInDish] = []

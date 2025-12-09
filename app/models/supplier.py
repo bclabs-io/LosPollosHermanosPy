@@ -20,4 +20,5 @@ class Supplier(SupplierSummary, WithTimestamps):
     city: str
     address: str
 
+    # 關聯屬性
     ingredients: list[Ingredient] = []
