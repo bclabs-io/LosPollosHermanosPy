@@ -1,6 +1,8 @@
 from .ingredient import Ingredient
 from .utils import Model, WithTimestamps
 
+__all__ = ["SupplierSummary", "Supplier"]
+
 
 class SupplierSummary(Model):
     name: str

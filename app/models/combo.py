@@ -1,6 +1,8 @@
 from .dish import Dish
 from .utils import Model, WithTimestamps
 
+__all__ = ["Combo"]
+
 
 class Combo(Model, WithTimestamps):
     name: str

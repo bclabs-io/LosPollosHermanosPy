@@ -2,10 +2,11 @@ import os
 
 import pymysql
 
-connection = None
-
 
 def get_db():
+    """
+    取得資料庫連線
+    """
     # global connection
     # if connection:  # 重複使用已存在的連線
     #     return connection
@@ -23,6 +24,9 @@ def get_db():
 
 
 def create_tables():
+    """
+    建立資料表
+    """
     db = get_db()
 
     with db.cursor() as cursor:
@@ -32,19 +36,27 @@ def create_tables():
                 stmt = statement.strip()
                 if stmt:
                     cursor.execute(stmt)
-    db.commit()
+
+        db.commit()
 
 
 def drop_table(table_name: str):
+    """
+    刪除指定資料表
+
+    :param table_name: 要刪除的資料表名稱
+    """
     db = get_db()
 
     with db.cursor() as cursor:
         cursor.execute(f"DROP TABLE IF EXISTS {table_name};")
-
-    db.commit()
+        db.commit()
 
 
 def drop_all_tables():
+    """
+    刪除所有資料表
+    """
     db = get_db()
 
     with db.cursor() as cursor:
@@ -56,4 +68,4 @@ def drop_all_tables():
             cursor.execute(f"DROP TABLE IF EXISTS {table_name};")
         cursor.execute("SET FOREIGN_KEY_CHECKS = 1;")  # 開啟外鍵檢查
 
-    db.commit()
+        db.commit()
