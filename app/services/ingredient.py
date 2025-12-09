@@ -34,9 +34,8 @@ def add_ingredient(data: dict):
                 """,
                 (ingredient.name,),
             )
-
-        db.commit()
-        ingredient_id = cursor.lastrowid
+            db.commit()
+            ingredient_id = cursor.lastrowid
     except Exception as e:
         print("Error adding ingredient:", e)
         db.rollback()
@@ -154,8 +153,7 @@ def update_ingredient(ingredient_id: int, data: dict):
                 """,
                 (ingredient.name, ingredient_id),
             )
-
-        db.commit()
+            db.commit()
     except Exception as e:
         print("Error updating ingredient:", e)
         db.rollback()
@@ -182,9 +180,8 @@ def delete_ingredient(ingredient_id: int):
                 """,
                 (ingredient_id,),
             )
-
-        db.commit()
-        return cursor.rowcount > 0
+            db.commit()
+            return cursor.rowcount > 0
     except Exception as e:
         print("Error deleting ingredient:", e)
         db.rollback()
