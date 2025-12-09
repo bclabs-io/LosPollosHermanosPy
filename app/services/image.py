@@ -39,9 +39,8 @@ def add_image(data: bytes) -> Image | None:
                 """,
                 (name, webp_data),
             )
-
-        db.commit()
-        image_id = cursor.lastrowid
+            db.commit()
+            image_id = cursor.lastrowid
     except Exception as e:
         print("Error adding image:", e)
         db.rollback()
@@ -113,7 +112,6 @@ def delete_image_by_id(image_id: int) -> bool:
         with db.cursor() as cursor:
             cursor.execute("DELETE FROM image WHERE id = %s;", (image_id,))
             db.commit()
-
             return cursor.rowcount > 0
     except Exception as e:
         print("Error deleting image:", e)
