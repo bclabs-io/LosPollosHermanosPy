@@ -13,24 +13,23 @@
     <div class="row">
         <!-- Name -->
         <div class="col col-12 col-md-6 mb-3">
-            <label for="name" class="form-label">Name</label>
-            <input type="text" class="form-control" id="name" name="name" value="{{ supplier.name }}" required />
+            <label class="form-label">Name</label>
+            <input class="form-control" name="name" type="text" value="{{ supplier.name }}" required />
         </div>
 
         <!-- Image -->
         <div class="col col-12 col-md-6 mb-3">
-            <label for="image" class="form-label">Supplier Image</label>
-            <input type="file" id="image" name="image" class="form-control" accept="image/*" />
+            <label class="form-label">Supplier Image</label>
+            <input class="form-control" name="image" type="file" accept="image/*" />
         </div>
 
         <!-- Contact Person -->
         <div class="col col-12 col-md-4 mb-3">
-            <label for="contact_person" class="form-label">Contact Person</label>
+            <label class="form-label">Contact Person</label>
             <input
-                type="text"
                 class="form-control"
-                id="contact_person"
                 name="contact_person"
+                type="text"
                 value="{{ supplier.contact_person }}"
                 required
             />
@@ -38,47 +37,38 @@
 
         <!-- Email -->
         <div class="col col-12 col-md-4 mb-3">
-            <label for="email" class="form-label">Email</label>
-            <input type="email" class="form-control" id="email" name="email" value="{{ supplier.email }}" required />
+            <label class="form-label">Email</label>
+            <input class="form-control" name="email" type="email" value="{{ supplier.email }}" required />
         </div>
 
         <!-- Phone -->
         <div class="col col-12 col-md-4 mb-3">
-            <label for="phone" class="form-label">Phone</label>
-            <input type="text" class="form-control" id="phone" name="phone" value="{{ supplier.phone }}" required />
+            <label class="form-label">Phone</label>
+            <input class="form-control" name="phone" type="text" value="{{ supplier.phone }}" required />
         </div>
 
         <!-- State -->
         <div class="col col-12 col-md-6 col-xxl-3 mb-3">
-            <label for="state" class="form-label">State</label>
-            <input type="text" class="form-control" id="state" name="state" value="{{ supplier.state }}" required />
+            <label class="form-label">State</label>
+            <input class="form-control" name="state" type="text" value="{{ supplier.state }}" required />
         </div>
 
         <!-- City -->
         <div class="col col-12 col-md-6 col-xxl-3 mb-3">
-            <label for="city" class="form-label">City</label>
-            <input type="text" class="form-control" id="city" name="city" value="{{ supplier.city }}" required />
+            <label class="form-label">City</label>
+            <input class="form-control" name="city" type="text" value="{{ supplier.city }}" required />
         </div>
 
         <!-- Address -->
         <div class="col col-12 col-xxl-6 mb-3">
-            <label for="address" class="form-label">Address</label>
-            <input
-                type="text"
-                class="form-control"
-                id="address"
-                name="address"
-                value="{{ supplier.address }}"
-                required
-            />
+            <label class="form-label">Address</label>
+            <input class="form-control" name="address" type="text" value="{{ supplier.address }}" required />
         </div>
     </div>
 
     <div class="mb-3">
-        <label for="description" class="form-label">Description</label>
-        <textarea class="form-control" id="description" name="description" rows="5" required>
-{{ supplier.description }}</textarea
-        >
+        <label class="form-label">Description</label>
+        <textarea class="form-control" name="description" rows="5" required>{{ supplier.description }}</textarea>
     </div>
 
     <hr />
@@ -93,8 +83,8 @@
                 <label>Ingredient Name</label>
                 <input
                     class="form-control"
-                    type="text"
                     name="ingredients[]"
+                    type="text"
                     value="{{ ingredient['name'] }}"
                     required
                 />
@@ -120,12 +110,7 @@
             <div class="row mb-3 pb-2 border-bottom ingredient-item">
                 <div class="col col-12 col-md-9 col-xxl-11 mb-2">
                     <label>Ingredient Name</label>
-                    <input
-                        class="form-control"
-                        type="text"
-                        name="ingredients[]"
-                        required
-                    />
+                    <input class="form-control" name="ingredients[]" type="text" required />
                 </div>
                 <div class="col col-12 col-md-3 col-xxl-1 mb-2">
                     <label>&nbsp;</label>

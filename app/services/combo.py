@@ -41,8 +41,8 @@ def add_combo(data: dict):
                 """,
                 (combo.name, combo.description, combo.price, combo.image_url),
             )
-        db.commit()
-        combo_id = cursor.lastrowid
+            db.commit()
+            combo_id = cursor.lastrowid
     except Exception as e:
         print(f"Error adding combo: {e}")
         db.rollback()
@@ -102,7 +102,7 @@ def get_combo_by_id(combo_id: int):
                 """,
                 (combo_id,),
             )
-        row = cursor.fetchone()
+            row = cursor.fetchone()
         if not row:
             return None
     except Exception as e:
@@ -130,12 +130,11 @@ def update_combo_by_id(combo_id: int, data: dict):
     if not original_combo:
         return None
 
-    # 標註需要關聯的餐點列表
     before = [dish.name for dish in original_combo.dishes]
     after = set(data.pop("dishes", []))
-
     data = process_image_upload(data, original_combo.image_url)
 
+    # 驗證資料
     combo = Combo.model_validate(data)
 
     try:
@@ -249,12 +248,9 @@ def remove_dish_from_combo(combo: Combo, dish: Dish):
                 """,
                 (combo.id, dish.id),
             )
-
-        db.commit()
-
-        # 沒有刪除任何資料，表示菜品不在套餐中
-        if cursor.rowcount == 0:
-            return False
+            db.commit()
+            # 沒有刪除任何資料，表示菜品不在套餐中
+            return cursor.rowcount > 0
     except Exception as e:
         print(f"Error removing dish from combo: {e}")
         db.rollback()
@@ -283,21 +279,17 @@ def update_combo_dishes(combo: Combo, before: list[str], after: list[str]):
     # 添加新的餐點
     for dish_name in to_adds:
         dish = get_dish_by_name(dish_name)
-
         if not dish:
             print(f"Dish '{dish_name}' not found. Skipping addition to combo.")
             continue
-
         add_dish_to_combo(combo, dish)
 
     # 移除不需要的餐點
     for dish_name in to_removes:
         dish = get_dish_by_name(dish_name)
-
         if not dish:
             print(f"Dish '{dish_name}' not found. Skipping removal from combo.")
             continue
-
         remove_dish_from_combo(combo, dish)
 
 

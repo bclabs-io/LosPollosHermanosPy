@@ -1,7 +1,7 @@
 from app.db import get_db
 from app.models import Ingredient, Supplier, SupplierSummary
 
-from .image import add_image, process_image_upload
+from .image import process_image_upload
 from .ingredient import add_ingredient, get_ingredient_by_name
 
 __all__ = [
@@ -27,11 +27,10 @@ def add_supplier(data: dict):
     db = get_db()
 
     # 處理需要關聯的食材列表
-    to_adds = data.get("ingredients", [])
-    data.pop("ingredients", None)
-
+    after = data.get("ingredients", [])
     data = process_image_upload(data)
 
+    # 驗證資料
     supplier = Supplier.model_validate(data)
 
     try:
@@ -54,23 +53,18 @@ def add_supplier(data: dict):
                     supplier.image_url,
                 ),
             )
-
-        db.commit()
-        supplier_id = cursor.lastrowid
+            db.commit()
+            supplier_id = cursor.lastrowid
     except Exception as e:
         print("Error adding supplier:", e)
         db.rollback()
         return None
 
+    # 處理食材關聯
     supplier = get_supplier_by_id(supplier_id)
+    update_supplier_ingredients(supplier, before=[], after=after)
 
-    for ing_name in to_adds:
-        ing = get_ingredient_by_name(ing_name)
-        if not ing:
-            ing = add_ingredient({"name": ing_name})  # 如果食材不存在，先新增食材
-        add_ingredient_to_supplier(supplier, ing)
-
-    return get_supplier_by_id(supplier_id)
+    return supplier
 
 
 def get_suppliers(keyword: str = ""):
@@ -150,17 +144,11 @@ def update_supplier_by_id(supplier_id: int, data: dict):
     if original_supplier is None:
         return None
 
-    # 處理需要關聯的食材列表
-    before = set(ing.name for ing in original_supplier.ingredients)
-    after = set(data.get("ingredients", []))
-
-    to_add = after - before
-    to_remove = before - after
-
-    data.pop("ingredients", None)
-
+    before = [ing.name for ing in original_supplier.ingredients]
+    after = data.pop("ingredients", [])
     data = process_image_upload(data, original_supplier.image_url)
 
+    # 驗證資料
     supplier = Supplier.model_validate(data)
 
     try:
@@ -171,7 +159,7 @@ def update_supplier_by_id(supplier_id: int, data: dict):
                 SET name = %s, description = %s, contact_person = %s, email = %s, phone = %s,
                     state = %s, city = %s, address = %s, image_url = %s
                 WHERE id = %s;
-            """,
+                """,
                 (
                     supplier.name,
                     supplier.description,
@@ -185,24 +173,17 @@ def update_supplier_by_id(supplier_id: int, data: dict):
                     supplier_id,
                 ),
             )
-
             db.commit()
     except Exception as e:
         print("Error updating supplier:", e)
         db.rollback()
         return None
 
-    for ing_name in to_add:
-        ing = get_ingredient_by_name(ing_name)
-        if not ing:
-            ing = add_ingredient({"name": ing_name})  # 如果食材不存在，先新增食材
-        add_ingredient_to_supplier(original_supplier, ing)
+    # 處理食材關聯
+    supplier = get_supplier_by_id(supplier_id)
+    update_supplier_ingredients(supplier, before=before, after=after)
 
-    for ing_name in to_remove:
-        ing = get_ingredient_by_name(ing_name)
-        remove_ingredient_from_supplier(original_supplier, ing)
-
-    return get_supplier_by_id(supplier_id)
+    return supplier
 
 
 def delete_supplier_by_id(supplier_id: int):
@@ -222,9 +203,7 @@ def delete_supplier_by_id(supplier_id: int):
                 """,
                 (supplier_id,),
             )
-
             db.commit()
-
             return cursor.rowcount > 0
     except Exception as e:
         print("Error deleting supplier:", e)
@@ -257,8 +236,7 @@ def add_ingredient_to_supplier(supplier: Supplier, ingredient: Ingredient):
                 """,
                 (supplier.id, ingredient.id),
             )
-
-        db.commit()
+            db.commit()
     except Exception as e:
         print("Error adding ingredient to supplier:", e)
         db.rollback()
@@ -287,13 +265,38 @@ def remove_ingredient_from_supplier(supplier: Supplier, ingredient: Ingredient):
                 """,
                 (supplier.id, ingredient.id),
             )
-
-        db.commit()
-        return cursor.rowcount > 0
+            db.commit()
+            return cursor.rowcount > 0
     except Exception as e:
         print("Error removing ingredient from supplier:", e)
         db.rollback()
         return False
+
+
+def update_supplier_ingredients(supplier: Supplier, before: list[str], after: list[str]):
+    """
+    更新供應商的食材列表
+
+    :param supplier: 供應商資料
+    :param before: 更新前的食材名稱列表
+    :param after: 更新後的食材名稱列表
+    """
+    before = set(before)
+    after = set(after)
+    to_add = after - before
+    to_remove = before - after
+
+    # 添加新的食材
+    for ing_name in to_add:
+        ing = get_ingredient_by_name(ing_name)
+        if not ing:
+            ing = add_ingredient({"name": ing_name})
+        add_ingredient_to_supplier(supplier, ing)
+
+    # 移除不需要的食材
+    for ing_name in to_remove:
+        ing = get_ingredient_by_name(ing_name)
+        remove_ingredient_from_supplier(supplier, ing)
 
 
 def get_ingredients_by_supplier(supplier: Supplier):
@@ -317,7 +320,6 @@ def get_ingredients_by_supplier(supplier: Supplier):
                 (supplier.id,),
             )
             rows = cursor.fetchall()
-
     except Exception as e:
         print("Error fetching ingredients by supplier:", e)
         return []

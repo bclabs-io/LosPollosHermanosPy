@@ -51,10 +51,8 @@ def add_supplier_view():
         }
 
         supplier = add_supplier(data)
-
-        return render_template(
-            "saved.html", item_name=supplier.name, url=url_for("supplier.view_supplier", supplier_id=supplier.id)
-        )
+        redirect_url = url_for("supplier.view_supplier", supplier_id=supplier.id)
+        return render_template("saved.html", item_name=supplier.name, url=redirect_url)
 
     ########################################
 
@@ -70,6 +68,8 @@ def edit_supplier(supplier_id: int):
 
     if supplier is None:
         abort(404)
+
+    ########################################
 
     if request.method == "POST":
         form = request.form
@@ -88,10 +88,8 @@ def edit_supplier(supplier_id: int):
         }
 
         supplier = update_supplier_by_id(supplier_id, data)
-
-        return render_template(
-            "saved.html", item_name=supplier.name, url=url_for("supplier.view_supplier", supplier_id=supplier_id)
-        )
+        redirect_url = url_for("supplier.view_supplier", supplier_id=supplier_id)
+        return render_template("saved.html", item_name=supplier.name, url=redirect_url)
 
     ########################################
 
@@ -109,5 +107,5 @@ def delete_supplier(supplier_id: int):
         abort(404)
 
     delete_supplier_by_id(supplier_id)
-
-    return render_template("delete-item.html", item_name=supplier.name, url=url_for("supplier.suppliers"))
+    redirect_url = url_for("supplier.suppliers")
+    return render_template("delete-item.html", item_name=supplier.name, url=redirect_url)
