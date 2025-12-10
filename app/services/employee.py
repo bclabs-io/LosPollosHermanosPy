@@ -1,3 +1,5 @@
+from datetime import date
+
 from app.db import get_db
 from app.models import Employee
 
@@ -26,6 +28,8 @@ def add_employee(data: dict):
     """
     db = get_db()
 
+    data["hire_date"] = date.strptime(data["hire_date"], "%Y-%m-%d")
+
     # 驗證資料
     employee = Employee.model_validate(data)
 
@@ -33,12 +37,13 @@ def add_employee(data: dict):
         with db.cursor() as cursor:
             cursor.execute(
                 """
-                INSERT INTO employee (name, position, email, phone, hireDate, type, store)
-                VALUES (%s, %s, %s, %s, %s, %s, %s);
+                INSERT INTO employee (name, position, salary, email, phone, hireDate, type, store)
+                VALUES (%s, %s, %s, %s, %s, %s, %s, %s);
                 """,
                 (
                     employee.name,
                     employee.position,
+                    employee.salary,
                     employee.email,
                     employee.phone,
                     employee.hire_date,
@@ -80,6 +85,9 @@ def get_employees():
 
     for row in rows:
         row["store"] = get_store_by_id(row["store"]) if row["store"] else None
+        row["store"] = get_store_by_id(row["store"]) if row["store"] else None
+        row["hire_date"] = row["hireDate"]
+        row["type_"] = row["type"]
         employees.append(Employee.model_validate(row))
 
     return employees
@@ -112,6 +120,8 @@ def get_employee_by_id(employee_id: int):
         return None
 
     row["store"] = get_store_by_id(row["store"]) if row["store"] else None
+    row["hire_date"] = row["hireDate"]
+    row["type_"] = row["type"]
     employee = Employee.model_validate(row)
 
     return employee
@@ -144,6 +154,8 @@ def get_employee_by_email(email: str):
         return None
 
     row["store"] = get_store_by_id(row["store"]) if row["store"] else None
+    row["hire_date"] = row["hireDate"]
+    row["type_"] = row["type"]
     employee = Employee.model_validate(row)
 
     return employee
@@ -304,6 +316,9 @@ def get_employees_by_position(position: str):
     employees = []
     for row in rows:
         row["store"] = get_store_by_id(row["store"]) if row["store"] else None
+        row["store"] = get_store_by_id(row["store"]) if row["store"] else None
+        row["hire_date"] = row["hireDate"]
+        row["type_"] = row["type"]
         employees.append(Employee.model_validate(row))
 
     return employees

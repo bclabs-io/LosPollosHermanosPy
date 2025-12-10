@@ -104,7 +104,7 @@ def get_stores(keyword: str = "", state: str = "", city: str = ""):
         row["open_time"] = timedelta_to_time(row["open_time"])
         row["close_time"] = timedelta_to_time(row["close_time"])
         store = Store.model_validate(row)
-        store.employees_count = count_employees_in_store(store.id)
+        count_employees_in_store(store)
         stores.append(store)
 
     return stores
@@ -153,7 +153,7 @@ def get_stores_nearby(latitude: float, longitude: float, radius_km: float = 5.0,
         row["open_time"] = timedelta_to_time(row["open_time"])
         row["close_time"] = timedelta_to_time(row["close_time"])
         store = Store.model_validate(row)
-        store.employees_count = count_employees_in_store(store.id)
+        count_employees_in_store(store)
         stores.append(store)
 
     return stores
@@ -189,7 +189,7 @@ def get_store_by_id(store_id: int):
     row["open_time"] = timedelta_to_time(row["open_time"])
     row["close_time"] = timedelta_to_time(row["close_time"])
     store = Store.model_validate(row)
-    store.employees_count = count_employees_in_store(store.id)
+    count_employees_in_store(store)
 
     return store
 
@@ -224,7 +224,7 @@ def get_store_by_name(store_name: str):
     row["open_time"] = timedelta_to_time(row["open_time"])
     row["close_time"] = timedelta_to_time(row["close_time"])
     store = Store.model_validate(row)
-    store.employees_count = count_employees_in_store(store.id)
+    count_employees_in_store(store)
 
     return store
 
@@ -342,6 +342,8 @@ def count_employees_in_store(store: Store):
         print("Error counting employees in store:", e)
         return 0
 
+    store.employees_count = row["count"] if row else 0
+
     return row["count"] if row else 0
 
 
@@ -372,6 +374,8 @@ def get_employees_in_store(store: Store):
 
     for row in rows:
         row["store"] = store
+        row["hire_date"] = row["hireDate"]
+        row["type_"] = row["type"]
         employees.append(Employee.model_validate(row))
 
     return employees

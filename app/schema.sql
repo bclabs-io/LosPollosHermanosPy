@@ -43,6 +43,7 @@ CREATE TABLE
         -- Basic Info
         `name` VARCHAR(100) NOT NULL,
         `position` VARCHAR(100) NOT NULL,
+        `salary` INT NOT NULL,
         -- Contact
         `email` VARCHAR(100) NOT NULL UNIQUE,
         `phone` VARCHAR(50),

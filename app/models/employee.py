@@ -9,6 +9,7 @@ __all__ = ["Employee"]
 class Employee(Model, WithTimestamps):
     name: str
     position: str
+    salary: int
     email: str
     phone: str
 
