@@ -7,7 +7,7 @@ from dotenv import load_dotenv
 load_dotenv()
 
 from app.db import create_tables, drop_all_tables
-from app.services import add_combo, add_dish, add_image, add_store, add_supplier
+from app.services import add_combo, add_dish, add_employee, add_image, add_store, add_supplier
 
 mappings = defaultdict(dict)
 
@@ -45,7 +45,26 @@ def seed_stores():
 
     for store_data in stores_data:
         store = add_store(store_data)
-        mappings["store"][store.name] = store
+        mappings["store"][store.id] = store
+
+    print("Done.")
+
+
+def seed_employees():
+    """
+    初始化員工種子資料
+    """
+    print("Seeding employees...")
+
+    with open("seeds/employee.json", "r", encoding="utf-8") as f:
+        employees_data = json.load(f)
+
+    print(f"Loaded {len(employees_data)} employees from JSON.")
+
+    for employee_data in employees_data:
+        employee_data["store"] = mappings["store"][employee_data["store"]]
+        employee = add_employee(employee_data)
+        mappings["emp"][employee.name] = employee
 
     print("Done.")
 
@@ -115,7 +134,7 @@ if __name__ == "__main__":
     create_tables()  # 再重新建立所有表格
 
     # 初始化種子資料
-    seed_funcs = [seed_images, seed_stores, seed_suppliers, seed_dishes, seed_combos]
+    seed_funcs = [seed_images, seed_stores, seed_employees, seed_suppliers, seed_dishes, seed_combos]
 
     for func in seed_funcs:
         func()

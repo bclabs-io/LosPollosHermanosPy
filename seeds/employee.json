@@ -1,0 +1,406 @@
+[
+    {
+        "name": "Alice Chen",
+        "position": "Manager",
+        "salary": 52000,
+        "email": "alice.chen@lospollos.com",
+        "phone": "0900-111-001",
+        "store": 1,
+        "hire_date": "2021-03-15",
+        "type_": "full-time"
+    },
+    {
+        "name": "Brian Lee",
+        "position": "Cook",
+        "salary": 38000,
+        "email": "brian.lee@lospollos.com",
+        "phone": "0900-111-002",
+        "store": 1,
+        "hire_date": "2022-07-10",
+        "type_": "full-time"
+    },
+    {
+        "name": "Cindy Wang",
+        "position": "Cashier",
+        "salary": 32000,
+        "email": "cindy.wang@lospollos.com",
+        "phone": "0900-111-003",
+        "store": 2,
+        "hire_date": "2023-02-20",
+        "type_": "part-time"
+    },
+    {
+        "name": "Daniel Huang",
+        "position": "Cook",
+        "salary": 36000,
+        "email": "daniel.huang@lospollos.com",
+        "phone": "0900-111-004",
+        "store": 2,
+        "hire_date": "2020-12-01",
+        "type_": "full-time"
+    },
+    {
+        "name": "Emily Wu",
+        "position": "Manager",
+        "salary": 53000,
+        "email": "emily.wu@lospollos.com",
+        "phone": "0900-111-005",
+        "store": 3,
+        "hire_date": "2019-11-18",
+        "type_": "full-time"
+    },
+    {
+        "name": "Frank Zhao",
+        "position": "Cook",
+        "salary": 37000,
+        "email": "frank.zhao@lospollos.com",
+        "phone": "0900-111-006",
+        "store": 3,
+        "hire_date": "2021-05-10",
+        "type_": "full-time"
+    },
+    {
+        "name": "Grace Lin",
+        "position": "Cashier",
+        "salary": 31000,
+        "email": "grace.lin@lospollos.com",
+        "phone": "0900-111-007",
+        "store": 4,
+        "hire_date": "2022-08-25",
+        "type_": "part-time"
+    },
+    {
+        "name": "Henry Chou",
+        "position": "Cook",
+        "salary": 36500,
+        "email": "henry.chou@lospollos.com",
+        "phone": "0900-111-008",
+        "store": 4,
+        "hire_date": "2020-03-12",
+        "type_": "full-time"
+    },
+    {
+        "name": "Ivy Tsai",
+        "position": "Cashier",
+        "salary": 31500,
+        "email": "ivy.tsai@lospollos.com",
+        "phone": "0900-111-009",
+        "store": 5,
+        "hire_date": "2023-01-10",
+        "type_": "part-time"
+    },
+    {
+        "name": "Jack Wu",
+        "position": "Cook",
+        "salary": 37500,
+        "email": "jack.wu@lospollos.com",
+        "phone": "0900-111-010",
+        "store": 5,
+        "hire_date": "2021-09-14",
+        "type_": "full-time"
+    },
+    {
+        "name": "Kelly Yang",
+        "position": "Manager",
+        "salary": 54000,
+        "email": "kelly.yang@lospollos.com",
+        "phone": "0900-111-011",
+        "store": 6,
+        "hire_date": "2018-10-10",
+        "type_": "full-time"
+    },
+    {
+        "name": "Leo Shih",
+        "position": "Cook",
+        "salary": 36000,
+        "email": "leo.shih@lospollos.com",
+        "phone": "0900-111-012",
+        "store": 6,
+        "hire_date": "2022-06-21",
+        "type_": "full-time"
+    },
+    {
+        "name": "Mia Chang",
+        "position": "Cashier",
+        "salary": 30500,
+        "email": "mia.chang@lospollos.com",
+        "phone": "0900-111-013",
+        "store": 7,
+        "hire_date": "2022-02-19",
+        "type_": "part-time"
+    },
+    {
+        "name": "Nathan Chen",
+        "position": "Cook",
+        "salary": 37000,
+        "email": "nathan.chen@lospollos.com",
+        "phone": "0900-111-014",
+        "store": 7,
+        "hire_date": "2020-04-25",
+        "type_": "full-time"
+    },
+    {
+        "name": "Olivia Tang",
+        "position": "Cashier",
+        "salary": 30800,
+        "email": "olivia.tang@lospollos.com",
+        "phone": "0900-111-015",
+        "store": 8,
+        "hire_date": "2023-05-12",
+        "type_": "part-time"
+    },
+    {
+        "name": "Peter Sun",
+        "position": "Cook",
+        "salary": 36500,
+        "email": "peter.sun@lospollos.com",
+        "phone": "0900-111-016",
+        "store": 8,
+        "hire_date": "2021-01-07",
+        "type_": "full-time"
+    },
+    {
+        "name": "Queenie Hsu",
+        "position": "Cashier",
+        "salary": 31200,
+        "email": "queenie.hsu@lospollos.com",
+        "phone": "0900-111-017",
+        "store": 9,
+        "hire_date": "2022-12-18",
+        "type_": "part-time"
+    },
+    {
+        "name": "Ryan Kuo",
+        "position": "Cook",
+        "salary": 37200,
+        "email": "ryan.kuo@lospollos.com",
+        "phone": "0900-111-018",
+        "store": 9,
+        "hire_date": "2020-07-08",
+        "type_": "full-time"
+    },
+    {
+        "name": "Sandy Luo",
+        "position": "Manager",
+        "salary": 55000,
+        "email": "sandy.luo@lospollos.com",
+        "phone": "0900-111-019",
+        "store": 10,
+        "hire_date": "2017-11-20",
+        "type_": "full-time"
+    },
+    {
+        "name": "Tony Hsu",
+        "position": "Cook",
+        "salary": 36800,
+        "email": "tony.hsu@lospollos.com",
+        "phone": "0900-111-020",
+        "store": 10,
+        "hire_date": "2021-03-10",
+        "type_": "full-time"
+    },
+
+    {
+        "name": "Una Yu",
+        "position": "Cashier",
+        "salary": 31800,
+        "email": "una.yu@lospollos.com",
+        "phone": "0900-111-021",
+        "store": 11,
+        "hire_date": "2023-06-02",
+        "type_": "part-time"
+    },
+    {
+        "name": "Victor Hwang",
+        "position": "Cook",
+        "salary": 37000,
+        "email": "victor.hwang@lospollos.com",
+        "phone": "0900-111-022",
+        "store": 11,
+        "hire_date": "2020-09-18",
+        "type_": "full-time"
+    },
+    {
+        "name": "Wendy Pan",
+        "position": "Cashier",
+        "salary": 30900,
+        "email": "wendy.pan@lospollos.com",
+        "phone": "0900-111-023",
+        "store": 12,
+        "hire_date": "2022-03-17",
+        "type_": "part-time"
+    },
+    {
+        "name": "Xavier Kao",
+        "position": "Cook",
+        "salary": 36600,
+        "email": "xavier.kao@lospollos.com",
+        "phone": "0900-111-024",
+        "store": 12,
+        "hire_date": "2021-12-14",
+        "type_": "full-time"
+    },
+    {
+        "name": "Yuki Fang",
+        "position": "Manager",
+        "salary": 54500,
+        "email": "yuki.fang@lospollos.com",
+        "phone": "0900-111-025",
+        "store": 13,
+        "hire_date": "2018-05-10",
+        "type_": "full-time"
+    },
+    {
+        "name": "Zack Liu",
+        "position": "Cook",
+        "salary": 37100,
+        "email": "zack.liu@lospollos.com",
+        "phone": "0900-111-026",
+        "store": 13,
+        "hire_date": "2022-01-25",
+        "type_": "full-time"
+    },
+
+    {
+        "name": "Angela Yu",
+        "position": "Cashier",
+        "salary": 31000,
+        "email": "angela.yu@lospollos.com",
+        "phone": "0900-111-027",
+        "store": 14,
+        "hire_date": "2023-04-13",
+        "type_": "part-time"
+    },
+    {
+        "name": "Ben Lai",
+        "position": "Cook",
+        "salary": 36400,
+        "email": "ben.lai@lospollos.com",
+        "phone": "0900-111-028",
+        "store": 14,
+        "hire_date": "2021-07-08",
+        "type_": "full-time"
+    },
+    {
+        "name": "Carrie Chen",
+        "position": "Cashier",
+        "salary": 31100,
+        "email": "carrie.chen@lospollos.com",
+        "phone": "0900-111-029",
+        "store": 15,
+        "hire_date": "2022-11-22",
+        "type_": "part-time"
+    },
+    {
+        "name": "David Yu",
+        "position": "Cook",
+        "salary": 36700,
+        "email": "david.yu@lospollos.com",
+        "phone": "0900-111-030",
+        "store": 15,
+        "hire_date": "2021-04-11",
+        "type_": "full-time"
+    },
+
+    {
+        "name": "Ella Hong",
+        "position": "Manager",
+        "salary": 54800,
+        "email": "ella.hong@lospollos.com",
+        "phone": "0900-111-031",
+        "store": 16,
+        "hire_date": "2019-01-20",
+        "type_": "full-time"
+    },
+    {
+        "name": "Felix Guo",
+        "position": "Cook",
+        "salary": 36800,
+        "email": "felix.guo@lospollos.com",
+        "phone": "0900-111-032",
+        "store": 16,
+        "hire_date": "2020-10-28",
+        "type_": "full-time"
+    },
+    {
+        "name": "Gina Luo",
+        "position": "Cashier",
+        "salary": 30600,
+        "email": "gina.luo@lospollos.com",
+        "phone": "0900-111-033",
+        "store": 17,
+        "hire_date": "2023-01-05",
+        "type_": "part-time"
+    },
+    {
+        "name": "Howard Fang",
+        "position": "Cook",
+        "salary": 36300,
+        "email": "howard.fang@lospollos.com",
+        "phone": "0900-111-034",
+        "store": 17,
+        "hire_date": "2020-06-09",
+        "type_": "full-time"
+    },
+    {
+        "name": "Isabelle Su",
+        "position": "Cashier",
+        "salary": 31500,
+        "email": "isabelle.su@lospollos.com",
+        "phone": "0900-111-035",
+        "store": 18,
+        "hire_date": "2022-05-14",
+        "type_": "part-time"
+    },
+    {
+        "name": "Jason Wu",
+        "position": "Cook",
+        "salary": 37000,
+        "email": "jason.wu@lospollos.com",
+        "phone": "0900-111-036",
+        "store": 18,
+        "hire_date": "2020-02-18",
+        "type_": "full-time"
+    },
+
+    {
+        "name": "Karen Ho",
+        "position": "Cashier",
+        "salary": 31000,
+        "email": "karen.ho@lospollos.com",
+        "phone": "0900-111-037",
+        "store": 19,
+        "hire_date": "2022-10-12",
+        "type_": "part-time"
+    },
+    {
+        "name": "Louis Chang",
+        "position": "Cook",
+        "salary": 36800,
+        "email": "louis.chang@lospollos.com",
+        "phone": "0900-111-038",
+        "store": 19,
+        "hire_date": "2021-05-05",
+        "type_": "full-time"
+    },
+    {
+        "name": "Michelle Hsieh",
+        "position": "Cashier",
+        "salary": 30700,
+        "email": "michelle.hsieh@lospollos.com",
+        "phone": "0900-111-039",
+        "store": 20,
+        "hire_date": "2023-03-09",
+        "type_": "part-time"
+    },
+    {
+        "name": "Nick Chao",
+        "position": "Cook",
+        "salary": 36500,
+        "email": "nick.chao@lospollos.com",
+        "phone": "0900-111-040",
+        "store": 20,
+        "hire_date": "2020-08-21",
+        "type_": "full-time"
+    }
+]
