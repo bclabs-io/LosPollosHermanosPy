@@ -8,6 +8,12 @@
 
 {% block content %}
 
+<form class="d-flex mb-3" method="get" action="/menu">
+    <input class="form-control me-2" type="search" name="query" placeholder="Search Menu" value="{{ keyword }}" />
+    <!-- <button class="btn btn-outline-success" type="submit">Search</button> -->
+    <button class="btn btn-outline-success" type="button" onclick="alert('Search button clicked!')">Search</button>
+</form>
+
 <section class="mb-5">
     <h1 class="mb-3">Combos</h1>
 

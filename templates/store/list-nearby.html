@@ -18,7 +18,7 @@
         min="-90"
         max="90"
         placeholder="Latitude"
-        value="{{ request.args.get('latitude', '25.15019') }}"
+        value="{{ request.args.get('latitude', '25.15') }}"
         required
     />
     <input
@@ -29,7 +29,7 @@
         min="-180"
         max="180"
         placeholder="Longitude"
-        value="{{ request.args.get('longitude', '121.78144') }}"
+        value="{{ request.args.get('longitude', '121.781') }}"
         required
     />
     <input
@@ -39,7 +39,7 @@
         step="0.1"
         min="0"
         placeholder="Radius (km)"
-        value="{{ request.args.get('radius', 10) }}"
+        value="{{ request.args.get('radius', 100) }}"
     />
     <button class="btn btn-outline-success" type="submit">Search</button>
 </form>
@@ -54,7 +54,7 @@
                 <h5 class="card-title">
                     <a href="/stores/{{ store.id }}">{{ store.name.capitalize() }}</a>
                 </h5>
-                <p class="card-text mb-1">A pretty cool description about {{ store.name }}.</p>
+                <p class="card-text mb-1">{{ store.city }}, {{ store.state }}</p>
             </div>
         </div>
         {% endfor %}

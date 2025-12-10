@@ -1,0 +1,74 @@
+{% extends "base.html" %}
+
+<!-- 網頁標題 -->
+
+{% block title %}Edit Employee{% endblock %}
+
+<!-- 主要內容 -->
+
+{% block content %}
+<h1 class="mb-3">Edit Employee</h1>
+
+<form method="post" action="/employees/{{ employee.id }}/edit" enctype="multipart/form-data">
+    <div class="row">
+        <!-- Name -->
+        <div class="col col-12 col-xxl-4 mb-3">
+            <label class="form-label">Name</label>
+            <input class="form-control" name="name" type="text" value="{{ employee.name }}" required />
+        </div>
+
+        <!-- Email -->
+        <div class="col col-12 col-md-6 col-xxl-4 mb-3">
+            <label class="form-label">Email</label>
+            <input class="form-control" name="email" type="email" value="{{ employee.email }}" required />
+        </div>
+
+        <!-- Phone -->
+        <div class="col col-12 col-md-6 col-xxl-4 mb-3">
+            <label class="form-label">Phone</label>
+            <input class="form-control" name="phone" type="tel" value="{{ employee.phone }}" required />
+        </div>
+
+        <!-- Store -->
+        <div class="col col-12 col-md-6 col-xxl-4 mb-3">
+            <label class="form-label">Store</label>
+            <select class="form-select" name="store" required>
+                <option value="" disabled>Unknown</option>
+                {% for store in stores %}
+                <option value="{{ store.id }}" {% if store.id == employee.store.id %}selected{% endif %}>{{ store.name }}</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <!-- Ｐosition -->
+        <div class="col col-12 col-md-6 col-xxl-4 mb-3">
+            <label class="form-label">Position</label>
+            <input class="form-control" name="position" type="text" value="{{ employee.position }}" required />
+        </div>
+
+        <!-- Ｃontract Type -->
+        <div class="col col-12 col-md-6 col-xxl-4 mb-3">
+            <label class="form-label">Contract Type</label>
+            <select class="form-select" name="type" required>
+                <option value="Full time" {% if employee.type_ == "Full time" %}selected{% endif %}>Full time</option>
+                <option value="Part time" {% if employee.type_ == "Part time" %}selected{% endif %}>Part time</option>
+                <option value="Intern" {% if employee.type_ == "Intern" %}selected{% endif %}>Intern</option>
+            </select>
+        </div>
+
+        <!-- Salary -->
+        <div class="col col-12 col-md-6 mb-3">
+            <label class="form-label">Salary</label>
+            <input class="form-control" name="salary" type="number" step="10" value="{{ employee.salary }}" required />
+        </div>
+
+        <!-- Hire Date -->
+        <div class="col col-12 col-md-6 mb-3">
+            <label class="form-label">Hire Date</label>
+            <input class="form-control" name="hire_date" type="date" value="{{ employee.hire_date }}" required />
+        </div>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Save Changes</button>
+</form>
+{% endblock %}

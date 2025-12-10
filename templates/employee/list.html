@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+
+<!-- 網頁標題 -->
+
+{% block title %}Employees{% endblock %}
+
+<!-- 主要內容 -->
+
+{% block content %}
+
+<form class="d-flex mb-3" method="get" action="/employees">
+    <input class="form-control me-2" type="search" name="query" placeholder="Search Employees" value="{{ keyword }}" />
+    <button class="btn btn-outline-success" type="submit">Search</button>
+</form>
+
+<section class="mb-3">
+    <h1 class="mb-3">Employees</h1>
+
+    <div class="d-flex flex-wrap mb-3">
+        {% for employee in employees %}
+        <div class="card m-2">
+            <div class="card-body">
+                <h5 class="card-title">
+                    <a href="/employees/{{ employee.id }}">{{ employee.name.capitalize() }}</a>
+                </h5>
+                <p class="card-text mb-1">He is our best {{ employee.type_ }} {{ employee.position }}.</p>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
+    {% if not employees %}
+    <div class="alert alert-warning mx-2 mb-3" role="alert">No employees found. :/</div>
+    {% endif %}
+
+    <div class="mb-3">
+        <a class="btn btn-secondary mx-2" role="button" href="/employees/add">+</a>
+        <span>Add One</span>
+    </div>
+</section>
+
+{% endblock %}

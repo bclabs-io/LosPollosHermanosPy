@@ -23,7 +23,7 @@
                 <h5 class="card-title">
                     <a href="/stores/{{ store.id }}">{{ store.name.capitalize() }}</a>
                 </h5>
-                <p class="card-text mb-1">A pretty cool description about {{ store.name }}.</p>
+                <p class="card-text mb-1">{{ store.city }}, {{ store.state }}</p>
             </div>
         </div>
         {% endfor %}

@@ -1,0 +1,75 @@
+{% extends "base.html" %}
+
+<!-- 網頁標題 -->
+
+{% block title %}Add Employee{% endblock %}
+
+<!-- 主要內容 -->
+
+{% block content %}
+<h1 class="mb-3">Add Employee</h1>
+
+<form method="post" action="/employees/add" enctype="multipart/form-data">
+    <div class="row">
+        <!-- Name -->
+        <div class="col col-12 col-xxl-4 mb-3">
+            <label class="form-label">Name</label>
+            <input class="form-control" name="name" type="text" required />
+        </div>
+
+        <!-- Email -->
+        <div class="col col-12 col-md-6 col-xxl-4 mb-3">
+            <label class="form-label">Email</label>
+            <input class="form-control" name="email" type="email" required />
+        </div>
+
+        <!-- Phone -->
+        <div class="col col-12 col-md-6 col-xxl-4 mb-3">
+            <label class="form-label">Phone</label>
+            <input class="form-control" name="phone" type="tel" required />
+        </div>
+
+        <!-- Store -->
+        <div class="col col-12 col-md-6 col-xxl-4 mb-3">
+            <label class="form-label">Store</label>
+            <select class="form-select" name="store" required>
+                <option value="" disabled selected>Select a store</option>
+                {% for store in stores %}
+                <option value="{{ store.id }}">{{ store.name }}</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <!-- Ｐosition -->
+        <div class="col col-12 col-md-6 col-xxl-4 mb-3">
+            <label class="form-label">Position</label>
+            <input class="form-control" name="position" type="text" required />
+        </div>
+
+        <!-- Ｃontract Type -->
+        <div class="col col-12 col-md-6 col-xxl-4 mb-3">
+            <label class="form-label">Contract Type</label>
+            <select class="form-select" name="type" required>
+                <option value="" disabled selected>Select contract type</option>
+                <option value="Full time">Full time</option>
+                <option value="Part time">Part time</option>
+                <option value="Intern">Intern</option>
+            </select>
+        </div>
+
+        <!-- Salary -->
+        <div class="col col-12 col-md-6 mb-3">
+            <label class="form-label">Salary</label>
+            <input class="form-control" name="salary" type="number" step="10" required />
+        </div>
+
+        <!-- Hire Date -->
+        <div class="col col-12 col-md-6 mb-3">
+            <label class="form-label">Hire Date</label>
+            <input class="form-control" name="hire_date" type="date" required />
+        </div>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Save Changes</button>
+</form>
+{% endblock %}

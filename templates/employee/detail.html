@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+<!-- 網頁標題 -->
+
+{% block title %}{{ employee.name }}{% endblock %}
+
+<!-- 主要內容 -->
+
+{% block content %}
+
+<section class="mb-3">
+    <h1 class="mb-3">{{ employee.name }}</h1>
+    <p>He is our best employee.</p>
+</section>
+
+<section class="mb-3">
+    <h3>Information</h3>
+    {% if employee %}
+    <ul>
+        <li>Email: {{ employee.email }}</li>
+        <li>Phone: {{ employee.phone }}</li>
+        <li>
+            Store: {% if employee.store %}
+            <a href="/stores/{{ employee.store.id }}">{{ employee.store.name }}</a>
+            {% else %} Unknown {% endif %}
+        </li>
+        <li>Position: {{ employee.position }}</li>
+        <li>Contract Type: {{ employee.type_ }}</li>
+        <li>Salary: ${{ employee.salary }}</li>
+        <li>Hire Date: {{ employee.hire_date }}</li>
+    </ul>
+    {% else %} I don't have information about this employee. {% endif %}
+</section>
+
+<section class="d-flex gap-2 mb-3">
+    <a class="btn btn-primary" href="/employees/{{ employee.id }}/edit" role="button">Edit</a>
+    <a class="btn btn-danger" href="/employees/{{ employee.id }}/delete" role="button">Delete</a>
+    <button class="btn btn-success" onclick="happy();">:D</button>
+</section>
+{% endblock %}
