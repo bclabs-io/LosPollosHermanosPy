@@ -1,4 +1,4 @@
-from datetime import date
+from datetime import datetime
 
 from app.db import get_db
 from app.models import Employee
@@ -28,7 +28,7 @@ def add_employee(data: dict):
     """
     db = get_db()
 
-    data["hire_date"] = date.strptime(data["hire_date"], "%Y-%m-%d")
+    data["hire_date"] = datetime.strptime(data["hire_date"], "%Y-%m-%d").date()
 
     # 驗證資料
     employee = Employee.model_validate(data)
