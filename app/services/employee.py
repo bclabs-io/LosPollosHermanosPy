@@ -7,11 +7,13 @@ from .store import get_store_by_id
 
 __all__ = [
     "add_employee",
+    "count_employees",
     "get_employees",
     "get_employee_by_id",
     "get_employee_by_email",
     "update_employee_by_id",
     "delete_employee_by_id",
+    "fire_all_employees_jobless",
     "get_positions",
     "count_employees_by_position",
     "get_employees_by_position",
@@ -62,6 +64,29 @@ def add_employee(data: dict):
     return employee
 
 
+def count_employees():
+    """
+    計算所有員工數量
+
+    :return: 員工數量
+    """
+    db = get_db()
+
+    try:
+        with db.cursor() as cursor:
+            cursor.execute(
+                """
+                SELECT COUNT(*) AS count FROM employee;
+                """
+            )
+            row = cursor.fetchone()
+    except Exception as e:
+        print("Error counting employees:", e)
+        return 0
+
+    return row["count"] if row else 0
+
+
 def get_employees():
     """
     取得所有員工資料
@@ -84,7 +109,6 @@ def get_employees():
         return []
 
     for row in rows:
-        row["store"] = get_store_by_id(row["store"]) if row["store"] else None
         row["store"] = get_store_by_id(row["store"]) if row["store"] else None
         row["hire_date"] = row["hireDate"]
         row["type_"] = row["type"]
@@ -228,6 +252,31 @@ def delete_employee_by_id(employee_id: int):
         return False
 
     return True
+
+
+def fire_all_employees_jobless():
+    """
+    解雇所有未分配到店鋪的員工
+
+    :return: 解雇的員工數量
+    """
+    db = get_db()
+
+    try:
+        with db.cursor() as cursor:
+            cursor.execute(
+                """
+                DELETE FROM employee WHERE store IS NULL;
+                """
+            )
+            affected_rows = cursor.rowcount
+            db.commit()
+    except Exception as e:
+        print(f"Error firing jobless employees: {e}")
+        db.rollback()
+        return 0
+
+    return affected_rows
 
 
 # ===================

@@ -2,7 +2,9 @@ from flask import Blueprint, abort, render_template, request, url_for
 
 from app.services import (
     add_employee,
+    count_employees,
     delete_employee_by_id,
+    fire_all_employees_jobless,
     get_employee_by_id,
     get_employees,
     get_employees_in_store,
@@ -18,6 +20,7 @@ employee_bp = Blueprint("employee", __name__, url_prefix="/employees")
 @employee_bp.route("/")
 def employees_list():
     keyword = request.args.get("query", "").strip()
+    total = count_employees()
 
     if keyword:
         store = get_store_by_name(keyword)
@@ -28,7 +31,7 @@ def employees_list():
     else:
         employees = get_employees()
 
-    return render_template("employee/list.html", employees=employees, keyword=keyword)
+    return render_template("employee/list.html", employees=employees, keyword=keyword, total=total)
 
 
 @employee_bp.route("/<int:employee_id>")
@@ -110,3 +113,10 @@ def delete_employee(employee_id: int):
     delete_employee_by_id(employee_id)
     redirect_url = url_for("employee.employees_list")
     return render_template("delete-item.html", item_name=employee.name, url=redirect_url)
+
+
+@employee_bp.route("/fire_jobless")
+def fire_jobless_employees():
+    fired_count = fire_all_employees_jobless()
+    redirect_url = url_for("employee.employees_list")
+    return render_template("delete-item.html", item_name=f"Fired {fired_count} jobless employees", url=redirect_url)
