@@ -1,6 +1,6 @@
 #!/bin/bash
 set -euo pipefail # 強制處理任何錯誤
-cd ~/app/LosPollosHermanosPy
+cd ~/apps/LosPollosHermanosPy
 
 echo "Rebuild & restart containers..."
 docker compose down
