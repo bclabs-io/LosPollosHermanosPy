@@ -1,7 +1,40 @@
-version: "3.9"
-
 services:
+    db:
+        image: mysql:8.0
+        restart: always
+        environment:
+            # MySQL 官方規定的變數名稱，必須準確填寫才能正確初始化資料庫
+            MYSQL_ROOT_PASSWORD: ${DB_PASSWD}
+            MYSQL_DATABASE: ${DB_NAME}
+        ports:
+            # 3306:3306 允許你從本機電腦用 DBeaver 或 Navicat 等軟體連進去檢查資料
+            # 如果不需要從外部連資料庫，可以把下面這兩行刪除，安全性會更高
+            - "3306:3306"
+        volumes:
+            # 確保資料庫的檔案儲存在 Docker 虛擬磁碟，重啟時資料不會不見
+            - mysql_data:/var/lib/mysql
+        healthcheck:
+            test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-p$MYSQL_ROOT_PASSWORD"]
+            interval: 5s
+            timeout: 5s
+            retries: 5
+
     app:
         build: .
+        restart: always
         ports:
-            - "5500:5500"
+            # 將主機的 5500 埠對接到容器的 5500 埠
+            - "${FLASK_PORT}:${FLASK_PORT}"
+        environment:
+            # 透過環境變數，把 .env 的設定轉傳給 Flask 容器內部 (給 os.getenv 讀取)
+            - DB_HOST=${DB_HOST}
+            - DB_USER=${DB_USER}
+            - DB_PASSWD=${DB_PASSWD}
+            - DB_NAME=${DB_NAME}
+        depends_on:
+            db:
+                condition: service_healthy # 關鍵：確保 db 通過健康檢查才啟動 app
+
+volumes:
+    # 宣告一個名為 mysql_data 的資料卷
+    mysql_data:
